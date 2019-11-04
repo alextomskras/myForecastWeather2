@@ -14,7 +14,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.resocoder.myweather2"
+        applicationId "com.dreamer.myweather2"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
