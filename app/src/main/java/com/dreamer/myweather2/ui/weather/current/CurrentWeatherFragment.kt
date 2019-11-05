@@ -61,9 +61,11 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             updateVisibility(it.visibilityDistance)
 
             GlideApp.with(this@CurrentWeatherFragment)
-//                    .load(it.conditionIconUrl)
+//                    .load("${it.conditionIconUrl}")
+
                     .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
                     .into(imageView_condition_icon)
+//            Log.d(this.toString(), "fromListLisr with2 error code: ${it.conditionIconUrl}")
         })
     }
 
