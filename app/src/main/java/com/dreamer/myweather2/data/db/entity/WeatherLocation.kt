@@ -19,8 +19,8 @@ data class WeatherLocation(
 //        @SerializedName("tz_id")
         @SerializedName("timezone_id")
         val tzId: String,
-//        @SerializedName("timezone_id")
-//        val timezoneId: String,
+        @SerializedName("utc_offset")
+        val utcOffset: String,
         @SerializedName("localtime_epoch")
         val localtimeEpoch: Long
 ) {

@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 //"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png"
 
 data class ImperialCurrentWeatherEntry(
-        @ColumnInfo(name = "tempF")
+        @ColumnInfo(name = "temperature")
         override val temperature: Double,
         @ColumnInfo(name = "weatherDescriptions")
         override val conditionText: String,
@@ -15,10 +15,10 @@ data class ImperialCurrentWeatherEntry(
         override val windSpeed: Double,
         @ColumnInfo(name = "windDir")
         override val windDirection: String,
-        @ColumnInfo(name = "precipIn")
+        @ColumnInfo(name = "precip")
         override val precipitationVolume: Double,
-        @ColumnInfo(name = "feelslikeF")
+        @ColumnInfo(name = "feelslike")
         override val feelsLikeTemperature: Double,
-        @ColumnInfo(name = "visMiles")
+        @ColumnInfo(name = "visibility")
         override val visibilityDistance: Double
 ) : UnitSpecificCurrentWeatherEntry

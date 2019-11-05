@@ -39,31 +39,30 @@ data class CurrentWeatherEntry(
         val windDegree: Int, // 0
         @SerializedName("wind_speed")
         val windSpeed: Int, // 0
-        @SerializedName("precip_mm")
-        val precipMm: Double,
+        @SerializedName("precip")
+        val precip: Double,
         @SerializedName("cloudcover")
         val cloudcover: Double,
-        @SerializedName("precip_in")
-        val precipIn: Double,
+        @SerializedName("pressure")
+        val pressure: Double,
         @SerializedName("temperature")
         val temperature: Int, // 27
-        @SerializedName("feelslike_c")
-        val feelslikeC: Double,
-        @SerializedName("feelslike_f")
-        val feelslikeF: Double,
+        @SerializedName("visibility")
+        val visibility: Double,
+        @SerializedName("feelslike")
+        val feelslike: Double,
         @SerializedName("vis_km")
         val visKm: Double,
         @SerializedName("weather_descriptions")
         val weatherDescriptions: List<String>,
-
-//    @SerializedName("weather_descriptions")
-//    val weatherDescriptions: List<weatherDescrEntry>,
-//    @SerializedName("weather_icons")
-//    val weatherIcons: List<weatherIconEntry>,
         @SerializedName("weather_icons")
         val weatherIcons: List<String>,
         @SerializedName("vis_miles")
         val visMiles: Double
+//    @SerializedName("weather_descriptions")
+//    val weatherDescriptions: List<weatherDescrEntry>,
+//    @SerializedName("weather_icons")
+//    val weatherIcons: List<weatherIconEntry>,
 ) {
     @PrimaryKey(autoGenerate = false)
     var id: Int = CURRENT_WEATHER_ID
