@@ -6,19 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.dreamer.myweather2.data.db.entity.CurrentWeatherEntry
-import com.dreamer.myweather2.data.db.entity.FutureWeatherEntry
 import com.dreamer.myweather2.data.db.entity.ListStringConverter
 import com.dreamer.myweather2.data.db.entity.WeatherLocation
 
 
 @Database(
-        entities = [CurrentWeatherEntry::class, FutureWeatherEntry::class, WeatherLocation::class],
+        entities = [CurrentWeatherEntry::class, WeatherLocation::class],
         version = 1
 )
 @TypeConverters(LocalDateConverter::class, ListStringConverter::class)
 abstract class ForecastDatabase : RoomDatabase() {
     abstract fun currentWeatherDao(): CurrentWeatherDao
-    abstract fun futureWeatherDao(): FutureWeatherDao
+    //    abstract fun futureWeatherDao(): FutureWeatherDao
     abstract fun weatherLocationDao(): WeatherLocationDao
 
     companion object {
