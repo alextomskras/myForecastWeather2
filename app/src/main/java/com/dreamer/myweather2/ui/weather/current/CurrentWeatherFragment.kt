@@ -57,7 +57,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             group_loading.visibility = View.GONE
             updateDateToToday()
             updateTemperatures(it.temperature, it.feelsLikeTemperature)
-            updateCondition(it.conditionText)
+//            updateCondition(it.conditionText)
             Log.d(this.toString(), "from conditionText2 error code: ${it.conditionText}")
 //            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
             val sb = StringBuilder()
@@ -67,6 +67,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 //            sb.deleteCharAt(c-1)
 //            val d = sb.toString()
             Log.d(this.toString(), "from conditionText2 error code: $c")
+            updateCondition(c)
             updatePrecipitation(it.precipitationVolume)
             updateWind(it.windDirection, it.windSpeed)
             updateVisibility(it.visibilityDistance)
