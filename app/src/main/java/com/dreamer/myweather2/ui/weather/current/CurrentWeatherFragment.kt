@@ -1,6 +1,7 @@
 package com.dreamer.myweather2.ui.weather.current
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
-import com.dreamer.myweather2.internal.glide.GlideApp
 import com.dreamer.myweather2.ui.base.ScopedFragment
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+
 
 class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
@@ -56,17 +58,56 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             updateDateToToday()
             updateTemperatures(it.temperature, it.feelsLikeTemperature)
             updateCondition(it.conditionText)
+            Log.d(this.toString(), "from conditionText2 error code: ${it.conditionText}")
+//            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
+            val sb = StringBuilder()
+            sb.append("${it.conditionText}").substring(1, it.conditionText.length - 1)
+//                    .lastIndexOf(sb.toString(),0)
+            val c = it.conditionText.substring(1, it.conditionText.length - 1)
+//            sb.deleteCharAt(c-1)
+//            val d = sb.toString()
+            Log.d(this.toString(), "from conditionText2 error code: $c")
             updatePrecipitation(it.precipitationVolume)
             updateWind(it.windDirection, it.windSpeed)
             updateVisibility(it.visibilityDistance)
+            var pictures = it.conditionIconUrl
+            if (pictures.startsWith("\""))
+                pictures = pictures.replace("\"", "")
+            Log.d(this.toString(), "from with2 error code: $pictures")
+            try {
+                Picasso.get()
+                        .load("${pictures}")
+                        .into(imageView_condition_icon)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+//            try {
+//                var url = pictures /* URL of Image */
+//
+//                if (url.startsWith("http://"))
+//                    url = url.replace("http://", "https://")
+//
+//                val requestOptions = RequestOptions()
+////                requestOptions.placeholder(ic_launcher)
+////                requestOptions.error(ic_launcher_round)
+//                Glide
+//                        .with(this@CurrentWeatherFragment)
+////                        .setDefaultRequestOptions(requestOptions)
+//                        .load(url)
+//                        .into(imageView_condition_icon)
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
 
-            GlideApp.with(this@CurrentWeatherFragment)
-//                    .load("${it.conditionIconUrl}")
-
-                    .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-                    .into(imageView_condition_icon)
-//            Log.d(this.toString(), "fromListLisr with2 error code: ${it.conditionIconUrl}")
-        })
+//            GlideApp.with(this@CurrentWeatherFragment)
+//
+//                    .load(picTures)
+//
+////                    .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+//                    .into(imageView_condition_icon)
+////            Log.d(this.toString(), "fromListLisr with2 error code: ${it.conditionIconUrl}")
+        }
+        )
     }
 
     private fun chooseLocalizedUnitAbbreviation(metric: String, imperial: String): String {

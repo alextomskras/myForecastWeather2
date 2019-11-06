@@ -19,7 +19,8 @@ class ListStringConverter {
     fun fromListLisr(list: List<String>): String {
         val gson = Gson()
         Log.d(this@ListStringConverter.toString(), "fromListLisr with1 error code: ${list.last()}")
-        return gson.toJson(list.last())
+        return gson.toJson(list.last()
+        )
     }
 
 }
