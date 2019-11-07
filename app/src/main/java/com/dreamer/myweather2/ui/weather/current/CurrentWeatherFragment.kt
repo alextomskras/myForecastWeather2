@@ -71,13 +71,14 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             updatePrecipitation(it.precipitationVolume)
             updateWind(it.windDirection, it.windSpeed)
             updateVisibility(it.visibilityDistance)
-            var pictures = it.conditionIconUrl
-            if (pictures.startsWith("\""))
-                pictures = pictures.replace("\"", "")
-            Log.d(this.toString(), "from with2 error code: $pictures")
+            var picturesUrl = it.conditionIconUrl
+            if (picturesUrl.startsWith("\""))
+                picturesUrl = picturesUrl.replace("\"", "")
+            Log.d(this.toString(), "from with2 error code: $picturesUrl")
             try {
                 Picasso.get()
-                        .load("${pictures}")
+                        .load("${picturesUrl}")
+                        .fit()
                         .into(imageView_condition_icon)
             } catch (e: Exception) {
                 e.printStackTrace()
