@@ -7,10 +7,10 @@ import com.dreamer.myweather2.data.network.response.CurrentWeatherResponse
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
 import com.dreamer.myweather2.internal.NoConnectivityException
 
-const val FORECAST_DAYS_COUNT = 7
+const val FORECAST_DAYS_COUNT = 5
 
 class WeatherNetworkDataSourceImpl(
-        private val apixuWeatherApiService: ApixuWeatherApiService
+        private val openWeatherApiService: OpenWeatherApiService
 ) : WeatherNetworkDataSource {
 
     private val _downloadedCurrentWeather = MutableLiveData<CurrentWeatherResponse>()
@@ -19,7 +19,7 @@ class WeatherNetworkDataSourceImpl(
 
     override suspend fun fetchCurrentWeather(location: String, languageCode: String) {
         try {
-            val fetchedCurrentWeather = apixuWeatherApiService
+            val fetchedCurrentWeather = openWeatherApiService
                     .getCurrentWeather(location, languageCode)
                     .await()
             _downloadedCurrentWeather.postValue(fetchedCurrentWeather)
@@ -37,7 +37,7 @@ class WeatherNetworkDataSourceImpl(
             languageCode: String
     ) {
         try {
-            val fetchedFutureWeather = apixuWeatherApiService
+            val fetchedFutureWeather = openWeatherApiService
                     .getFutureWeather(location, FORECAST_DAYS_COUNT, languageCode)
                     .await()
             _downloadedFutureWeather.postValue(fetchedFutureWeather)
