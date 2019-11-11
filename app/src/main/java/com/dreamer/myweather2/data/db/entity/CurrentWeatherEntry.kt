@@ -2,10 +2,8 @@ package com.dreamer.myweather2.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import org.threeten.bp.DayOfWeek
 
 const val CURRENT_WEATHER_ID = 0
 
@@ -68,19 +66,19 @@ data class CurrentWeatherEntry(
     var id: Int = CURRENT_WEATHER_ID
 }
 
-private const val SEPARATOR = ","
+//private const val SEPARATOR = ","
 
-class DayOfWeekConverter {
-    companion object {
-
-        @TypeConverter
-        @JvmStatic
-        fun daysOfWeekToString(daysOfWeek: MutableList<DayOfWeek>?): String? =
-                daysOfWeek?.map { it.value }?.joinToString(separator = SEPARATOR)
-
-        @TypeConverter
-        @JvmStatic
-        fun stringToDaysOfWeek(daysOfWeek: String?): MutableList<DayOfWeek>? =
-                daysOfWeek?.split(SEPARATOR)?.map { DayOfWeek.of(it.toInt()) }?.toMutableList()
-    }
-}
+//class DayOfWeekConverter {
+//    companion object {
+//
+//        @TypeConverter
+//        @JvmStatic
+//        fun daysOfWeekToString(daysOfWeek: MutableList<DayOfWeek>?): String? =
+//                daysOfWeek?.map { it.value }?.joinToString(separator = SEPARATOR)
+//
+//        @TypeConverter
+//        @JvmStatic
+//        fun stringToDaysOfWeek(daysOfWeek: String?): MutableList<DayOfWeek>? =
+//                daysOfWeek?.split(SEPARATOR)?.map { DayOfWeek.of(it.toInt()) }?.toMutableList()
+//    }
+//}

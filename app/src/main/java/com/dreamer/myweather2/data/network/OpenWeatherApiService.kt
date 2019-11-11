@@ -1,7 +1,7 @@
 package com.dreamer.myweather2.data.network
 
-import com.dreamer.myweather2.data.network.response.CurrentWeatherResponse
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
+import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -29,7 +29,7 @@ interface OpenWeatherApiService {
     fun getCurrentWeather(
             @Query("q") location: String,
             @Query("lang") languageCode: String = "en"
-    ): Deferred<CurrentWeatherResponse>
+    ): Deferred<OpenCurrentWeatherResponse>
 
 
     // https://api.apixu.com/v1/forecast.json?key=89e8bd89085b41b7a4b142029180210&q=Los%20Angeles&days=1

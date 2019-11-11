@@ -3,8 +3,8 @@ package com.dreamer.myweather2.data.network
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dreamer.myweather2.data.network.response.CurrentWeatherResponse
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
+import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
 import com.dreamer.myweather2.internal.NoConnectivityException
 
 const val FORECAST_DAYS_COUNT = 5
@@ -13,8 +13,8 @@ class WeatherNetworkDataSourceImpl(
         private val openWeatherApiService: OpenWeatherApiService
 ) : WeatherNetworkDataSource {
 
-    private val _downloadedCurrentWeather = MutableLiveData<CurrentWeatherResponse>()
-    override val downloadedCurrentWeather: LiveData<CurrentWeatherResponse>
+    private val _downloadedCurrentWeather = MutableLiveData<OpenCurrentWeatherResponse>()
+    override val downloadedOpenCurrentWeather: LiveData<OpenCurrentWeatherResponse>
         get() = _downloadedCurrentWeather
 
     override suspend fun fetchCurrentWeather(location: String, languageCode: String) {

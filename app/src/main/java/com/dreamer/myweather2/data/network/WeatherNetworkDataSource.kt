@@ -1,12 +1,12 @@
 package com.dreamer.myweather2.data.network
 
 import androidx.lifecycle.LiveData
-import com.dreamer.myweather2.data.network.response.CurrentWeatherResponse
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
+import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
 
 
 interface WeatherNetworkDataSource {
-    val downloadedCurrentWeather: LiveData<CurrentWeatherResponse>
+    val downloadedOpenCurrentWeather: LiveData<OpenCurrentWeatherResponse>
     val downloadedFutureWeather: LiveData<FutureWeatherResponse>
 
     suspend fun fetchCurrentWeather(

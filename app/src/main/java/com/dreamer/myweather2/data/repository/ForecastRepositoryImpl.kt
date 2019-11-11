@@ -6,8 +6,8 @@ import com.dreamer.myweather2.data.db.WeatherLocationDao
 import com.dreamer.myweather2.data.db.entity.WeatherLocation
 import com.dreamer.myweather2.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 import com.dreamer.myweather2.data.network.WeatherNetworkDataSource
-import com.dreamer.myweather2.data.network.response.CurrentWeatherResponse
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
+import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
 import com.dreamer.myweather2.data.provider.LocationProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -48,7 +48,7 @@ class ForecastRepositoryImpl(
 
     init {
         weatherNetworkDataSource.apply {
-            downloadedCurrentWeather.observeForever { newCurrentWeather ->
+            downloadedOpenCurrentWeather.observeForever { newCurrentWeather ->
                 persistFetchedCurrentWeather(newCurrentWeather)
             }
 //            downloadedFutureWeather.observeForever { newFutureWeather ->
@@ -94,10 +94,10 @@ class ForecastRepositoryImpl(
         }
     }
 
-    private fun persistFetchedCurrentWeather(fetchedWeather: CurrentWeatherResponse) {
+    private fun persistFetchedCurrentWeather(fetchedWeatherOpen: OpenCurrentWeatherResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentWeatherDao.upsert(fetchedWeather.currentWeatherEntry)
-            weatherLocationDao.upsert(fetchedWeather.location)
+            currentWeatherDao.upsert(fetchedWeatherOpen.weather)
+            weatherLocationDao.upsert(fetchedWeatherOpen.location)
         }
     }
 

@@ -1,7 +1,10 @@
-package com.dreamer.myweather2.data.db.entity.openweatherapi
+package com.dreamer.myweather2.data.network.response
+
+import com.dreamer.myweather2.data.db.entity.openweatherapi.*
+import com.google.gson.annotations.SerializedName
 
 
-data class OpenWeaCurrentEntry(
+data class OpenCurrentWeatherResponse(
         val base: String = "", // stations
         val clouds: Clouds = Clouds(),
         val cod: Int = 0, // 200
@@ -13,6 +16,8 @@ data class OpenWeaCurrentEntry(
         val sys: Sys = Sys(),
         val timezone: Int = 0, // 10800
         val visibility: Int = 0, // 10000
-        val weather: List<Weather> = listOf(),
+        @SerializedName("weather")
+//        val weather: WeatherDayContainer,
+        val weather: List<WeatherEntry> = listOf(),
         val wind: Wind = Wind()
 )
