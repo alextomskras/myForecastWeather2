@@ -25,7 +25,7 @@ const val APP_KEY = "f9d142fda1995a149d1b35f11bc9a928"
 
 interface OpenWeatherApiService {
 
-    @GET("current")
+    @GET("weather")
     fun getCurrentWeather(
             @Query("q") location: String,
             @Query("lang") languageCode: String = "en"
@@ -49,7 +49,7 @@ interface OpenWeatherApiService {
                 val url = chain.request()
                         .url
                         .newBuilder()
-                        .addQueryParameter("access_key", APP_KEY)
+                        .addQueryParameter("appid", APP_KEY)
                         .build()
                 val request = chain.request()
                         .newBuilder()

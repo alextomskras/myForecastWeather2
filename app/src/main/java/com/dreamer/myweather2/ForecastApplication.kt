@@ -33,6 +33,7 @@ class ForecastApplication : Application(), KodeinAware {
         bind() from singleton { instance<ForecastDatabase>().weatherLocationDao() }
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { ApixuWeatherApiService(instance()) }
+        bind() from singleton { OpenWeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
         bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
         bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
