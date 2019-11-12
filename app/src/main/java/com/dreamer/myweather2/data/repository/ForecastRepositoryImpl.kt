@@ -3,7 +3,7 @@ package com.dreamer.myweather2.data.repository
 import androidx.lifecycle.LiveData
 import com.dreamer.myweather2.data.db.CurrentWeatherDao
 import com.dreamer.myweather2.data.db.WeatherLocationDao
-import com.dreamer.myweather2.data.db.entity.WeatherLocation
+import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
 import com.dreamer.myweather2.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 import com.dreamer.myweather2.data.network.WeatherNetworkDataSource
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
@@ -88,7 +88,7 @@ class ForecastRepositoryImpl(
 //        }
 //    }
 //
-    override suspend fun getWeatherLocation(): LiveData<WeatherLocation> {
+    override suspend fun getWeatherLocation(): LiveData<Coord> {
         return withContext(Dispatchers.IO) {
             return@withContext weatherLocationDao.getLocation()
         }
@@ -113,7 +113,7 @@ class ForecastRepositoryImpl(
             //            deleteOldForecastData()
             val futureWeatherList = fetchedWeather.futureWeatherEntries.entries
 //            futureWeatherDao.insert(futureWeatherList)
-            weatherLocationDao.upsert(fetchedWeather.location)
+//            weatherLocationDao.upsert(fetchedWeather.location)
         }
     }
 
@@ -127,8 +127,8 @@ class ForecastRepositoryImpl(
             return
         }
 
-        if (isFetchCurrentNeeded(lastWeatherLocation.zonedDateTime))
-            fetchCurrentWeather()
+//        if (isFetchCurrentNeeded(lastWeatherLocation.zonedDateTime))
+//            fetchCurrentWeather()
 
 //        if (isFetchFutureNeeded())
 //            fetchFutureWeather()

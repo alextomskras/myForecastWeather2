@@ -48,7 +48,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
         weatherLocation.observe(this@CurrentWeatherFragment, Observer { location ->
             if (location == null) return@Observer
-            updateLocation(location.name)
+//            updateLocation(location.id)
         })
 
         currentWeather.observe(this@CurrentWeatherFragment, Observer {
@@ -116,8 +116,8 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         return if (viewModel.isMetricUnit) metric else imperial
     }
 
-    private fun updateLocation(location: String) {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = location
+    private fun updateLocation(location: Int) {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "location"
     }
 
     private fun updateDateToToday() {

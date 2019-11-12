@@ -1,7 +1,7 @@
 package com.dreamer.myweather2.data.repository
 
 import androidx.lifecycle.LiveData
-import com.dreamer.myweather2.data.db.entity.WeatherLocation
+import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
 import com.dreamer.myweather2.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 
 
@@ -12,5 +12,5 @@ interface ForecastRepository {
 //
 //    suspend fun getFutureWeatherByDate(date: LocalDate, metric: Boolean): LiveData<out UnitSpecificDetailFutureWeatherEntry>
 
-    suspend fun getWeatherLocation(): LiveData<WeatherLocation>
+    suspend fun getWeatherLocation(): LiveData<Coord>
 }

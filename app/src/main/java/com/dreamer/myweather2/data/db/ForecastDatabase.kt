@@ -8,11 +8,12 @@ import androidx.room.TypeConverters
 import com.dreamer.myweather2.data.db.entity.CurrentWeatherEntry
 import com.dreamer.myweather2.data.db.entity.ListStringConverter
 import com.dreamer.myweather2.data.db.entity.WeatherLocation
+import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
 import com.dreamer.myweather2.data.db.entity.openweatherapi.WeatherEntry
 
 
 @Database(
-        entities = [CurrentWeatherEntry::class, WeatherEntry::class, WeatherLocation::class],
+        entities = [CurrentWeatherEntry::class, WeatherEntry::class, WeatherLocation::class, Coord::class],
         version = 1
 )
 @TypeConverters(LocalDateConverter::class, ListStringConverter::class)
