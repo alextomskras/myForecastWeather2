@@ -13,7 +13,8 @@ import com.dreamer.myweather2.data.db.entity.openweatherapi.WeatherEntry
 
 
 @Database(
-        entities = [CurrentWeatherEntry::class, WeatherEntry::class, WeatherLocation::class, Coord::class],
+        entities = [CurrentWeatherEntry::class, WeatherEntry::class,
+            WeatherLocation::class, Coord::class],
         version = 1
 )
 @TypeConverters(LocalDateConverter::class, ListStringConverter::class)

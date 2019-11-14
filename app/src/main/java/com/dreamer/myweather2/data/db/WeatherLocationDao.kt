@@ -19,5 +19,5 @@ interface WeatherLocationDao {
     fun getLocation(): LiveData<Coord>
 
     @Query("select * from coord_entry where id = $COORD_CURRENT_WEATHER_ID")
-    fun getLocationNonLive(): Coord?
+    fun getLocationNonLive(): Coord
 }
