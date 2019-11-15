@@ -17,8 +17,8 @@ interface RootCurrentWeatherDao {
     fun upsert(weatherRootEntry: OpenCurrentWeatherResponse)
 
     @Query("select * from root_weather_entry where id = $ROOT_CURRENT_WEATHER_ID")
-    fun getWeatherMetric(): LiveData<MetricCurrentWeatherEntry>
+    fun getRootWeatherMetric(): LiveData<MetricCurrentWeatherEntry>
 
     @Query("select * from root_weather_entry where id = $ROOT_CURRENT_WEATHER_ID")
-    fun getWeatherImperial(): LiveData<ImperialCurrentWeatherEntry>
+    fun getRootWeatherImperial(): LiveData<ImperialCurrentWeatherEntry>
 }

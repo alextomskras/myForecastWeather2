@@ -18,16 +18,17 @@ data class OpenCurrentWeatherResponse(
 //        val id: Int, // 524901
         @Embedded(prefix = "main_")
         val main: Main,
+        @SerializedName("name")
         val name: String, // Moscow
         @Embedded(prefix = "sys_")
         val sys: Sys,
         val timezone: Int, // 10800
         val visibility: Int, // 10000
-        @SerializedName("weather")
+//        @SerializedName("weather")
 //        val weather: WeatherDayContainer,
 //        @Embedded( prefix = "weath_")
-        val weather: List<WeatherEntry>?,
-//        val weather: WeatherLocation,
+//        val weather: List<WeatherEntry>?,
+//        val weather: Main?,
         @SerializedName("coord")
         @Embedded(prefix = "location_")
         val location: Coord,

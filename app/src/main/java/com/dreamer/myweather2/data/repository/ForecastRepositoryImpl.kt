@@ -96,7 +96,7 @@ class ForecastRepositoryImpl(
 
     private fun persistFetchedCurrentWeather(fetchedWeatherOpen: OpenCurrentWeatherResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentWeatherDao.upsert(fetchedWeatherOpen.weather)
+            currentWeatherDao.upsert(fetchedWeatherOpen.main)
             weatherLocationDao.upsert(fetchedWeatherOpen.location)
         }
     }
@@ -137,7 +137,9 @@ class ForecastRepositoryImpl(
     private suspend fun fetchCurrentWeather() {
         weatherNetworkDataSource.fetchCurrentWeather(
                 locationProvider.getPreferredLocationString(),
-                Locale.getDefault().language
+                Locale.getDefault().language,
+                unitsCode = "metric"
+
         )
     }
 

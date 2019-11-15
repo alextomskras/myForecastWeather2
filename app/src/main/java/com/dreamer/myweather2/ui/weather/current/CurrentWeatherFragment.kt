@@ -1,7 +1,6 @@
 package com.dreamer.myweather2.ui.weather.current
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,36 +47,38 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
         weatherLocation.observe(this@CurrentWeatherFragment, Observer { location ->
             if (location == null) return@Observer
-//            updateLocation(location.id)
+            updateLocation(location.id)
         })
 
         currentWeather.observe(this@CurrentWeatherFragment, Observer {
-            if (it == null) return@Observer
+            //            if (it == null) return@Observer
 
             group_loading.visibility = View.GONE
             updateDateToToday()
-            updateTemperatures(it.temperature, it.feelsLikeTemperature)
-//            updateCondition(it.conditionText)
-            Log.d(this.toString(), "from conditionText2 error code: ${it.conditionText}")
-//            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
-            val sb = StringBuilder()
-            sb.append("${it.conditionText}").substring(1, it.conditionText.length - 1)
-//                    .lastIndexOf(sb.toString(),0)
-            val c = it.conditionText.substring(1, it.conditionText.length - 1)
-//            sb.deleteCharAt(c-1)
-//            val d = sb.toString()
-            Log.d(this.toString(), "from conditionText2 error code: $c")
-            updateCondition(c)
-            updatePrecipitation(it.precipitationVolume)
-            updateWind(it.windDirection, it.windSpeed)
-            updateVisibility(it.visibilityDistance)
-            var picturesUrl = it.conditionIconUrl
-            if (picturesUrl.startsWith("\""))
-                picturesUrl = picturesUrl.replace("\"", "")
-            Log.d(this.toString(), "from with2 error code: $picturesUrl")
+//            updateTemperatures(it.temperature, 33.2)
+            updateTemperatures(it.temperature, 33.4)
+////            updateCondition(it.conditionText)
+//            Log.d(this.toString(), "from conditionText2 error code: ${it.conditionText}")
+////            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
+//            val sb = StringBuilder()
+//            sb.append("${it.conditionText}").substring(1, it.conditionText.length - 1)
+////                    .lastIndexOf(sb.toString(),0)
+//            val c = it.conditionText.substring(1, it.conditionText.length - 1)
+////            sb.deleteCharAt(c-1)
+////            val d = sb.toString()
+//            Log.d(this.toString(), "from conditionText2 error code: $c")
+//            updateCondition(c)
+//            updatePrecipitation(it.precipitationVolume)
+//            updateWind(it.windDirection, it.windSpeed)
+//            updateVisibility(it.visibilityDistance)
+//            var picturesUrl = it.conditionIconUrl
+//            if (picturesUrl.startsWith("\""))
+//                picturesUrl = picturesUrl.replace("\"", "")
+//            Log.d(this.toString(), "from with2 error code: $picturesUrl")
             try {
                 Picasso.get()
-                        .load("${picturesUrl}")
+//                        .load("${picturesUrl}")
+                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
                         .fit()
                         .into(imageView_condition_icon)
             } catch (e: Exception) {
@@ -117,7 +118,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateLocation(location: Int) {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "location"
+        (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
     }
 
     private fun updateDateToToday() {

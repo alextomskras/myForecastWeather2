@@ -28,7 +28,10 @@ interface OpenWeatherApiService {
     @GET("weather")
     fun getCurrentWeather(
             @Query("q") location: String,
-            @Query("lang") languageCode: String = "en"
+            @Query("lang") languageCode: String = "en",
+//            unitsCode: String
+            @Query("units") unitsCode: String = "metric"
+
     ): Deferred<OpenCurrentWeatherResponse>
 
 

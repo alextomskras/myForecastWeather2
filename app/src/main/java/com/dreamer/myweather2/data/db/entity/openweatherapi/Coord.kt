@@ -9,7 +9,9 @@ const val COORD_CURRENT_WEATHER_ID = 0
 data class Coord(
         val lat: Double, // 55.75
         val lon: Double // 37.62
+
 ) {
+
     @PrimaryKey(autoGenerate = false)
     var id: Int = COORD_CURRENT_WEATHER_ID
 

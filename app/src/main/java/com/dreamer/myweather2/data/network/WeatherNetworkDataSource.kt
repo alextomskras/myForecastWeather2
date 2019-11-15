@@ -11,7 +11,8 @@ interface WeatherNetworkDataSource {
 
     suspend fun fetchCurrentWeather(
             location: String,
-            languageCode: String
+            languageCode: String,
+            unitsCode: String
     )
 
     suspend fun fetchFutureWeather(
