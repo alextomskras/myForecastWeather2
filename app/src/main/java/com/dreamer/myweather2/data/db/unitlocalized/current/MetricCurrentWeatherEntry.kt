@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 
 data class MetricCurrentWeatherEntry(
         @ColumnInfo(name = "temp")
-        override val temperature: Double
+        override val temperature: Double,
 //        @ColumnInfo(name = "weatherDescriptions")
 //        override val conditionText: String,
 //        @ColumnInfo(name = "weatherIcons")
@@ -14,10 +14,10 @@ data class MetricCurrentWeatherEntry(
 //        override val windSpeed: Double,
 //        @ColumnInfo(name = "windDir")
 //        override val windDirection: String,
-//        @ColumnInfo(name = "precip")
-//        override val precipitationVolume: Double,
+        @ColumnInfo(name = "pressure")
+        override val precipitationVolume: Double,
 //        @ColumnInfo(name = "feelslike")
 //        override val feelsLikeTemperature: Double,
-//        @ColumnInfo(name = "visibility")
-//        override val visibilityDistance: Double
+        @ColumnInfo(name = "humidity")
+        override val visibilityDistance: Double
 ) : UnitSpecificCurrentWeatherEntry

@@ -68,9 +68,9 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 ////            val d = sb.toString()
 //            Log.d(this.toString(), "from conditionText2 error code: $c")
 //            updateCondition(c)
-//            updatePrecipitation(it.precipitationVolume)
+            updatePrecipitation(it.precipitationVolume)
 //            updateWind(it.windDirection, it.windSpeed)
-//            updateVisibility(it.visibilityDistance)
+            updateVisibility(it.visibilityDistance)
 //            var picturesUrl = it.conditionIconUrl
 //            if (picturesUrl.startsWith("\""))
 //                picturesUrl = picturesUrl.replace("\"", "")
