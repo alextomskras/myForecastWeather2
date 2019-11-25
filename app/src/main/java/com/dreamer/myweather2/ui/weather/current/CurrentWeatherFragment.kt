@@ -56,8 +56,8 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             group_loading.visibility = View.GONE
             updateDateToToday()
 //            updateTemperatures(it.temperature, 33.2)
-            updateTemperatures(it.temperature, 33.4)
-////            updateCondition(it.conditionText)
+            updateTemperatures(22.1, 33.4)
+//            updateCondition(it.conditionText)
 //            Log.d(this.toString(), "from conditionText2 error code: ${it.conditionText}")
 ////            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
 //            val sb = StringBuilder()
@@ -68,9 +68,11 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 ////            val d = sb.toString()
 //            Log.d(this.toString(), "from conditionText2 error code: $c")
 //            updateCondition(c)
-            updatePrecipitation(it.precipitationVolume)
+            updatePrecipitation(11111)
+//            updatePrecipitation(it.precipitationVolume)
 //            updateWind(it.windDirection, it.windSpeed)
-            updateVisibility(it.visibilityDistance)
+            updateVisibility(111.2)
+//            updateVisibility(it.visibilityDistance)
 //            var picturesUrl = it.conditionIconUrl
 //            if (picturesUrl.startsWith("\""))
 //                picturesUrl = picturesUrl.replace("\"", "")
@@ -125,7 +127,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
     }
 
-    private fun updateTemperatures(temperature: Double, feelsLike: Double) {
+    private fun updateTemperatures(temperature: Double?, feelsLike: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
         textView_temperature.text = "$temperature$unitAbbreviation"
         textView_feels_like_temperature.text = "Feels like $feelsLike$unitAbbreviation"
@@ -135,7 +137,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         textView_condition.text = condition
     }
 
-    private fun updatePrecipitation(precipitationVolume: Double) {
+    private fun updatePrecipitation(precipitationVolume: Int) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("mm", "in")
         textView_precipitation.text = "Preciptiation: $precipitationVolume $unitAbbreviation"
     }

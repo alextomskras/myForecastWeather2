@@ -23,4 +23,22 @@ class ListStringConverter {
         )
     }
 
+//    class ReposPersistentConverter {
+//        @TypeConverter
+//        fun fromString(value: String?): List<WeatherEntry?>? = Gson().fromJson(value, object : TypeToken<List<WeatherEntry?>?>() {}.type)
+//
+//        @TypeConverter
+//        fun fromModel(value: List<WeatherEntry?>?): String? = Gson().toJson(value)
+//
+//    }
+
+//    class MainConverter {
+//        @TypeConverter
+//        fun froString(value: String?): List<Mainnnn2?>? = Gson().fromJson(value, object : TypeToken<List<Mainnnn2?>?>() {}.type)
+//
+//        @TypeConverter
+//        fun fromMode(value: List<Mainnnn2?>?): String? = Gson().toJson(value)
+//
+//    }
+
 }

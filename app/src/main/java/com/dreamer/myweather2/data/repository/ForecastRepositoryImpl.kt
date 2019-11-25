@@ -1,5 +1,6 @@
 package com.dreamer.myweather2.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.dreamer.myweather2.data.db.CurrentWeatherDao
 import com.dreamer.myweather2.data.db.WeatherLocationDao
@@ -58,6 +59,7 @@ class ForecastRepositoryImpl(
     }
 
     override suspend fun getCurrentWeather(metric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
+//    override suspend fun getCurrentWeather(metric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
         return withContext(Dispatchers.IO) {
             initWeatherData()
             return@withContext if (metric) currentWeatherDao.getWeatherMetric()
@@ -96,7 +98,9 @@ class ForecastRepositoryImpl(
 
     private fun persistFetchedCurrentWeather(fetchedWeatherOpen: OpenCurrentWeatherResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentWeatherDao.upsert(fetchedWeatherOpen.main)
+            //            currentWeatherDao.upsert(fetchedWeatherOpen.weather)
+            currentWeatherDao.upsert(fetchedWeatherOpen)
+            Log.d(this.toString(), "fromListLisr1: ${fetchedWeatherOpen}")
             weatherLocationDao.upsert(fetchedWeatherOpen.location)
         }
     }
