@@ -74,14 +74,15 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             updateWind(it.wind.deg.toString(), it.wind.speed)
             updateVisibility(it.visibility.toDouble())
 //            updateVisibility(it.visibilityDistance)
+            val picturesUrl = it.weather[0].icon
 //            var picturesUrl = it.conditionIconUrl
 //            if (picturesUrl.startsWith("\""))
 //                picturesUrl = picturesUrl.replace("\"", "")
-//            Log.d(this.toString(), "from with2 error code: $picturesUrl")
+            Log.e(this.toString(), "from with2 error code: $picturesUrl")
             try {
                 Picasso.get()
 //                        .load("${picturesUrl}")
-                        .load("http://openweathermap.org/img/wn/" + "${it.weather[0].icon}" + ".png")
+                        .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + ".png")
 //                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
                         .fit()
                         .into(imageView_condition_icon)
