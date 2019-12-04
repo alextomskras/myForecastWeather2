@@ -1,6 +1,7 @@
 package com.dreamer.myweather2.ui.weather.current
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
         weatherLocation.observe(this@CurrentWeatherFragment, Observer { location ->
             if (location == null) return@Observer
-            updateLocation(location.id)
+            updateLocation(location.lat.toInt())
         })
 
         currentWeather.observe(this@CurrentWeatherFragment, Observer {
@@ -55,10 +56,10 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
             group_loading.visibility = View.GONE
             updateDateToToday()
-//            updateTemperatures(it.temperature, 33.2)
-            updateTemperatures(22.1, 33.4)
-//            updateCondition(it.conditionText)
-//            Log.d(this.toString(), "from conditionText2 error code: ${it.conditionText}")
+            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toString(), it1) }
+//            updateTemperatures(22.1, 33.4)
+            updateCondition(it.weather[0].description)
+            Log.e(this.toString(), "from conditionText2: ${it?.main?.temp.toString()}")
 ////            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
 //            val sb = StringBuilder()
 //            sb.append("${it.conditionText}").substring(1, it.conditionText.length - 1)
@@ -68,10 +69,10 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 ////            val d = sb.toString()
 //            Log.d(this.toString(), "from conditionText2 error code: $c")
 //            updateCondition(c)
-            updatePrecipitation(11111)
+            updatePrecipitation(it.main.pressure)
 //            updatePrecipitation(it.precipitationVolume)
-//            updateWind(it.windDirection, it.windSpeed)
-            updateVisibility(111.2)
+            updateWind(it.wind.deg.toString(), it.wind.speed)
+            updateVisibility(it.visibility.toDouble())
 //            updateVisibility(it.visibilityDistance)
 //            var picturesUrl = it.conditionIconUrl
 //            if (picturesUrl.startsWith("\""))
@@ -80,7 +81,8 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             try {
                 Picasso.get()
 //                        .load("${picturesUrl}")
-                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+                        .load("http://openweathermap.org/img/wn/" + "${it.weather[0].icon}" + ".png")
+//                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
                         .fit()
                         .into(imageView_condition_icon)
             } catch (e: Exception) {
@@ -121,13 +123,14 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateLocation(location: Int) {
         (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
+//        (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
     }
 
     private fun updateDateToToday() {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
     }
 
-    private fun updateTemperatures(temperature: Double?, feelsLike: Double) {
+    private fun updateTemperatures(temperature: String, feelsLike: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
         textView_temperature.text = "$temperature$unitAbbreviation"
         textView_feels_like_temperature.text = "Feels like $feelsLike$unitAbbreviation"
@@ -148,7 +151,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateVisibility(visibilityDistance: Double) {
-        val unitAbbreviation = chooseLocalizedUnitAbbreviation("km", "mi.")
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("m", "mi.")
         textView_visibility.text = "Visibility: $visibilityDistance $unitAbbreviation"
     }
 

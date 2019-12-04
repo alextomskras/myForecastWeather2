@@ -13,8 +13,9 @@ import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
 
 @Database(
         entities = [
-            WeatherLocation::class, Coord::class
-            , OpenCurrentWeatherResponse::class
+            WeatherLocation::class,
+            Coord::class,
+            OpenCurrentWeatherResponse::class
         ],
         version = 1
 )
@@ -36,6 +37,7 @@ abstract class ForecastDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) =
                 Room.databaseBuilder(context.applicationContext,
                         ForecastDatabase::class.java, "futureWeatherEntries.db")
+                        .setJournalMode(JournalMode.AUTOMATIC)
                         .build()
     }
 }

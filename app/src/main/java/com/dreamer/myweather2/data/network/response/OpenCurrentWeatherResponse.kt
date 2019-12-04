@@ -1,10 +1,12 @@
 package com.dreamer.myweather2.data.network.response
 
 
+import android.util.Log
 import androidx.room.*
 import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
 import com.dreamer.myweather2.data.db.entity.openweatherapi.Main
 import com.dreamer.myweather2.data.db.entity.openweatherapi.WeatherEntry
+import com.dreamer.myweather2.data.db.entity.openweatherapi.Wind
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
@@ -43,9 +45,10 @@ data class OpenCurrentWeatherResponse(
         @SerializedName("coord")
         @Embedded(prefix = "location_")
 //        var location: List<String>
-        var location: Coord
-//        @Embedded(prefix = "wind_")
-//        val wind: Wind
+        var location: Coord,
+        @SerializedName("wind")
+        @Embedded(prefix = "wind_")
+        val wind: Wind
 ) {
         @PrimaryKey(autoGenerate = false)
         var id: Int = ROOT_CURRENT_WEATHER_ID
@@ -62,10 +65,16 @@ class CoordConverter {
 
 class WeatherConverter {
         @TypeConverter
-        fun fromString(value: String?): List<WeatherEntry?>? = Gson().fromJson(value, object : TypeToken<List<WeatherEntry?>?>() {}.type)
+        fun fromString(value: String): List<WeatherEntry> {
+                Log.e(this@WeatherConverter.toString(), "fromerror1: ${value.last()}")
+                return Gson().fromJson(value, object : TypeToken<List<WeatherEntry>>() {}.type)
+        }
 
         @TypeConverter
-        fun fromJson(value: List<WeatherEntry?>?): String? = Gson().toJson(value)
+        fun fromJson(value: List<WeatherEntry>): String {
+                Log.e(this@WeatherConverter.toString(), "fromerror2: ${value.last()}")
+                return Gson().toJson(value)
+        }
 
 }
 

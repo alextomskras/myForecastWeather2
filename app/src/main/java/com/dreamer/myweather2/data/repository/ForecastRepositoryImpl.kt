@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import com.dreamer.myweather2.data.db.CurrentWeatherDao
 import com.dreamer.myweather2.data.db.WeatherLocationDao
 import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
-import com.dreamer.myweather2.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 import com.dreamer.myweather2.data.network.WeatherNetworkDataSource
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
 import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
@@ -58,13 +57,16 @@ class ForecastRepositoryImpl(
         }
     }
 
-    override suspend fun getCurrentWeather(metric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
-//    override suspend fun getCurrentWeather(metric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
+    //    override suspend fun getCurrentWeather(metric: Boolean): LiveData<out OpenCurrentWeatherResponse> {
+    override suspend fun getCurrentWeather(metric: Boolean): LiveData<OpenCurrentWeatherResponse> {
+        Log.e(this.toString(), "fromListLisr3: $this")
         return withContext(Dispatchers.IO) {
             initWeatherData()
             return@withContext if (metric) currentWeatherDao.getWeatherMetric()
+
             else currentWeatherDao.getWeatherImperial()
         }
+
     }
 
 
@@ -100,8 +102,9 @@ class ForecastRepositoryImpl(
         GlobalScope.launch(Dispatchers.IO) {
             //            currentWeatherDao.upsert(fetchedWeatherOpen.weather)
             currentWeatherDao.upsert(fetchedWeatherOpen)
-            Log.d(this.toString(), "fromListLisr1: ${fetchedWeatherOpen}")
+            Log.e(this.toString(), "fromListLisr1: ${fetchedWeatherOpen}")
             weatherLocationDao.upsert(fetchedWeatherOpen.location)
+            Log.e(this.toString(), "fromListLisr2: ${fetchedWeatherOpen.location}")
         }
     }
 
