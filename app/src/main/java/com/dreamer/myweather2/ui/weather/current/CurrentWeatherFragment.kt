@@ -70,7 +70,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 ////            val d = sb.toString()
 //            Log.d(this.toString(), "from conditionText2 error code: $c")
 //            updateCondition(c)
-            updateLocation(it.name.toString())
+            updateLocation(it.name)
             updatePrecipitation(it.main.pressure)
 //            updatePrecipitation(it.precipitationVolume)
             updateWind(it.wind.deg.toString(), it.wind.speed)
@@ -84,7 +84,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             try {
                 Picasso.get()
 //                        .load("${picturesUrl}")
-                        .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + ".png")
+                        .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
 //                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
                         .fit()
                         .into(imageView_condition_icon)
