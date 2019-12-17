@@ -5,21 +5,21 @@
             android:defaultValue="true"
             android:disableDependentsState="true"
             android:key="USE_DEVICE_LOCATION"
-            android:summary="Allow the app to get your location"
-            android:title="Use device location" />
+            android:summary="@string/preferences_menu_summary_device_location"
+            android:title="@string/preferences_menu_device_location" />
 
         <EditTextPreference
             android:defaultValue="Los Angeles"
             android:dependency="USE_DEVICE_LOCATION"
             android:key="CUSTOM_LOCATION"
-            android:summary="The location for which the weather is displayed"
-            android:title="Location" />
+            android:summary="@string/preferences_menu_summary_location"
+            android:title="@string/preferences_menu_location" />
         <EditTextPreference
             android:defaultValue="Usa"
             android:dependency="USE_DEVICE_LOCATION"
             android:key="CUSTOM_LOCATION_COUNTRY"
-            android:summary="The country of location for which the weather is displayed"
-            android:title="Country" />
+            android:summary="@string/preferences_menu_summary_country"
+            android:title="@string/preferences_menu_country" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Units">
