@@ -34,13 +34,17 @@ interface OpenWeatherApiService {
 
     ): Deferred<OpenCurrentWeatherResponse>
 
-
     // https://api.apixu.com/v1/forecast.json?key=89e8bd89085b41b7a4b142029180210&q=Los%20Angeles&days=1
+    // https://api.openweathermap.org/data/2.5/forecast?q=Moscow,ru&appid=f9d142fda1995a149d1b35f11bc9a928&units=metric
+
     @GET("forecast")
     fun getFutureWeather(
             @Query("query") location: String,
+            @Query("query") country: String,
             @Query("days") days: Int,
-            @Query("lang") languageCode: String = "en"
+            @Query("lang") languageCode: String = "en",
+            @Query("units") unitsCode: String
+
     ): Deferred<FutureWeatherResponse>
 
     companion object {
