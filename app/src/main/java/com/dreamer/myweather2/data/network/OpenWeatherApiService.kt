@@ -43,7 +43,7 @@ interface OpenWeatherApiService {
             @Query("query") country: String,
             @Query("days") days: Int,
             @Query("lang") languageCode: String = "en",
-            @Query("units") unitsCode: String
+            @Query("units") unitsCode: String = "metric"
 
     ): Deferred<FutureWeatherResponse>
 
