@@ -50,6 +50,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         weatherLocation.observe(this@CurrentWeatherFragment, Observer { location ->
             if (location == null) return@Observer
 //            updateLocation(location.lat.toInt())
+            updateLocation(location.lat)
         })
 
         currentWeather.observe(this@CurrentWeatherFragment, Observer {
@@ -70,7 +71,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 ////            val d = sb.toString()
 //            Log.d(this.toString(), "from conditionText2 error code: $c")
 //            updateCondition(c)
-            updateLocation(it.name)
+            updateLocation(it.location.lat)
             updatePrecipitation(it.main.pressure)
 //            updatePrecipitation(it.precipitationVolume)
             updateWind(it.wind.deg.toString(), it.wind.speed)
@@ -124,7 +125,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         return if (viewModel.isMetricUnit) metric else imperial
     }
 
-    private fun updateLocation(location: String) {
+    private fun updateLocation(location: Double) {
         (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
 //        (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
     }
