@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.squareup.picasso.Picasso
-
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -50,7 +49,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         weatherLocation.observe(this@CurrentWeatherFragment, Observer { location ->
             if (location == null) return@Observer
 //            updateLocation(location.lat.toInt())
-            updateLocation(location.lat)
+            updateLocation(location.lat.toString())
         })
 
         currentWeather.observe(this@CurrentWeatherFragment, Observer {
@@ -127,7 +126,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         return if (viewModel.isMetricUnit) metric else imperial
     }
 
-    private fun updateLocation(location: Double) {
+    private fun updateLocation(location: String) {
         (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
 //        (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
     }
