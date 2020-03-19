@@ -77,6 +77,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 //            updatePrecipitation(it.precipitationVolume)
             updateWind(it.wind.deg.toString(), it.wind.speed)
             updateVisibility(it.visibility.toDouble())
+            updateSunrise(it.sys.sunrise)
 //            updateVisibility(it.visibilityDistance)
             val picturesUrl = it.weather[0].icon
 //            var picturesUrl = it.conditionIconUrl
@@ -158,6 +159,11 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     private fun updateVisibility(visibilityDistance: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("m", "mi.")
         textView_visibility.text = "Visibility: $visibilityDistance $unitAbbreviation"
+    }
+
+    private fun updateSunrise(sunriseTime: Int) {
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("m", "mi.")
+        textView_sunrise.text = "Sunrise: $sunriseTime $unitAbbreviation"
     }
 
 }
