@@ -71,7 +71,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 //            Log.d(this.toString(), "from conditionText2 error code: $c")
 //            updateCondition(c)
 //            updateLocation(it.location.lat)
-            updateLocation(it.name.toString())
+            updateLocation(it.name)
 
             updatePrecipitation(it.main.pressure)
 //            updatePrecipitation(it.precipitationVolume)
