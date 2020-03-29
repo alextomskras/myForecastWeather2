@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.squareup.picasso.Picasso
+
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
