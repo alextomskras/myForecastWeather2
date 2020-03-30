@@ -11,12 +11,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.squareup.picasso.Picasso
-
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import org.threeten.bp.format.DateTimeFormatter
 
 
 class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
@@ -79,6 +81,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             updateWind(it.wind.deg.toString(), it.wind.speed)
             updateVisibility(it.visibility.toDouble())
             updateSunrise(it.sys.sunrise)
+            updateSunset(it.sys.sunset)
 //            updateVisibility(it.visibilityDistance)
             val picturesUrl = it.weather[0].icon
 //            var picturesUrl = it.conditionIconUrl
@@ -163,8 +166,27 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateSunrise(sunriseTime: Int) {
-        val unitAbbreviation = chooseLocalizedUnitAbbreviation("m", "mi.")
-        textView_sunrise.text = "Sunrise: $sunriseTime $unitAbbreviation"
+        val dt = Instant.ofEpochSecond(sunriseTime.toLong())
+                .atZone(ZoneId.systemDefault())
+//                .toLocalTime()
+                .toLocalDateTime()
+                .format(DateTimeFormatter.ISO_LOCAL_TIME)
+
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
+        val testTime1 = sunriseTime
+        textView_sunrise.text = "Sunrise: $dt $unitAbbreviation"
+    }
+
+    private fun updateSunset(sunsetTime: Int) {
+        val dt = Instant.ofEpochSecond(sunsetTime.toLong())
+                .atZone(ZoneId.systemDefault())
+//                .toLocalTime()
+                .toLocalDateTime()
+                .format(DateTimeFormatter.ISO_LOCAL_TIME)
+
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
+        val testTime2 = sunsetTime
+        textView_sunset.text = "Sunrise: $dt $unitAbbreviation"
     }
 
 }
