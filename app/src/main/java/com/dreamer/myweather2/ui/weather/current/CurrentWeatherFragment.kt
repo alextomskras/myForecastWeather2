@@ -59,11 +59,18 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             //            if (it == null) return@Observer
 
             group_loading.visibility = View.GONE
+            //правим заголовок окна - выставляем "Today"
             updateDateToToday()
-            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toString(), it1) }
+            //Передаем значения температуры полученные из запроса
+            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toString(), it.main.feelsLike) }
+            //Выводим в error-логи содержимое запроса
+            Log.e(this.toString(), "from updateTemperatures: ${it?.main?.temp.toString()}")
 //            updateTemperatures(22.1, 33.4)
+            //Передаем описание погоды "например - мелкий дождь"
             updateCondition(it.weather[0].description)
-            Log.e(this.toString(), "from conditionText2: ${it?.main?.temp.toString()}")
+            //Выводим в error-логи содержимое запроса "it.weather[0].description"
+            Log.e(this.toString(), "from updateCondition: ${it.weather[0].description}")
+
 ////            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
 //            val sb = StringBuilder()
 //            sb.append("${it.conditionText}").substring(1, it.conditionText.length - 1)
@@ -178,15 +185,16 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateSunset(sunsetTime: Int) {
+        //превращаем секунды в нормальный формат даты
         val dt = Instant.ofEpochSecond(sunsetTime.toLong())
                 .atZone(ZoneId.systemDefault())
-//                .toLocalTime()
-                .toLocalDateTime()
+                .toLocalTime()
+                //                .toLocalDateTime()
                 .format(DateTimeFormatter.ISO_LOCAL_TIME)
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
         val testTime2 = sunsetTime
-        textView_sunset.text = "Sunrise: $dt $unitAbbreviation"
+        textView_sunset.text = "Sunset: $dt $unitAbbreviation"
     }
 
 }
