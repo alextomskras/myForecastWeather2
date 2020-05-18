@@ -3,8 +3,10 @@ package com.dreamer.myweather2.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.dreamer.myweather2.data.db.CurrentWeatherDao
+import com.dreamer.myweather2.data.db.FutureWeatherDao
 import com.dreamer.myweather2.data.db.WeatherLocationDao
 import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
+import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.data.network.WeatherNetworkDataSource
 import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
 import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
@@ -13,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.threeten.bp.LocalDate
 import org.threeten.bp.ZonedDateTime
 import java.util.*
 
@@ -39,7 +42,7 @@ import java.util.*
 
 class ForecastRepositoryImpl(
         private val currentWeatherDao: CurrentWeatherDao,
-//        private val futureWeatherDao: FutureWeatherDao,
+        private val futureWeatherDao: FutureWeatherDao,
         private val weatherLocationDao: WeatherLocationDao,
         private val weatherNetworkDataSource: WeatherNetworkDataSource,
         private val locationProvider: LocationProvider
@@ -51,9 +54,9 @@ class ForecastRepositoryImpl(
             downloadedOpenCurrentWeather.observeForever { newCurrentWeather ->
                 persistFetchedCurrentWeather(newCurrentWeather)
             }
-//            downloadedFutureWeather.observeForever { newFutureWeather ->
-//                persistFetchedFutureWeather(newFutureWeather)
-//            }
+            downloadedFutureWeather.observeForever { newFutureWeather ->
+                persistFetchedFutureWeather(newFutureWeather)
+            }
         }
     }
 
@@ -70,16 +73,16 @@ class ForecastRepositoryImpl(
     }
 
 
-    //    override suspend fun getFutureWeatherList(
-//            startDate: LocalDate,
-//            metric: Boolean
-//    ): LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>> {
-//        return withContext(Dispatchers.IO) {
-//            initWeatherData()
-//            return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
-//            else futureWeatherDao.getSimpleWeatherForecastsImperial(startDate)
-//        }
-//    }
+    override suspend fun getFutureWeatherList(
+            startDate: LocalDate,
+            metric: Boolean
+    ): LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>> {
+        return withContext(Dispatchers.IO) {
+            initWeatherData()
+            return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
+            else futureWeatherDao.getSimpleWeatherForecastsImperial(startDate)
+        }
+    }
 //
 //    override suspend fun getFutureWeatherByDate(
 //            date: LocalDate,

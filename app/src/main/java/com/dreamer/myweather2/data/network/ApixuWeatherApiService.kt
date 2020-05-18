@@ -31,6 +31,7 @@ interface ApixuWeatherApiService {
 
 
     // https://api.apixu.com/v1/forecast.json?key=89e8bd89085b41b7a4b142029180210&q=Los%20Angeles&days=1
+    //https://api.openweathermap.org/data/2.5/forecast?q=Moscow&appid=3e735f3d35d2f20f7604151dd0742757
     @GET("forecast")
     fun getFutureWeather(
             @Query("query") location: String,
