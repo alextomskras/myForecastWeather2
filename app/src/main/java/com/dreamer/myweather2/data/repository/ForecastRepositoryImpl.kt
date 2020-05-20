@@ -123,7 +123,8 @@ class ForecastRepositoryImpl(
 
         GlobalScope.launch(Dispatchers.IO) {
             deleteOldForecastData()
-            val futureWeatherList = fetchedWeather.futureWeatherEntries.entries
+            val futureWeatherList = fetchedWeather.futureWeatherEntries
+//            val futureWeatherList = fetchedWeather.futureWeatherEntries.entries
 //            futureWeatherDao.insert(futureWeatherList)
 //            weatherLocationDao.upsert(fetchedWeather.location)
         }
