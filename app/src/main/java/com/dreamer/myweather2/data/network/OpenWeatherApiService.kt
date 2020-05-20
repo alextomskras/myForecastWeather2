@@ -39,7 +39,7 @@ interface OpenWeatherApiService {
 
     @GET("forecast")
     fun getFutureWeather(
-            @Query("query") location: String,
+            @Query("q") location: String,
             @Query("query") country: String,
             @Query("days") days: Int,
             @Query("lang") languageCode: String = "en",

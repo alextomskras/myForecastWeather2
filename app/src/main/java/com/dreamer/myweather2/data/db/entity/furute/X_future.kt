@@ -1,10 +1,13 @@
 package com.dreamer.myweather2.data.db.entity.furute
 
 
+import androidx.room.Embedded
 import com.google.gson.annotations.SerializedName
 
-data class X(
+data class X_future(
         var dt: Int, // 1487624400
+        @SerializedName("main")
+        @Embedded(prefix = "main_")
         var main: Main,
         var weather: List<Weather>,
         var clouds: Clouds,

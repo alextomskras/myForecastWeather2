@@ -12,6 +12,7 @@ import com.dreamer.myweather2.data.provider.UnitProviderImpl
 import com.dreamer.myweather2.data.repository.ForecastRepository
 import com.dreamer.myweather2.data.repository.ForecastRepositoryImpl
 import com.dreamer.myweather2.ui.weather.current.CurrentWeatherViewModelFactory
+import com.dreamer.myweather2.ui.weather.future.list.FutureListWeatherViewModelFactory
 import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
@@ -40,6 +41,7 @@ class ForecastApplication : Application(), KodeinAware {
         bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance(), instance(), instance(), instance()) }
         bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
         bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
+        bind() from provider { FutureListWeatherViewModelFactory(instance(), instance()) }
 
     }
 

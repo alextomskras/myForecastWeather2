@@ -5,12 +5,12 @@ import org.threeten.bp.LocalDate
 
 
 data class MetricSimpleFutureWeatherEntry(
-        @ColumnInfo(name = "date")
+        @ColumnInfo(name = "dt")
         override val date: LocalDate,
-        @ColumnInfo(name = "avgtempC")
+        @ColumnInfo(name = "city_coord_lat")
         override val avgTemperature: Double,
-        @ColumnInfo(name = "weatherDescriptions")
+        @ColumnInfo(name = "city_name")
         override val conditionText: String,
-        @ColumnInfo(name = "weatherIcons")
+        @ColumnInfo(name = "message")
         override val conditionIconUrl: String
 ) : UnitSpecificSimpleFutureWeatherEntry
