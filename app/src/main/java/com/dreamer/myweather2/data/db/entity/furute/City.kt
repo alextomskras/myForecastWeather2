@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class City(
         var id: Int, // 6940463
+        @SerializedName("name")
         var name: String, // Altstadt
         @SerializedName("coord")
         @Embedded(prefix = "coord_")

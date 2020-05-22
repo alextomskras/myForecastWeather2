@@ -2,6 +2,7 @@ package com.dreamer.myweather2.ui.weather.future.list
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
         })
 
         futureWeatherEntries.observe(this@FutureListWeatherFragment, Observer { weatherEntries ->
-            if (weatherEntries == null) return@Observer
+//            if (weatherEntries == null) return@Observer
 
             group_loading.visibility = View.GONE
 
@@ -69,11 +70,13 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateDateToNextWeek() {
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Next Week"
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Next 5 Days"
     }
 
     private fun List<UnitSpecificSimpleFutureWeatherEntry>.toFutureWeatherItems(): List<FutureWeatherItem> {
+        Log.e(this@FutureListWeatherFragment.toString(), "toFutureWeatherItems: $this@FutureListWeatherFragment")
         return this.map {
+//            Log.e(this@FutureListWeatherFragment.toString(), "toFutureWeatherItems2: $it")
             FutureWeatherItem(it)
         }
     }

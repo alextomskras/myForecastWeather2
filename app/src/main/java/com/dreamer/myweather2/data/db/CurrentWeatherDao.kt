@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
-import com.dreamer.myweather2.data.network.response.ROOT_CURRENT_WEATHER_ID
 
 
 @Dao
@@ -22,7 +21,7 @@ interface CurrentWeatherDao {
 
 
     //    @Query("select * from main_coord_entry where id = $MAIN_CURRENT_WEATHER_ID")
-    @Query("select * from root_weather_entry where id = $ROOT_CURRENT_WEATHER_ID")
+    @Query("select * from root_weather_entry")
     fun getWeatherImperial(): LiveData<OpenCurrentWeatherResponse>
 //    fun getWeatherImperial(): LiveData<ImperialCurrentWeatherEntry>
 }

@@ -20,6 +20,7 @@ interface FutureWeatherDao {
 
     //    @Query("select * from future_weather where date(date) >= date(:startDate)")
     @Query("select * from future_weather where date(dt) >= date(:startDate)")
+
     fun getSimpleWeatherForecastsMetric(startDate: LocalDate): LiveData<List<MetricSimpleFutureWeatherEntry>>
 
     //    @Query("select * from future_weather where date(date) >= date(:startDate)")
