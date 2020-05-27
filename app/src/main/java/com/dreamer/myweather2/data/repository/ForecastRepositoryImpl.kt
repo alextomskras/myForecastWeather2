@@ -79,6 +79,7 @@ class ForecastRepositoryImpl(
             startDate: LocalDate,
             metric: Boolean
     ): LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>> {
+        Log.e(this.toString(), "from_getFutureWeatherList: $this")
         return withContext(Dispatchers.IO) {
             initWeatherData()
             return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
@@ -90,6 +91,7 @@ class ForecastRepositoryImpl(
             date: LocalDate,
             metric: Boolean
     ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
+        Log.e(this.toString(), "from_getFutureWeatherByDate: $this")
         return withContext(Dispatchers.IO) {
             initWeatherData()
             return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(date)
@@ -98,6 +100,7 @@ class ForecastRepositoryImpl(
     }
 
     override suspend fun getWeatherLocation(): LiveData<Coord> {
+        Log.e(this.toString(), "from_getWeatherLocation: $this")
         return withContext(Dispatchers.IO) {
             return@withContext weatherLocationDao.getLocation()
         }
@@ -107,9 +110,9 @@ class ForecastRepositoryImpl(
         GlobalScope.launch(Dispatchers.IO) {
             //            currentWeatherDao.upsert(fetchedWeatherOpen.weather)
             currentWeatherDao.upsert(fetchedWeatherOpen)
-            Log.e(this.toString(), "fromcurrentWeatherDao.upsert: ${fetchedWeatherOpen}")
+            Log.e(this.toString(), "from_currentWeatherDao.upsert: ${fetchedWeatherOpen}")
             weatherLocationDao.upsert(fetchedWeatherOpen.location)
-            Log.e(this.toString(), "fromweatherLocationDao.upsert: ${fetchedWeatherOpen.location}")
+            Log.e(this.toString(), "from_weatherLocationDao.upsert: ${fetchedWeatherOpen.location}")
         }
     }
 
