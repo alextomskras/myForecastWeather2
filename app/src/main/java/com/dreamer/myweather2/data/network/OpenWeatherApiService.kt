@@ -70,9 +70,10 @@ interface OpenWeatherApiService {
             logging.level = HttpLoggingInterceptor.Level.BODY
 
             val okHttpClient = OkHttpClient.Builder()
+                    .addInterceptor(connectivityInterceptor)
                     .addInterceptor(requestInterceptor)
                     .addInterceptor(logging)
-                    .addInterceptor(connectivityInterceptor)
+
                     .build()
 
             return Retrofit.Builder()
