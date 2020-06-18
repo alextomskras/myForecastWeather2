@@ -68,7 +68,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 //            updateTemperatures(22.1, 33.4)
             //Передаем описание погоды "например - мелкий дождь"
             updateCondition(it.weather[0].description)
-            //Выводим в error-логи содержимое запроса "it.weather[0].description"
+            //Выводим в error-логи содержимое запроса "it.futureWeather[0].description"
             Log.e(this.toString(), "from updateCondition: ${it.weather[0].description}")
 
 ////            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))

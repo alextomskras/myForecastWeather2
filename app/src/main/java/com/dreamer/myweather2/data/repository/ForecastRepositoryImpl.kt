@@ -108,7 +108,7 @@ class ForecastRepositoryImpl(
 
     private fun persistFetchedCurrentWeather(fetchedWeatherOpen: OpenCurrentWeatherResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            //            currentWeatherDao.upsert(fetchedWeatherOpen.weather)
+            //            currentWeatherDao.upsert(fetchedWeatherOpen.futureWeather)
             currentWeatherDao.upsert(fetchedWeatherOpen)
             Log.e(this.toString(), "from_currentWeatherDao.upsert: ${fetchedWeatherOpen}")
             weatherLocationDao.upsert(fetchedWeatherOpen.location)

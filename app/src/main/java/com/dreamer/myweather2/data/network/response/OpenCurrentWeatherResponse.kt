@@ -37,10 +37,10 @@ data class OpenCurrentWeatherResponse(
         val timezone: Int, // 10800
         val visibility: Int, // 10000
         @SerializedName("weather")
-//////        val weather: WeatherDayContainer,
+//////        val futureWeather: WeatherDayContainer,
 //////        @Embedded( prefix = "weath_")
         var weather: List<WeatherEntry>,
-////        val weather: Mainnnn2?,
+////        val futureWeather: Mainnnn2?,
         @SerializedName("coord")
         @Embedded(prefix = "location_")
 //        var location: List<String>

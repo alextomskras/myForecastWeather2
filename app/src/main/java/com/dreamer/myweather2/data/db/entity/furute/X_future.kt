@@ -9,7 +9,7 @@ data class X_future(
         @SerializedName("main")
         @Embedded(prefix = "main_")
         var main: Main,
-        @SerializedName("weather")
+        @SerializedName("futureWeather")
         var weather: List<Weather>,
         @SerializedName("clouds")
         @Embedded(prefix = "clouds_")
