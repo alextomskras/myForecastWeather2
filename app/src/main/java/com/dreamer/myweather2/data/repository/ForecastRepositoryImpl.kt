@@ -21,26 +21,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.ZonedDateTime
 import java.util.*
 
-//import androidx.lifecycle.LiveData
-//import com.dreamer.myweather2.data.db.CurrentWeatherDao
-//import com.dreamer.myweather2.data.db.FutureWeatherDao
-//import com.dreamer.myweather2.data.db.WeatherLocationDao
-//import com.dreamer.myweather2.data.db.entity.WeatherLocation
-//import com.dreamer.myweather2.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
-//import com.dreamer.myweather2.data.db.unitlocalized.future.detail.UnitSpecificDetailFutureWeatherEntry
-//import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
-//import com.dreamer.myweather2.data.network.FORECAST_DAYS_COUNT
-//import com.dreamer.myweather2.data.network.WeatherNetworkDataSource
-//import com.dreamer.myweather2.data.network.response.CurrentWeatherResponse
-//import com.dreamer.myweather2.data.network.response.FutureWeatherResponse
-//import com.dreamer.myweather2.data.provider.LocationProvider
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.GlobalScope
-//import kotlinx.coroutines.launch
-//import kotlinx.coroutines.withContext
-//import org.threeten.bp.LocalDate
-//import org.threeten.bp.ZonedDateTime
-//import java.util.*
+
 
 class ForecastRepositoryImpl(
         private val currentWeatherDao: CurrentWeatherDao,
@@ -78,9 +59,12 @@ class ForecastRepositoryImpl(
     override suspend fun getFutureWeatherList(
             startDate: LocalDate,
             metric: Boolean
-    ): LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>> {
-        Log.e(this.toString(), "from_getFutureWeatherList: $this")
+    ):
+//            LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>>
+            LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>> {
+        Log.e(this.toString(), "from_getFutureWeat: $this")
         return withContext(Dispatchers.IO) {
+            Log.e(this.toString(), "from_getFutureWeatherList::: $this")
             initWeatherData()
             return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
             else futureWeatherDao.getSimpleWeatherForecastsImperial(startDate)
@@ -128,13 +112,14 @@ class ForecastRepositoryImpl(
             deleteOldForecastData()
             val futureWeatherList = fetchedWeather.futureWeatherEntries
 //            val futureWeatherList = fetchedWeather.futureWeatherEntries.entries
-//            futureWeatherDao.insert(futureWeatherList)
+            futureWeatherDao.insert(futureWeatherList)
 //            weatherLocationDao.upsert(fetchedWeather.location)
         }
     }
 
     private suspend fun initWeatherData() {
         val lastWeatherLocation = weatherLocationDao.getLocationNonLive()
+        val zonedDateTime = ZonedDateTime.now()
 
         if (lastWeatherLocation == null
                 || locationProvider.hasLocationChanged(lastWeatherLocation)) {
@@ -142,12 +127,13 @@ class ForecastRepositoryImpl(
             fetchFutureWeather()
             return
         }
+//lastWeatherLocation.zonedDateTime
 
-//        if (isFetchCurrentNeeded(lastWeatherLocation.zonedDateTime))
-//            fetchCurrentWeather()
+        if (isFetchCurrentNeeded(zonedDateTime))
+            fetchCurrentWeather()
 
-//        if (isFetchFutureNeeded())
-//            fetchFutureWeather()
+        if (isFetchFutureNeeded())
+            fetchFutureWeather()
     }
 
     private suspend fun fetchCurrentWeather() {

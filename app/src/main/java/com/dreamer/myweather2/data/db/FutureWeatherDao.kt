@@ -5,7 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dreamer.myweather2.data.db.entity.FutureWeatherEntry
+
+import com.dreamer.myweather2.data.db.entity.furute.X_future
 import com.dreamer.myweather2.data.db.unitlocalized.future.detail.ImperialDetailFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.detail.MetricDetailFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.ImperialSimpleFutureWeatherEntry
@@ -16,11 +17,12 @@ import org.threeten.bp.LocalDate
 interface FutureWeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
 //    fun insert(futureWeatherEntries: List<FutureWeatherEntry>)
-    fun insert(futureWeatherEntries: FutureWeatherEntry)
+    fun insert(futureWeatherEntries: List<X_future>)
 
     //    @Query("select * from future_weather where date(date) >= date(:startDate)")
     @Query("select * from future_weather where date(dt) >= date(:startDate)")
 
+//    fun getSimpleWeatherForecastsMetric(startDate: LocalDate): LiveData<List<MetricSimpleFutureWeatherEntry>>
     fun getSimpleWeatherForecastsMetric(startDate: LocalDate): LiveData<List<MetricSimpleFutureWeatherEntry>>
 
     //    @Query("select * from future_weather where date(date) >= date(:startDate)")

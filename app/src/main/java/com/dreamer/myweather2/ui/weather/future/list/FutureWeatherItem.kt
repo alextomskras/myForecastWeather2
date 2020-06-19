@@ -1,11 +1,11 @@
 package com.dreamer.myweather2.ui.weather.future.list
 
+
+import android.util.Log
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
-import com.dreamer.myweather2.internal.glide.GlideApp
-
-
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_future_weather.*
@@ -19,6 +19,7 @@ class FutureWeatherItem(
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.apply {
 //            textView_condition.text = weatherEntry.conditionText
+            Log.e("fun bind", "from with1 $weatherEntry")
             textView_condition.text = "weatherEntry.conditionText"
             updateDate()
             updateTemperature()
@@ -30,7 +31,8 @@ class FutureWeatherItem(
 
     private fun ViewHolder.updateDate() {
         val dtFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-        textView_date.text = weatherEntry.date.format(dtFormatter)
+//        textView_date.text = weatherEntry.date.format(dtFormatter)
+        textView_date.text = "weatherEntry"
     }
 
     private fun ViewHolder.updateTemperature() {
@@ -41,9 +43,22 @@ class FutureWeatherItem(
     }
 
     private fun ViewHolder.updateConditionImage() {
-        GlideApp.with(this.containerView)
-//                .load("http:" + weatherEntry.conditionIconUrl)
-                .load("https:" + "//assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-                .into(imageView_condition_icon)
+        Log.e(this.toString(), "from with2 error code: picturesUrl")
+        try {
+            Picasso.get()
+//                        .load("${picturesUrl}")
+                    .load("https:" + "//assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+//            ("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
+//                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+                    .fit()
+                    .into(imageView_condition_icon)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+//        GlideApp.with(this.containerView)
+////                .load("http:" + weatherEntry.conditionIconUrl)
+////                .load(http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
+//                .load("https:" + "//assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+//                .into(imageView_condition_icon)
     }
 }

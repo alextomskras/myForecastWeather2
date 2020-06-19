@@ -8,7 +8,7 @@ data class MetricDetailFutureWeatherEntry(
         @ColumnInfo(name = "dt")
         override val date: LocalDate,
 //        @ColumnInfo(name = "maxtempC")
-        @ColumnInfo(name = "cod")
+        @ColumnInfo(name = "main_tempMax")
         override val maxTemperature: Double
 //        @ColumnInfo(name = "mintempC")
 //        override val minTemperature: Double,

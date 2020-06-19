@@ -1,5 +1,6 @@
 package com.dreamer.myweather2.ui
 
+//import kotlinx.android.synthetic.main.activity_main.*
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,9 +12,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.dreamer.myweather2.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
-import com.dreamer.myweather2.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
     private val locationCallback = object : LocationCallback() {
     }
+//    private val locationCallback = object : LocationCallback() {
+//    }
 
     private lateinit var navController: NavController
 

@@ -11,5 +11,10 @@ data class City(
         @SerializedName("coord")
         @Embedded(prefix = "coord_")
         var coord: Coord,
-        var country: String // none
+        var country: String, // none
+
+        var population: Int,
+        var timezone: Int,
+        var sunrise: Int,
+        var sunset: Int
 )

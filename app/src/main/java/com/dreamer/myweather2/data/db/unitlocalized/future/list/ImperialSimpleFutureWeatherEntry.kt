@@ -7,10 +7,11 @@ import org.threeten.bp.LocalDate
 class ImperialSimpleFutureWeatherEntry(
         @ColumnInfo(name = "dt")
         override val date: LocalDate,
-        @ColumnInfo(name = "city_coord_lat")
+//        @ColumnInfo(name = "city_coord_lat")
+        @ColumnInfo(name = "main_temp")
         override val avgTemperature: Double,
-        @ColumnInfo(name = "city_name")
+        @ColumnInfo(name = "dtTxt")
         override val conditionText: String,
-        @ColumnInfo(name = "message")
+        @ColumnInfo(name = "clouds_all")
         override val conditionIconUrl: String
 ) : UnitSpecificSimpleFutureWeatherEntry

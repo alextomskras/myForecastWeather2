@@ -16,5 +16,5 @@ data class Main(
         var grndLevel: Double, // 968.38
         var humidity: Int, // 85
         @SerializedName("temp_kf")
-        var tempKf: Int // 0
+        var tempKf: Double // 0
 )

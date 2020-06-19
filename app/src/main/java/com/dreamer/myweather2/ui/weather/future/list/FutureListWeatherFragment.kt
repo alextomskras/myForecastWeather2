@@ -50,17 +50,19 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
         val futureWeatherEntries = viewModel.weatherEntries.await()
         val weatherLocation = viewModel.weatherLocation.await()
 
-        weatherLocation.observe(this@FutureListWeatherFragment, Observer { location ->
-            if (location == null) return@Observer
-            updateLocation(location.lat.toString())
+        weatherLocation.observe(viewLifecycleOwner, Observer { location ->
+//            if (location == null) return@Observer
+//            updateLocation(location.lat.toString())
+            updateLocation("MOSCOW-1")
         })
 
-        futureWeatherEntries.observe(this@FutureListWeatherFragment, Observer { weatherEntries ->
+        futureWeatherEntries.observe(viewLifecycleOwner, Observer { weatherEntries ->
 //            if (weatherEntries == null) return@Observer
 
             group_loading.visibility = View.GONE
-
+            Log.e("updateDateToNextWeek", "updateDateToNextWeek:: $weatherEntries::::")
             updateDateToNextWeek()
+            Log.e("initRecyclerView", "updateDateToNextWeek:: $weatherEntries::::")
             initRecyclerView(weatherEntries.toFutureWeatherItems())
         })
     }
@@ -70,19 +72,31 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateDateToNextWeek() {
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Next 5 Days"
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Next 5 Days2"
     }
 
     private fun List<UnitSpecificSimpleFutureWeatherEntry>.toFutureWeatherItems(): List<FutureWeatherItem> {
-        Log.e(this@FutureListWeatherFragment.toString(), "toFutureWeatherItems: $this@FutureListWeatherFragment")
+        Log.e("toFutureWeather", "Items1:: $this@Future::::")
         return this.map {
-//            Log.e(this@FutureListWeatherFragment.toString(), "toFutureWeatherItems2: $it")
+            Log.e("toFutureWeather", "Items2: $it")
             FutureWeatherItem(it)
         }
     }
 
+//    private fun testParr(){
+//        val arr = arrayOf(1, 2, 3, 4, 5)
+//
+//        for (i in arr) {
+//            println("Значение элемента равно $i")
+//        }
+//    }
+
+
+    //FutureWeatherItem
     private fun initRecyclerView(items: List<FutureWeatherItem>) {
+        Log.e("initRecyclerView", "initRecyclerView:: $items::::")
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
+            Log.e("initRecyclerView", "addAll:: $items::::")
             addAll(items)
             notifyDataSetChanged()
         }
