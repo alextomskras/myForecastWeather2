@@ -31,8 +31,8 @@ class FutureWeatherItem(
 
     private fun ViewHolder.updateDate() {
         val dtFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-//        textView_date.text = weatherEntry.date.format(dtFormatter)
-        textView_date.text = "weatherEntry"
+        textView_date.text = weatherEntry.date.format(dtFormatter)
+//        textView_date.text = "weatherEntry"
     }
 
     private fun ViewHolder.updateTemperature() {

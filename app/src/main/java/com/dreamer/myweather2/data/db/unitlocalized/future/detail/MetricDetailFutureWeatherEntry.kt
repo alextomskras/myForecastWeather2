@@ -5,7 +5,7 @@ import org.threeten.bp.LocalDate
 
 
 data class MetricDetailFutureWeatherEntry(
-        @ColumnInfo(name = "dt")
+        @ColumnInfo(name = "dtTxt")
         override val date: LocalDate,
 //        @ColumnInfo(name = "maxtempC")
         @ColumnInfo(name = "main_tempMax")

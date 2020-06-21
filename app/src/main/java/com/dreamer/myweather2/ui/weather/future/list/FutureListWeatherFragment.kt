@@ -48,6 +48,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch(Dispatchers.Main) {
         val futureWeatherEntries = viewModel.weatherEntries.await()
+        Log.e("bindUI", "bindUI:: " + futureWeatherEntries)
         val weatherLocation = viewModel.weatherLocation.await()
 
         weatherLocation.observe(viewLifecycleOwner, Observer { location ->
@@ -56,15 +57,19 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
             updateLocation("MOSCOW-1")
         })
 
-        futureWeatherEntries.observe(viewLifecycleOwner, Observer { weatherEntries ->
-//            if (weatherEntries == null) return@Observer
+        futureWeatherEntries.observe(
+                viewLifecycleOwner,
+                Observer { weatherEntries ->
+                    Log.e("bindUI", "bindUI:: " + weatherEntries)
+                    if (weatherEntries == null) return@Observer
 
-            group_loading.visibility = View.GONE
-            Log.e("updateDateToNextWeek", "updateDateToNextWeek:: $weatherEntries::::")
-            updateDateToNextWeek()
-            Log.e("initRecyclerView", "updateDateToNextWeek:: $weatherEntries::::")
-            initRecyclerView(weatherEntries.toFutureWeatherItems())
-        })
+                    group_loading.visibility = View.GONE
+                    Log.e("updateDateToNextWeek", "updateDateToNextWeek:: $weatherEntries::::")
+                    updateDateToNextWeek()
+                    Log.e("initRecyclerView", "updateDateToNextWeek:: $weatherEntries::::")
+                    initRecyclerView(weatherEntries.toFutureWeatherItems())
+                }
+        )
     }
 
     private fun updateLocation(location: String) {

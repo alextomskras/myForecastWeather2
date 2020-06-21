@@ -4,7 +4,7 @@ package com.dreamer.myweather2.data.db.entity
 //
 //@Entity(tableName = "future_weather"
 //        //,
-//        //indices = [Index(value = ["dt"], unique = true
+//        //indices = [Index(value = ["dtTxt"], unique = true
 //        //)
 //        //]
 //)
@@ -18,7 +18,7 @@ package com.dreamer.myweather2.data.db.entity
 //
 ////        @PrimaryKey(autoGenerate = true)
 ////        val id: Int? = null,
-////        val dt: Int,
+////        val dtTxt: Int,
 //////        @Embedded
 //////        val day: FutureRequest
 ////

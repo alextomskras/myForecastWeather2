@@ -10,12 +10,8 @@ import com.google.gson.reflect.TypeToken
 
 const val FUTURENT_WEATHER_ID = 0
 
-@Entity(tableName = "future_weather"
-        //,
-        //indices = [Index(value = ["dt"], unique = true
-        //)
-        //]
-)
+@Entity(tableName = "future_weather", indices = [Index(value = ["dtTxt"], unique = true)])
+
 @TypeConverters(
         X_Converter::class,
         X_Converter.WeatherConverter::class,
@@ -26,6 +22,8 @@ const val FUTURENT_WEATHER_ID = 0
 
 
 data class X_future(
+        @PrimaryKey(autoGenerate = true)
+        var id: Int? = null,
         var dt: Int, // 1487624400
         @SerializedName("main")
         @Embedded(prefix = "main_")
@@ -50,8 +48,9 @@ data class X_future(
         @Embedded(prefix = "snow_")
         var snow: Snow
 ) {
-    @PrimaryKey(autoGenerate = false)
-    var id: Int = FUTURENT_WEATHER_ID
+
+//    @PrimaryKey(autoGenerate = false)
+//    var id: Int = FUTURENT_WEATHER_ID
 }
 
 class X_Converter {
