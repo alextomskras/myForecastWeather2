@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 
 class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
@@ -118,7 +118,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-    private fun showWeatherDetail(date: LocalDate, view: View) {
+    private fun showWeatherDetail(date: LocalDateTime, view: View) {
         val dateString = LocalDateConverter.dateToString(date)!!
         val actionDetail = FutureListWeatherFragmentDirections.actionDetail(dateString)
         Navigation.findNavController(view).navigate(actionDetail)

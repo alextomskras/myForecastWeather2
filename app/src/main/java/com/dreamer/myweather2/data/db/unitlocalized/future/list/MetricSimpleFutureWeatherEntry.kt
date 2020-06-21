@@ -1,12 +1,12 @@
 package com.dreamer.myweather2.data.db.unitlocalized.future.list
 
 import androidx.room.ColumnInfo
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 
 
 data class MetricSimpleFutureWeatherEntry(
         @ColumnInfo(name = "dtTxt")
-        override val date: LocalDate,
+        override val date: LocalDateTime,
 //        @ColumnInfo(name = "city_coord_lat")
         @ColumnInfo(name = "main_temp")
         override val avgTemperature: Double,

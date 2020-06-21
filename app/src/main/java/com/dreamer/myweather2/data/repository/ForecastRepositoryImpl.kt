@@ -17,10 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZonedDateTime
 import java.util.*
-
 
 
 class ForecastRepositoryImpl(
@@ -56,10 +55,7 @@ class ForecastRepositoryImpl(
     }
 
 
-    override suspend fun getFutureWeatherList(
-            startDate: LocalDate,
-            metric: Boolean
-    ):
+    override suspend fun getFutureWeatherList(startDate: LocalDateTime, metric: Boolean):
 //            LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>>
             LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>> {
         Log.e(this.toString(), "from_getFutureWeat: $this")
@@ -72,7 +68,7 @@ class ForecastRepositoryImpl(
     }
 
     override suspend fun getFutureWeatherByDate(
-            date: LocalDate,
+            date: LocalDateTime,
             metric: Boolean
     ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
         Log.e(this.toString(), "from_getFutureWeatherByDate: $this")
@@ -104,7 +100,7 @@ class ForecastRepositoryImpl(
     private fun persistFetchedFutureWeather(fetchedWeather: FutureWeatherResponse) {
 
         fun deleteOldForecastData() {
-            val today = LocalDate.now()
+            val today = LocalDateTime.now()
             futureWeatherDao.deleteOldEntries(today)
         }
 
@@ -164,7 +160,7 @@ class ForecastRepositoryImpl(
     }
 
     private fun isFetchFutureNeeded(): Boolean {
-        val today = LocalDate.now()
+        val today = LocalDateTime.now()
         val futureWeatherCount = futureWeatherDao.countFutureWeather(today)
         return futureWeatherCount < FORECAST_DAYS_COUNT
     }

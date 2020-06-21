@@ -4,7 +4,7 @@ import com.dreamer.myweather2.data.provider.UnitProvider
 import com.dreamer.myweather2.data.repository.ForecastRepository
 import com.dreamer.myweather2.internal.lazyDeferred
 import com.dreamer.myweather2.ui.base.WeatherViewModel
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 
 class FutureListWeatherViewModel(
         private val forecastRepository: ForecastRepository,
@@ -12,6 +12,6 @@ class FutureListWeatherViewModel(
 ) : WeatherViewModel(forecastRepository, unitProvider) {
 
     val weatherEntries by lazyDeferred {
-        forecastRepository.getFutureWeatherList(LocalDate.now(), super.isMetricUnit)
+        forecastRepository.getFutureWeatherList(LocalDateTime.now(), super.isMetricUnit)
     }
 }

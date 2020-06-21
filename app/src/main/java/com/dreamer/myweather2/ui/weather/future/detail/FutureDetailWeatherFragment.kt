@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
@@ -27,7 +27,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
 
     private val viewModelFactoryInstanceFactory
-            : ((LocalDate) -> FutureDetailWeatherViewModelFactory) by factory()
+            : ((LocalDateTime) -> FutureDetailWeatherViewModelFactory) by factory()
 
     private lateinit var viewModel: FutureDetailWeatherViewModel
 
@@ -63,6 +63,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
         futureWeather.observe(this@FutureDetailWeatherFragment, Observer { weatherEntry ->
 //            if (weatherEntry == null) return@Observer
 
+//            updateDate(weatherEntry.date)
             updateDate(weatherEntry.date)
             updateTemperatures(15.1,
                     11.1, 15.3)
@@ -93,7 +94,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
         (activity as? AppCompatActivity)?.supportActionBar?.title = location
     }
 
-    private fun updateDate(date: LocalDate) {
+    private fun updateDate(date: LocalDateTime) {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle =
                 date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
     }

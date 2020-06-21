@@ -1,12 +1,12 @@
 package com.dreamer.myweather2.data.db.unitlocalized.future.detail
 
 import androidx.room.ColumnInfo
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 
 
 data class MetricDetailFutureWeatherEntry(
         @ColumnInfo(name = "dtTxt")
-        override val date: LocalDate,
+        override val date: LocalDateTime,
 //        @ColumnInfo(name = "maxtempC")
         @ColumnInfo(name = "main_tempMax")
         override val maxTemperature: Double

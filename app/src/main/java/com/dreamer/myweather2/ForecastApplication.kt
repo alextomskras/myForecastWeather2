@@ -12,16 +12,15 @@ import com.dreamer.myweather2.data.provider.UnitProviderImpl
 import com.dreamer.myweather2.data.repository.ForecastRepository
 import com.dreamer.myweather2.data.repository.ForecastRepositoryImpl
 import com.dreamer.myweather2.ui.weather.current.CurrentWeatherViewModelFactory
+import com.dreamer.myweather2.ui.weather.future.detail.FutureDetailWeatherViewModelFactory
 import com.dreamer.myweather2.ui.weather.future.list.FutureListWeatherViewModelFactory
 import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
+import org.threeten.bp.LocalDateTime
 
 
 class ForecastApplication : Application(), KodeinAware {
@@ -42,6 +41,7 @@ class ForecastApplication : Application(), KodeinAware {
         bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
         bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
         bind() from provider { FutureListWeatherViewModelFactory(instance(), instance()) }
+        bind() from factory { detailDate: LocalDateTime -> FutureDetailWeatherViewModelFactory(detailDate, instance(), instance()) }
 
     }
 

@@ -5,7 +5,7 @@ import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
 import com.dreamer.myweather2.data.db.unitlocalized.future.detail.UnitSpecificDetailFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 
 
 interface ForecastRepository {
@@ -14,10 +14,10 @@ interface ForecastRepository {
 
 
     //    suspend fun getFutureWeatherList(startDate: LocalDate, metric: Boolean): LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>>
-    suspend fun getFutureWeatherList(startDate: LocalDate, metric: Boolean): LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>>
+    suspend fun getFutureWeatherList(startDate: LocalDateTime, metric: Boolean): LiveData<out List<UnitSpecificSimpleFutureWeatherEntry>>
 
     //
-    suspend fun getFutureWeatherByDate(date: LocalDate, metric: Boolean): LiveData<out UnitSpecificDetailFutureWeatherEntry>
+    suspend fun getFutureWeatherByDate(date: LocalDateTime, metric: Boolean): LiveData<out UnitSpecificDetailFutureWeatherEntry>
 
     suspend fun getWeatherLocation(): LiveData<Coord>
 }

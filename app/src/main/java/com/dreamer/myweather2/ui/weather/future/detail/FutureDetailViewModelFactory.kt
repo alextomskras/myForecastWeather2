@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.dreamer.myweather2.data.provider.UnitProvider
 import com.dreamer.myweather2.data.repository.ForecastRepository
 
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 
 
 class FutureDetailWeatherViewModelFactory(
-        private val detailDate: LocalDate,
+        private val detailDate: LocalDateTime,
         private val forecastRepository: ForecastRepository,
         private val unitProvider: UnitProvider
 ) : ViewModelProvider.NewInstanceFactory() {

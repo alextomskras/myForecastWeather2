@@ -10,7 +10,7 @@ import com.dreamer.myweather2.data.db.unitlocalized.future.detail.ImperialDetail
 import com.dreamer.myweather2.data.db.unitlocalized.future.detail.MetricDetailFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.ImperialSimpleFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
-import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 
 
 @Dao
@@ -25,26 +25,26 @@ interface FutureWeatherDao {
     @Query("select * from future_weather where date(dtTxt) >= date(:startDate) ")
 
 //    fun getSimpleWeatherForecastsMetric(startDate: LocalDate): LiveData<List<MetricSimpleFutureWeatherEntry>>
-    fun getSimpleWeatherForecastsMetric(startDate: LocalDate): LiveData<List<MetricSimpleFutureWeatherEntry>>
+    fun getSimpleWeatherForecastsMetric(startDate: LocalDateTime): LiveData<List<MetricSimpleFutureWeatherEntry>>
 
     //    @Query("select * from future_weather where date(date) >= date(:startDate)")
     @Query("select * from future_weather where date(dtTxt) >= date(:startDate)")
-    fun getSimpleWeatherForecastsImperial(startDate: LocalDate): LiveData<List<ImperialSimpleFutureWeatherEntry>>
+    fun getSimpleWeatherForecastsImperial(startDate: LocalDateTime): LiveData<List<ImperialSimpleFutureWeatherEntry>>
 
     //    @Query("select * from future_weather where date(date) = date(:date)")
     @Query("select * from future_weather where date(dtTxt) = date(:date)")
-    fun getDetailedWeatherByDateMetric(date: LocalDate): LiveData<MetricDetailFutureWeatherEntry>
+    fun getDetailedWeatherByDateMetric(date: LocalDateTime): LiveData<MetricDetailFutureWeatherEntry>
 
     //    @Query("select * from future_weather where date(date) = date(:date)")
     @Query("select * from future_weather where date(dtTxt) = date(:date)")
-    fun getDetailedWeatherByDateImperial(date: LocalDate): LiveData<ImperialDetailFutureWeatherEntry>
+    fun getDetailedWeatherByDateImperial(date: LocalDateTime): LiveData<ImperialDetailFutureWeatherEntry>
 
     //    @Query("select count(id) from future_weather where date(date) >= date(:startDate)")
 //    @Query("select count(id) from future_weather where date(dtTxt) >= date(:startDate)")
     @Query("select count(id) from future_weather where date(:startDate)")
-    fun countFutureWeather(startDate: LocalDate): Int
+    fun countFutureWeather(startDate: LocalDateTime): Int
 
     //    @Query("delete from future_weather where date(date) < date(:firstDateToKeep)")
     @Query("delete from future_weather where date(dtTxt) < date(:firstDateToKeep)")
-    fun deleteOldEntries(firstDateToKeep: LocalDate)
+    fun deleteOldEntries(firstDateToKeep: LocalDateTime)
 }
