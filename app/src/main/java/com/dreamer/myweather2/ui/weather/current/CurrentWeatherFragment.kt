@@ -101,7 +101,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
                         .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
 //                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
                         .fit()
-                        .into(imageView_condition_icon)
+                        .into(imageView_condition_icon_future)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

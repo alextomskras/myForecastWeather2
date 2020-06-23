@@ -2,10 +2,11 @@ package com.dreamer.myweather2.ui.weather.future.list
 
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
-import com.squareup.picasso.Picasso
+import com.dreamer.myweather2.internal.glide.GlideApp
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_future_weather.*
@@ -16,19 +17,49 @@ class FutureWeatherItem(
         val weatherEntry: UnitSpecificSimpleFutureWeatherEntry
 ) : Item() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
+        val context = AppCompatActivity()
         viewHolder.apply {
-            textView_condition.text = weatherEntry.conditionText.toString()
+            val arr = arrayOf(weatherEntry.conditionText)
+            textView_condition.text = weatherEntry.conditionText.last().description.toString()
+//            textView_condition.text = weatherEntry.conditionText[3].toString()
             Log.e("fun bind", "from with1 $weatherEntry")
 //            textView_condition.text = "weatherEntry.conditionText"
+//            try {
+//                Picasso.get()
+////                    .isLoggingEnabled
+//
+////                        .load("${iconUrl}")
+//                        .load("https://openweathermap.org/img/wn/01n.png")
+////                    .load("http://openweathermap.org/img/wn/" + "$picturesUrl"+ ".png")
+////                    .load("http://openweathermap.org/img/wn/" + "01n" + "@2x" + ".png")
+////                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+//                        .placeholder(R.drawable.common_google_signin_btn_icon_dark)
+//                        .error(R.drawable.ic_weather_sunny)
+//                        .fit()
+//                        .into(imageView_condition_icon_future)
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//                GlideApp.with(this.containerView)
+////                .load("http:" + weatherEntry.conditionIconUrl)
+////                .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
+//                        .asBitmap()
+//                        .load("http://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+//                        .placeholder(R.drawable.common_google_signin_btn_icon_dark)
+//                        .error(R.drawable.ic_weather_sunny)
+//                        .into(imageView_condition_icon_future)
+//            }
             updateDate()
             updateTemperature()
             updateConditionImage()
+
         }
     }
 
     override fun getLayout() = R.layout.item_future_weather
 
     private fun ViewHolder.updateDate() {
+
 //        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 //        val dtFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
         val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
@@ -44,22 +75,36 @@ class FutureWeatherItem(
     }
 
     private fun ViewHolder.updateConditionImage() {
-        Log.e(this.toString(), "from with2 error code: picturesUrl")
-        try {
-            Picasso.get()
-//                        .load("${picturesUrl}")
-                    .load("https:" + "//assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-//            ("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
-//                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-                    .fit()
-                    .into(imageView_condition_icon)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-//        GlideApp.with(this.containerView)
-////                .load("http:" + weatherEntry.conditionIconUrl)
-////                .load(http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
-//                .load("https:" + "//assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-//                .into(imageView_condition_icon)
+        val picturesUrl = weatherEntry.conditionText.last().icon.toString()
+        val iconUrl = "https://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png"
+        Log.e(this.toString(), "from picturesUrl error code: $picturesUrl")
+        Log.e(this.toString(), "from iconUrl error code: $iconUrl")
+//        try {
+//            Picasso.get()
+//
+////                    .isLoggingEnabled
+//
+//                        .load(iconUrl)
+////                    .load("http://www.weatherbit.io/static/img/icons/r01d.png")
+////                    .load("https://goo.gl/32YN2B")
+////                    .load("http://openweathermap.org/img/wn/" + "$picturesUrl"+ ".png")
+////                    .load("https://openweathermap.org/img/wn/" + "01n" + "@2x" + ".png")
+////                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+//                    .placeholder(R.drawable.common_google_signin_btn_icon_dark)
+//                    .error(R.drawable.ic_weather_sunny)
+//                    .priority(Picasso.Priority.HIGH)
+//                    .fit()
+//
+//                    .into(imageView_condition_icon_future)
+//
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+
+        GlideApp.with(this.containerView)
+//                .load("http:" + weatherEntry.conditionIconUrl)
+                .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
+//                .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+                .into(imageView_condition_icon_future_list)
     }
 }

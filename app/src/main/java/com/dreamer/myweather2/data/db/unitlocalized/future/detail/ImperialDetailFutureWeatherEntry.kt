@@ -1,6 +1,7 @@
 package com.dreamer.myweather2.data.db.unitlocalized.future.detail
 
 import androidx.room.ColumnInfo
+import com.dreamer.myweather2.data.db.entity.furute.Weather
 import org.threeten.bp.LocalDateTime
 
 
@@ -8,19 +9,19 @@ data class ImperialDetailFutureWeatherEntry(
         @ColumnInfo(name = "dtTxt")
         override val date: LocalDateTime,
         @ColumnInfo(name = "main_tempMax")
-        override val maxTemperature: Double
-//        @ColumnInfo(name = "mintempF")
-//        override val minTemperature: Double,
-//        @ColumnInfo(name = "avgtempF")
-//        override val avgTemperature: Double,
-//        @ColumnInfo(name = "weatherDescriptions")
-//        override val conditionText: String,
+        override val maxTemperature: Double,
+        @ColumnInfo(name = "main_tempMin")
+        override val minTemperature: Double,
+        @ColumnInfo(name = "main_temp")
+        override val avgTemperature: Double,
+        @ColumnInfo(name = "weather")
+        override val conditionText: List<Weather>,
 //        @ColumnInfo(name = "weatherIcons")
 //        override val conditionIconUrl: String,
-//        @ColumnInfo(name = "maxwindMph")
-//        override val maxWindSpeed: Double,
-//        @ColumnInfo(name = "totalprecipIn")
-//        override val totalPrecipitation: Double,
+        @ColumnInfo(name = "wind_speed")
+        override val maxWindSpeed: Double,
+        @ColumnInfo(name = "main_pressure")
+        override val totalPressure: Double
 //        @ColumnInfo(name = "avgvisMiles")
 //        override val avgVisibilityDistance: Double,
 //        @ColumnInfo(name = "uv")

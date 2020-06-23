@@ -2,6 +2,7 @@ package com.dreamer.myweather2.ui.weather.future.detail
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.LocalDateConverter
 import com.dreamer.myweather2.internal.DateNotFoundException
+import com.dreamer.myweather2.internal.glide.GlideApp
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.future_detail_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
@@ -65,24 +67,29 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 
 //            updateDate(weatherEntry.date)
             updateDate(weatherEntry.date)
-            updateTemperatures(15.1,
-                    11.1, 15.3)
-            updateCondition("sneg")
-            updatePrecipitation(211.2)
-            updateWindSpeed(12.1)
+//            updateTemperatures(weatherEntry.avgTemperature,
+//                    11.1, 15.3)
+//            updateCondition("sneg")
+//            updatePrecipitation(211.2)
+//            updateWindSpeed(12.1)
             updateVisibility(333.1)
             updateUv(12.1)
-//            updateTemperatures(weatherEntry.avgTemperature,
-//                    weatherEntry.minTemperature, weatherEntry.maxTemperature)
-//            updateCondition(weatherEntry.conditionText)
-//            updatePrecipitation(weatherEntry.totalPrecipitation)
-//            updateWindSpeed(weatherEntry.maxWindSpeed)
+            updateTemperatures(weatherEntry.avgTemperature,
+                    weatherEntry.minTemperature, weatherEntry.maxTemperature)
+            updateCondition(weatherEntry.conditionText.last().description)
+            updatePrecipitation(weatherEntry.totalPressure)
+            updateWindSpeed(weatherEntry.maxWindSpeed)
 //            updateVisibility(weatherEntry.avgVisibilityDistance)
 //            updateUv(weatherEntry.uv)
+            val iconUrl = weatherEntry.conditionText.last().icon
+            Log.e(this.toString(), "from iconUrl error code: $iconUrl")
 
-//            GlideApp.with(this@FutureDetailWeatherFragment)
+
+
+            GlideApp.with(this@FutureDetailWeatherFragment)
 //                .load("http:" + weatherEntry.conditionIconUrl)
-//                .into(imageView_condition_icon)
+                    .load("http://openweathermap.org/img/wn/" + "$iconUrl" + "@2x" + ".png")
+                    .into(imageView_condition_icon_future_detail)
         })
     }
 
@@ -101,7 +108,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateTemperatures(temperature: Double, min: Double, max: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
-        textView_temperature.text = "$temperature$unitAbbreviation"
+        textView_temperature_detail.text = "$temperature$unitAbbreviation"
         textView_min_max_temperature.text = "Min: $min$unitAbbreviation, Max: $max$unitAbbreviation"
     }
 
@@ -111,7 +118,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updatePrecipitation(precipitationVolume: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("mm", "in")
-        textView_precipitation.text = "Precipitation: $precipitationVolume $unitAbbreviation"
+        textView_precipitation.text = "Pressure: $precipitationVolume $unitAbbreviation"
     }
 
     private fun updateWindSpeed(windSpeed: Double) {
