@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
-import com.dreamer.myweather2.data.db.LocalDateConverter
 import com.dreamer.myweather2.internal.DateNotFoundException
 import com.dreamer.myweather2.internal.glide.GlideApp
 import com.dreamer.myweather2.ui.base.ScopedFragment
@@ -22,7 +21,7 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
+
 
 class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 
@@ -44,10 +43,19 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
 
         val safeArgs = arguments?.let { FutureDetailWeatherFragmentArgs.fromBundle(it) }
-        val date = LocalDateConverter.stringToDate(safeArgs?.dateString)
+        val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+//        val date = LocalDateConverter.stringToDate(str = safeArgs?.dateString)
+        val date = safeArgs?.dateString
+
                 ?: throw DateNotFoundException()
 
-        viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(date))
+//        weatherEntry.date.format(dtFormatter)
+//        val date1 = LocalDateTime(date.toLocalDate())
+        val date1 = LocalDateTime.parse(date, dtFormatter)
+        Log.e("onActivityCreated", "dateString:: $date")
+        Log.e("onActivityCreated", "date1String:: $date1")
+
+        viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(date1))
                 .get(FutureDetailWeatherViewModel::class.java)
 
         bindUI()
@@ -57,16 +65,17 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
         val futureWeather = viewModel.weather.await()
         val weatherLocation = viewModel.weatherLocation.await()
 
-        weatherLocation.observe(this@FutureDetailWeatherFragment, Observer { location ->
+        weatherLocation.observe(viewLifecycleOwner, Observer { location ->
             if (location == null) return@Observer
             updateLocation(location.lat.toString())
         })
 
-        futureWeather.observe(this@FutureDetailWeatherFragment, Observer { weatherEntry ->
+        futureWeather.observe(viewLifecycleOwner, Observer { weatherEntry ->
 //            if (weatherEntry == null) return@Observer
 
-//            updateDate(weatherEntry.date)
+//            updateDate(1111)
             updateDate(weatherEntry.date)
+//            updateDate(weatherEntry.dt)
 //            updateTemperatures(weatherEntry.avgTemperature,
 //                    11.1, 15.3)
 //            updateCondition("sneg")
@@ -102,8 +111,11 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateDate(date: LocalDateTime) {
+        val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle =
-                date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
+
+//                date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
+                date.format(dtFormatter)
     }
 
     private fun updateTemperatures(temperature: Double, min: Double, max: Double) {

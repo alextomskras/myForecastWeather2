@@ -18,6 +18,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
 import java.util.*
 
@@ -69,12 +70,15 @@ class ForecastRepositoryImpl(
 
     override suspend fun getFutureWeatherByDate(
             date: LocalDateTime,
+
             metric: Boolean
     ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
-        Log.e(this.toString(), "from_getFutureWeatherByDate: $this")
+        val epocheMill = date.toEpochSecond(ZoneOffset.UTC).toInt()
+//        val epocheMill = 12341223423
+        Log.e(this.toString(), "from_getFutureWeatherByDate: $this" + "epocheMill: $epocheMill")
         return withContext(Dispatchers.IO) {
             initWeatherData()
-            return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(date)
+            return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(epocheMill = epocheMill)
             else futureWeatherDao.getDetailedWeatherByDateImperial(date)
         }
     }

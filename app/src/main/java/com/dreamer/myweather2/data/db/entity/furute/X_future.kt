@@ -24,6 +24,7 @@ const val FUTURENT_WEATHER_ID = 0
 data class X_future(
         @PrimaryKey(autoGenerate = true)
         var id: Int? = null,
+        @SerializedName("dt")
         var dt: Int, // 1487624400
         @SerializedName("main")
         @Embedded(prefix = "main_")

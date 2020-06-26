@@ -6,6 +6,8 @@ import org.threeten.bp.LocalDateTime
 
 interface UnitSpecificDetailFutureWeatherEntry {
     val date: LocalDateTime
+
+    val dt: Int
     val maxTemperature: Double
     val minTemperature: Double
     val avgTemperature: Double

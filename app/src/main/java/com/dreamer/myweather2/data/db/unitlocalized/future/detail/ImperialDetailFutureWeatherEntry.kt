@@ -8,6 +8,8 @@ import org.threeten.bp.LocalDateTime
 data class ImperialDetailFutureWeatherEntry(
         @ColumnInfo(name = "dtTxt")
         override val date: LocalDateTime,
+        @ColumnInfo(name = "dt")
+        override val dt: Int,
         @ColumnInfo(name = "main_tempMax")
         override val maxTemperature: Double,
         @ColumnInfo(name = "main_tempMin")

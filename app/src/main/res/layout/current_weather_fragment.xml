@@ -86,7 +86,7 @@
         app:layout_constraintVertical_bias="0.207"
         app:layout_constraintWidth_percent="0.25"
         app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
+
         tools:src="@drawable/ic_weather_sunny"
         tools:tint="#f9a920" />
 

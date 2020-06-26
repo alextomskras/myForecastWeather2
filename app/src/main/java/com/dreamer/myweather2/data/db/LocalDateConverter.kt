@@ -12,6 +12,7 @@ object LocalDateConverter {
     fun stringToDate(str: String?) = str?.let {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         Log.e("LocalDateConverter", "LocalDateConverter: $str")
+        Log.e("LocalDateConverter", "LocalDateConverter: $it")
         LocalDateTime.parse(it, formatter)
     }
 

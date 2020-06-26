@@ -53,8 +53,8 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
         weatherLocation.observe(viewLifecycleOwner, Observer { location ->
 //            if (location == null) return@Observer
-//            updateLocation(location.lat.toString())
-            updateLocation("MOSCOW-1")
+            updateLocation(location.id.toString())
+//            updateLocation("MOSCOW")
         })
 
         futureWeatherEntries.observe(
@@ -77,7 +77,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateDateToNextWeek() {
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Next 5 Days2"
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Next 5 Days"
     }
 
     private fun List<UnitSpecificSimpleFutureWeatherEntry>.toFutureWeatherItems(): List<FutureWeatherItem> {
@@ -120,6 +120,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun showWeatherDetail(date: LocalDateTime, view: View) {
         val dateString = LocalDateConverter.dateToString(date)!!
+        Log.e("showWeatherDetail", "dateString:: $dateString")
         val actionDetail = FutureListWeatherFragmentDirections.actionDetail(dateString)
         Navigation.findNavController(view).navigate(actionDetail)
     }

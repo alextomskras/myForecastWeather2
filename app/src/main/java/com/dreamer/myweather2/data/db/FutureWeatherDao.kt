@@ -32,11 +32,11 @@ interface FutureWeatherDao {
     fun getSimpleWeatherForecastsImperial(startDate: LocalDateTime): LiveData<List<ImperialSimpleFutureWeatherEntry>>
 
     //    @Query("select * from future_weather where date(date) = date(:date)")
-    @Query("select * from future_weather where date(dtTxt) = date(:date)")
-    fun getDetailedWeatherByDateMetric(date: LocalDateTime): LiveData<MetricDetailFutureWeatherEntry>
+    @Query("select * from future_weather where dt = (:epocheMill)")
+    fun getDetailedWeatherByDateMetric(epocheMill: Int): LiveData<MetricDetailFutureWeatherEntry>
 
     //    @Query("select * from future_weather where date(date) = date(:date)")
-    @Query("select * from future_weather where date(dtTxt) = date(:date)")
+    @Query("select * from future_weather where date(dtTxt ) = date(:date)")
     fun getDetailedWeatherByDateImperial(date: LocalDateTime): LiveData<ImperialDetailFutureWeatherEntry>
 
     //    @Query("select count(id) from future_weather where date(date) >= date(:startDate)")
