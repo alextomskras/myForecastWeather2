@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 //    }
 
     private lateinit var navController: NavController
-    lateinit var nameCity: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        nameCity = ""
+
 
         requestLocationPermission()
 
