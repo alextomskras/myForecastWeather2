@@ -22,13 +22,18 @@ interface FutureWeatherDao {
 
     //    @Query("select * from future_weather where date(date) >= date(:startDate)")
 //    @Query("select * from future_weather where date(dtTxt) >= date(:startDate)")
+//    select *, name from future_weather,root_weather_entry
     @Query("select * from future_weather where date(dtTxt) >= date(:startDate) ")
+//    @Transaction
+//    @Query("select root_weather_entry.name, future_weather.*  from future_weather, root_weather_entry where date(dtTxt) >= date(:startDate) ")
 
 //    fun getSimpleWeatherForecastsMetric(startDate: LocalDate): LiveData<List<MetricSimpleFutureWeatherEntry>>
     fun getSimpleWeatherForecastsMetric(startDate: LocalDateTime): LiveData<List<MetricSimpleFutureWeatherEntry>>
 
     //    @Query("select * from future_weather where date(date) >= date(:startDate)")
-    @Query("select * from future_weather where date(dtTxt) >= date(:startDate)")
+//    @Query("select * from future_weather where date(dtTxt) >= date(:startDate)")
+//    @Query("select * from future_weather where date(dtTxt) >= date(:startDate)")
+    @Query("select root_weather_entry.name, future_weather.* from future_weather, root_weather_entry where date(dtTxt) >= date(:startDate) ")
     fun getSimpleWeatherForecastsImperial(startDate: LocalDateTime): LiveData<List<ImperialSimpleFutureWeatherEntry>>
 
     //    @Query("select * from future_weather where date(date) = date(:date)")

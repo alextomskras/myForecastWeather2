@@ -32,6 +32,10 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
     private lateinit var viewModel: FutureListWeatherViewModel
 
+//    private lateinit var viewModelCurrent: CurrentWeatherViewModel
+
+//    private val cityName : String   = MainActivity().nameCity
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -43,19 +47,34 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(FutureListWeatherViewModel::class.java)
+//        viewModelCurrent = ViewModelProviders.of(this, viewModelFactory)
+//                .get(CurrentWeatherViewModel::class.java)
+
         bindUI()
     }
 
     private fun bindUI() = launch(Dispatchers.Main) {
         val futureWeatherEntries = viewModel.weatherEntries.await()
         Log.e("bindUI", "bindUI:: " + futureWeatherEntries)
+//        val currentWeatherEntries = viewModelCurrent.weather.await()
+        Log.e("bindUI", "bindUI:: " + futureWeatherEntries)
         val weatherLocation = viewModel.weatherLocation.await()
+
+//        currentWeatherEntries.observe(viewLifecycleOwner, Observer {currentWeatherEntries ->
+//
+//            if (currentWeatherEntries == null) return@Observer
+//            group_loading.visibility = View.GONE
+//            updateLocation(currentWeatherEntries.name)
+//
+//        })
 
         weatherLocation.observe(viewLifecycleOwner, Observer { location ->
 //            if (location == null) return@Observer
-            updateLocation(location.id.toString())
-//            updateLocation("MOSCOW")
+//            updateLocation(location.id.toString())
+
+            updateLocation("List of weather")
         })
+
 
         futureWeatherEntries.observe(
                 viewLifecycleOwner,
@@ -65,6 +84,9 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
                     group_loading.visibility = View.GONE
                     Log.e("updateDateToNextWeek", "updateDateToNextWeek:: $weatherEntries::::")
+
+
+
                     updateDateToNextWeek()
                     Log.e("initRecyclerView", "updateDateToNextWeek:: $weatherEntries::::")
                     initRecyclerView(weatherEntries.toFutureWeatherItems())
@@ -74,6 +96,8 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateLocation(location: String) {
         (activity as? AppCompatActivity)?.supportActionBar?.title = location
+//        (activity as? AppCompatActivity)?.supportActionBar?.title = ""
+//        MainActivity().nameCity = ""
     }
 
     private fun updateDateToNextWeek() {

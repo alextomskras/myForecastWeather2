@@ -9,4 +9,5 @@ interface UnitSpecificSimpleFutureWeatherEntry {
     val avgTemperature: Double
     val conditionText: List<out (Weather)>
     val conditionIconUrl: Double
+//    val name: String
 }

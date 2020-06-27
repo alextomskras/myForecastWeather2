@@ -15,4 +15,6 @@ data class MetricSimpleFutureWeatherEntry(
         override val conditionText: List<Weather>,
         @ColumnInfo(name = "clouds_all")
         override val conditionIconUrl: Double
+//        @ColumnInfo(name = "name")
+//        override val name: String
 ) : UnitSpecificSimpleFutureWeatherEntry

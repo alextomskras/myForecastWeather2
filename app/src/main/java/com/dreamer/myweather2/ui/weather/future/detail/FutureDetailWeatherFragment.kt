@@ -31,6 +31,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
             : ((LocalDateTime) -> FutureDetailWeatherViewModelFactory) by factory()
 
     private lateinit var viewModel: FutureDetailWeatherViewModel
+//    private val cityName : String   = MainActivity().nameCity
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +68,8 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 
         weatherLocation.observe(viewLifecycleOwner, Observer { location ->
             if (location == null) return@Observer
-            updateLocation(location.lat.toString())
+//            updateLocation(location.lat.toString())
+            updateLocation("Weather detail's".toString())
         })
 
         futureWeather.observe(viewLifecycleOwner, Observer { weatherEntry ->
@@ -107,6 +109,8 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateLocation(location: String) {
+//        MainActivity().nameCity
+//        (activity as? AppCompatActivity)?.supportActionBar?.title = location
         (activity as? AppCompatActivity)?.supportActionBar?.title = location
     }
 

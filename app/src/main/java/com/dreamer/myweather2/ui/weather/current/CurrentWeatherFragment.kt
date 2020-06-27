@@ -139,6 +139,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateLocation(location: String) {
+//        MainActivity().nameCity = location
         (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
 //        (activity as? AppCompatActivity)?.supportActionBar?.title = location.toString()
     }
