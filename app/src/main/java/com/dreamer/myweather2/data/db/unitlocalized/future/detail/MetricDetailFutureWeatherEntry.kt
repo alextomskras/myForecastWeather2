@@ -25,9 +25,9 @@ data class MetricDetailFutureWeatherEntry(
         @ColumnInfo(name = "wind_speed")
         override val maxWindSpeed: Double,
         @ColumnInfo(name = "main_pressure")
-        override val totalPressure: Double
-//        @ColumnInfo(name = "avgvisKm")
-//        override val avgVisibilityDistance: Double,
+        override val totalPressure: Double,
+        @ColumnInfo(name = "root_weather_entry_visibility")
+        override val avgVisibilityDistance: Double
 //        @ColumnInfo(name = "uv")
 //        override val uv: Double
 ) : UnitSpecificDetailFutureWeatherEntry

@@ -79,7 +79,7 @@ class ForecastRepositoryImpl(
         return withContext(Dispatchers.IO) {
             initWeatherData()
             return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(epocheMill = epocheMill)
-            else futureWeatherDao.getDetailedWeatherByDateImperial(date)
+            else futureWeatherDao.getDetailedWeatherByDateImperial(epocheMill = epocheMill)
         }
     }
 

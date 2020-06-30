@@ -84,13 +84,13 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 //            updatePrecipitation(211.2)
 //            updateWindSpeed(12.1)
             updateVisibility(333.1)
-            updateUv(12.1)
+//            updateUv(12.1)
             updateTemperatures(weatherEntry.avgTemperature,
                     weatherEntry.minTemperature, weatherEntry.maxTemperature)
             updateCondition(weatherEntry.conditionText.last().description)
             updatePrecipitation(weatherEntry.totalPressure)
             updateWindSpeed(weatherEntry.maxWindSpeed)
-//            updateVisibility(weatherEntry.avgVisibilityDistance)
+            updateVisibility(weatherEntry.avgVisibilityDistance / 1000)
 //            updateUv(weatherEntry.uv)
             val iconUrl = weatherEntry.conditionText.last().icon
             Log.e(this.toString(), "from iconUrl error code: $iconUrl")
