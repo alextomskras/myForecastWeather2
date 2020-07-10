@@ -138,7 +138,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateWindSpeed(windSpeed: Double) {
-        val unitAbbreviation = chooseLocalizedUnitAbbreviation("kph", "mph")
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("ms", "mph")
         textView_wind.text = "Wind speed: $windSpeed $unitAbbreviation"
     }
 
