@@ -62,7 +62,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             //правим заголовок окна - выставляем "Today"
             updateDateToToday()
             //Передаем значения температуры полученные из запроса
-            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toString(), it.main.feelsLike) }
+            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toString(), it.main.feelsLike, it.main.tempMin, it.main.tempMax) }
             //Выводим в error-логи содержимое запроса
             Log.e(this.toString(), "from updateTemperatures: ${it?.main?.temp.toString()}")
 //            updateTemperatures(22.1, 33.4)
@@ -148,9 +148,10 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
     }
 
-    private fun updateTemperatures(temperature: String, feelsLike: Double) {
+    private fun updateTemperatures(temperature: String, feelsLike: Double, tempMin: Double, tempMax: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
         textView_temperature.text = "$temperature$unitAbbreviation"
+        textView_min_max_temperature_current.text = "Min:$tempMin$unitAbbreviation, Max:$tempMax$unitAbbreviation"
         textView_feels_like_temperature.text = "Feels like $feelsLike$unitAbbreviation"
     }
 
@@ -164,8 +165,124 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateWind(windDirection: String, windSpeed: Double) {
-        val unitAbbreviation = chooseLocalizedUnitAbbreviation("kph", "mph")
-        textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbbreviation"
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("ms", "mph")
+        val WindDirectionstoWords = transformWindDirectionstoWords(windDirection)
+
+//        textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbbreviation"
+        textView_wind.text = "Wind: $WindDirectionstoWords, $windSpeed $unitAbbreviation"
+    }
+
+    private fun transformWindDirectionstoWords(windDirection: String): String {
+//        val zarplata = 1000
+//        val cost = when (zarplata) {
+//            in 1..10 -> "издеваетесь?"
+//            in 10..100 -> "маловато будет"
+//            in 100..1000 -> "кота прокормлю"
+//            in 1000..1000000 -> "на хлеб с икрой!"
+//            else -> "not rated"
+//        }
+//        println(cost)
+//
+//        N
+//
+//
+//        348.75 - 11.25
+//
+//        NNE
+//
+//
+//        11.25 - 33.75
+//
+//        NE
+//
+//
+//        33.75 - 56.25
+//
+//        ENE
+//
+//
+//        56.25 - 78.75
+//
+//        E
+//
+//
+//        78.75 - 101.25
+//
+//        ESE
+//
+//
+//        101.25 - 123.75
+//
+//        SE
+//
+//
+//        123.75 - 146.25
+//
+//        SSE
+//
+//
+//        146.25 - 168.75
+//
+//        S
+//
+//
+//        168.75 - 191.25
+//
+//        SSW
+//
+//
+//        191.25 - 213.75
+//
+//        SW
+//
+//
+//        213.75 - 236.25
+//
+//        WSW
+//
+//
+//        236.25 - 258.75
+//
+//        W
+//
+//
+//        258.75 - 281.25
+//
+//        WNW
+//
+//
+//        281.25 - 303.75
+//
+//        NW
+//
+//
+//        303.75 - 326.25
+//
+//        NNW
+//
+//
+//        326.25 - 348.75
+
+        return when (windDirection.toDouble()) {
+            in 348.75..11.25 -> "N"
+            in 11.25..33.75 -> "NNE"
+            in 33.75..56.25 -> "NE"
+            in 56.25..78.75 -> "ENE"
+            in 78.75..101.25 -> "E"
+            in 101.25..123.75 -> "ESE"
+            in 123.75..146.25 -> "SE"
+            in 146.25..168.75 -> "SSE"
+            in 168.75..191.25 -> "S"
+            in 191.25..213.75 -> "SSW"
+            in 213.75..236.25 -> "SW"
+            in 236.25..258.75 -> "WSW"
+            in 258.75..281.25 -> "W"
+            in 281.25..303.75 -> "WNW"
+            in 303.75..326.25 -> "NW"
+            in 326.25..348.75 -> "NNW"
+            else -> "not rated"
+
+        }
     }
 
     private fun updateVisibility(visibilityDistance: Double) {
@@ -182,7 +299,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
         val testTime1 = sunriseTime
-        textView_sunrise.text = "Sunrise: $dt $unitAbbreviation"
+        textView_sunrise.text = "Sunrise: $dt"
     }
 
     private fun updateSunset(sunsetTime: Int) {
@@ -195,7 +312,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
         val testTime2 = sunsetTime
-        textView_sunset.text = "Sunset: $dt $unitAbbreviation"
+        textView_sunset.text = "Sunset: $dt "
     }
 
 }
