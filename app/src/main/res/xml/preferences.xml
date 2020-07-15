@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    >
     <PreferenceCategory android:title="Weather Location">
         <SwitchPreference
             android:defaultValue="true"
             android:disableDependentsState="true"
             android:key="USE_DEVICE_LOCATION"
+
             android:summary="@string/preferences_menu_summary_device_location"
             android:title="@string/preferences_menu_device_location" />
 
         <EditTextPreference
             android:defaultValue="Los Angeles"
             android:dependency="USE_DEVICE_LOCATION"
+
             android:key="CUSTOM_LOCATION"
+            android:theme="@style/AppAlertDialog"
             android:summary="@string/preferences_menu_summary_location"
-            android:title="@string/preferences_menu_location" />
+
+            android:title="@string/preferences_menu_location"
+
+            />
         <EditTextPreference
             android:defaultValue="Usa"
             android:dependency="USE_DEVICE_LOCATION"
             android:key="CUSTOM_LOCATION_COUNTRY"
+            android:theme="@style/AppAlertDialog"
+            android:title="@string/preferences_menu_country"
             android:summary="@string/preferences_menu_summary_country"
-            android:title="@string/preferences_menu_country" />
+            app:dialogLayout="@layout/dialog_layout"
+
+            />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Units">
+    <PreferenceCategory
+        android:background="@drawable/gradient"
+        android:title="Units">
         <ListPreference
             android:defaultValue="METRIC"
             android:entries="@array/unitSystemEntries"

@@ -10,6 +10,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

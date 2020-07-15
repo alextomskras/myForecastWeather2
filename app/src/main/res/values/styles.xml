@@ -11,11 +11,31 @@
         <!--Removing actionbar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="preferenceTheme">
+            @style/PreferenceThemeOverlay
+        </item>
+        <item name="alertDialogTheme">@style/AppAlertDialog</item>
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">#EEEEEE</item>
+    </style>
+
+    <style name="AppAlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:textColorPrimary">@android:color/holo_orange_dark</item>
+        <item name="android:textColorSecondary">@android:color/holo_blue_dark</item>
+        <item name="android:textColor">@android:color/holo_blue_light</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@android:color/holo_blue_light</item>
+
+    </style>
+
+    <style name="AppAlertDialogContent" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <!-- To keep the color of EditText -->
+        <item name="colorAccent">@android:color/holo_purple</item>
+        <item name="android:textColorPrimary">@android:color/holo_orange_light</item>
+
     </style>
 
 </resources>
