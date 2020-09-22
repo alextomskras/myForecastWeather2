@@ -4,17 +4,17 @@
 
 
     >
-    <PreferenceCategory android:title="Weather Location">
+    <PreferenceCategory android:title="@string/Weather_Location">
         <SwitchPreference
             android:defaultValue="true"
             android:disableDependentsState="true"
-            android:key="USE_DEVICE_LOCATION"
+            android:key="@string/USE_DEVICE_LOCATION"
 
             android:summary="@string/preferences_menu_summary_device_location"
             android:title="@string/preferences_menu_device_location" />
 
         <EditTextPreference
-            android:defaultValue="Los Angeles"
+            android:defaultValue="@string/Los_Angeles"
             android:dependency="USE_DEVICE_LOCATION"
 
             android:key="CUSTOM_LOCATION"

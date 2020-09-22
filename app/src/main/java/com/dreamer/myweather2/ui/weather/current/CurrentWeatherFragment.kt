@@ -145,14 +145,14 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateDateToToday() {
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = getString(R.string.Curtoday)
     }
 
     private fun updateTemperatures(temperature: String, feelsLike: Double, tempMin: Double, tempMax: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
         textView_temperature.text = "$temperature$unitAbbreviation"
-        textView_min_max_temperature_current.text = "Min:$tempMin$unitAbbreviation, Max:$tempMax$unitAbbreviation"
-        textView_feels_like_temperature.text = "Feels like $feelsLike$unitAbbreviation"
+        textView_min_max_temperature_current.text = "Min:" + "$tempMin$unitAbbreviation" + "," + "Max:" + "$tempMax$unitAbbreviation"
+        textView_feels_like_temperature.text = "Feels like" + " $feelsLike$unitAbbreviation"
     }
 
     private fun updateCondition(condition: String) {

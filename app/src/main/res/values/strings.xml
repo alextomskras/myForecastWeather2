@@ -9,4 +9,11 @@
     <string name="preferences_menu_summary_device_location">Allow the app to get your location</string>
     <string name="preferences_menu_summary_location">The location for which the weather is displayed</string>
     <string name="preferences_menu_summary_country">The country of location for which the weather is displayed</string>
+    <string name="loading">Loading</string>
+
+    <string name="Weather_Location">Weather Location</string>
+    <string name="Los_Angeles">Los Angeles</string>
+    <string name="USE_DEVICE_LOCATION">USE_DEVICE_LOCATION</string>
+    <string name="Please_set_location_manually">Please, set location manually in settings</string>
+    <string name="Curtoday">Today</string>
 </resources>

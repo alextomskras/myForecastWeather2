@@ -9,4 +9,11 @@
     <string name="preferences_menu_summary_device_location">Разрешить получение данных GPS</string>
     <string name="preferences_menu_summary_location">Местность, для которой будет показана погода</string>
     <string name="preferences_menu_summary_country">Страна в которой покажем погоду</string>
+    <string name="loading">Загрузка</string>
+
+    <string name="Weather_Location">Weather Location</string>
+    <string name="Los_Angeles">Los Angeles</string>
+    <string name="USE_DEVICE_LOCATION">USE_DEVICE_LOCATION</string>
+    <string name="Please_set_location_manually">Please, set location manually in settings</string>
+    <string name="Curtoday">Today</string>
 </resources>
