@@ -161,7 +161,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updatePrecipitation(precipitationVolume: Int) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("mm", "in")
-        textView_precipitation.text = "Preciptiation: $precipitationVolume $unitAbbreviation"
+        textView_precipitation.text = getString(R.string.CurPreciptiation) + ": $precipitationVolume $unitAbbreviation"
     }
 
     private fun updateWind(windDirection: String, windSpeed: Double) {
@@ -169,7 +169,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         val WindDirectionstoWords = transformWindDirectionstoWords(windDirection)
 
 //        textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbbreviation"
-        textView_wind.text = "Wind: $WindDirectionstoWords, $windSpeed $unitAbbreviation"
+        textView_wind.text = getString(R.string.CurWind) + ": $WindDirectionstoWords, $windSpeed $unitAbbreviation"
     }
 
     private fun transformWindDirectionstoWords(windDirection: String): String {
@@ -287,7 +287,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateVisibility(visibilityDistance: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("m", "mi.")
-        textView_visibility.text = "Visibility: $visibilityDistance $unitAbbreviation"
+        textView_visibility.text = getString(R.string.CurVisibility) + ": $visibilityDistance $unitAbbreviation"
     }
 
     private fun updateSunrise(sunriseTime: Int) {
@@ -299,7 +299,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
         val testTime1 = sunriseTime
-        textView_sunrise.text = "Sunrise: $dt"
+        textView_sunrise.text = getString(R.string.CurSunrise) + ": $dt"
     }
 
     private fun updateSunset(sunsetTime: Int) {
@@ -312,7 +312,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
         val testTime2 = sunsetTime
-        textView_sunset.text = "Sunset: $dt "
+        textView_sunset.text = getString(R.string.CurSunset) + ": $dt "
     }
 
 }

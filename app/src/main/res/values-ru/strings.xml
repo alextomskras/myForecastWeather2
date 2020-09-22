@@ -16,4 +16,9 @@
     <string name="USE_DEVICE_LOCATION">USE_DEVICE_LOCATION</string>
     <string name="Please_set_location_manually">Please, set location manually in settings</string>
     <string name="Curtoday">Today</string>
+    <string name="CurPreciptiation">Preciptiation</string>
+    <string name="CurWind">Wind</string>
+    <string name="CurVisibility">Visibility</string>
+    <string name="CurSunrise">Sunrise</string>
+    <string name="CurSunset">Sunset</string>
 </resources>
