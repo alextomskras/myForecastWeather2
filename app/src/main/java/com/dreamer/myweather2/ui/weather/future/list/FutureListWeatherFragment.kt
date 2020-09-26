@@ -101,7 +101,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateDateToNextWeek() {
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Next 5 Days"
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = getString(R.string.Next5Days)
     }
 
     private fun List<UnitSpecificSimpleFutureWeatherEntry>.toFutureWeatherItems(): List<FutureWeatherItem> {

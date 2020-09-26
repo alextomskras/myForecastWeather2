@@ -297,7 +297,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
                 .toLocalDateTime()
                 .format(DateTimeFormatter.ISO_LOCAL_TIME)
 
-        val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "m")
         val testTime1 = sunriseTime
         textView_sunrise.text = getString(R.string.CurSunrise) + ": $dt"
     }
@@ -310,7 +310,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
                 //                .toLocalDateTime()
                 .format(DateTimeFormatter.ISO_LOCAL_TIME)
 
-        val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "mi.")
+        val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "m")
         val testTime2 = sunsetTime
         textView_sunset.text = getString(R.string.CurSunset) + ": $dt "
     }
