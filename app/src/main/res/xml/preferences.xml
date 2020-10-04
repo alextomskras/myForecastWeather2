@@ -8,7 +8,7 @@
         <SwitchPreference
             android:defaultValue="true"
             android:disableDependentsState="true"
-            android:key="@string/USE_DEVICE_LOCATION"
+            android:key="USE_DEVICE_LOCATION"
 
             android:summary="@string/preferences_menu_summary_device_location"
             android:title="@string/preferences_menu_device_location" />
@@ -38,13 +38,13 @@
 
     <PreferenceCategory
         android:background="@drawable/gradient"
-        android:title="Units">
+        android:title="@string/prefUnits">
         <ListPreference
-            android:defaultValue="METRIC"
+            android:defaultValue="@string/prefMetric"
             android:entries="@array/unitSystemEntries"
             android:entryValues="@array/unitSystemValues"
             android:key="UNIT_SYSTEM"
             android:summary="%s"
-            android:title="Unit system" />
+            android:title="@string/prefUnitSystem" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -151,8 +151,8 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     private fun updateTemperatures(temperature: String, feelsLike: Double, tempMin: Double, tempMax: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
         textView_temperature.text = "$temperature$unitAbbreviation"
-        textView_min_max_temperature_current.text = "Min:" + "$tempMin$unitAbbreviation" + "," + "Max:" + "$tempMax$unitAbbreviation"
-        textView_feels_like_temperature.text = "Feels like" + " $feelsLike$unitAbbreviation"
+        textView_min_max_temperature_current.text = getString(R.string.futMin) + ": $tempMin$unitAbbreviation" + "," + getString(R.string.futMax) + ": $tempMax$unitAbbreviation"
+        textView_feels_like_temperature.text = getString(R.string.curFeelslike) + ": $feelsLike$unitAbbreviation"
     }
 
     private fun updateCondition(condition: String) {

@@ -44,4 +44,9 @@
     <string name="WestNothWest">WNW</string>
     <string name="NorthWest">NW</string>
     <string name="NorthNorthWest">NNW</string>
+    <string name="prefUnits">Units</string>
+    <string name="prefMetric">METRIC</string>
+    <string name="prefUnitSystem">Unit system</string>
+    <string name="curFeelslike">Feels like</string>
+    <string name="prefSettings">Settings</string>
 </resources>
