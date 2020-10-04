@@ -28,4 +28,20 @@
     <string name="futWindSpeed">Wind speed</string>
     <string name="futVisibility">Visibility</string>
     <string name="futUV">UV</string>
+    <string name="North">N</string>
+    <string name="NorthNorthEast">NNE</string>
+    <string name="NorthEast">NE</string>
+    <string name="EastNorthEast">ENE</string>
+    <string name="East">E</string>
+    <string name="EastSouthEast">ESE</string>
+    <string name="SouthEast">SE</string>
+    <string name="SouthSouthEast">SSE</string>
+    <string name="South">S</string>
+    <string name="SouthSouthWest">SSW</string>
+    <string name="SouthWest">SW</string>
+    <string name="WestSouthWest">WSW</string>
+    <string name="West">W</string>
+    <string name="WestNothWest">WNW</string>
+    <string name="NorthWest">NW</string>
+    <string name="NorthNorthWest">NNW</string>
 </resources>

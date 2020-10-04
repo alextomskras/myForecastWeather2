@@ -264,22 +264,22 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 //        326.25 - 348.75
 
         return when (windDirection.toDouble()) {
-            in 348.75..11.25 -> "N"
-            in 11.25..33.75 -> "NNE"
-            in 33.75..56.25 -> "NE"
-            in 56.25..78.75 -> "ENE"
-            in 78.75..101.25 -> "E"
-            in 101.25..123.75 -> "ESE"
-            in 123.75..146.25 -> "SE"
-            in 146.25..168.75 -> "SSE"
-            in 168.75..191.25 -> "S"
-            in 191.25..213.75 -> "SSW"
-            in 213.75..236.25 -> "SW"
-            in 236.25..258.75 -> "WSW"
-            in 258.75..281.25 -> "W"
-            in 281.25..303.75 -> "WNW"
-            in 303.75..326.25 -> "NW"
-            in 326.25..348.75 -> "NNW"
+            in 348.75..11.25 -> getString(R.string.North)
+            in 11.25..33.75 -> getString(R.string.NorthNorthEast)
+            in 33.75..56.25 -> getString(R.string.NorthEast)
+            in 56.25..78.75 -> getString(R.string.EastNorthEast)
+            in 78.75..101.25 -> getString(R.string.East)
+            in 101.25..123.75 -> getString(R.string.EastSouthEast)
+            in 123.75..146.25 -> getString(R.string.SouthEast)
+            in 146.25..168.75 -> getString(R.string.SouthSouthEast)
+            in 168.75..191.25 -> getString(R.string.South)
+            in 191.25..213.75 -> getString(R.string.SouthSouthWest)
+            in 213.75..236.25 -> getString(R.string.SouthWest)
+            in 236.25..258.75 -> getString(R.string.WestSouthWest)
+            in 258.75..281.25 -> getString(R.string.West)
+            in 281.25..303.75 -> getString(R.string.WestNothWest)
+            in 303.75..326.25 -> getString(R.string.NorthWest)
+            in 326.25..348.75 -> getString(R.string.NorthNorthWest)
             else -> "not rated"
 
         }
