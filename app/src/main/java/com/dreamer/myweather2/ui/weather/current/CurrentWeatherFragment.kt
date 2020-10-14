@@ -85,7 +85,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
             updatePrecipitation(it.main.pressure)
 //            updatePrecipitation(it.precipitationVolume)
-            updateWind(it.wind.deg.toString(), it.wind.speed)
+            updateWind(it.wind.deg.toString(), it.wind.speed.toInt().toString())
             updateVisibility(it.visibility.toDouble())
             updateSunrise(it.sys.sunrise)
             updateSunset(it.sys.sunset)
@@ -165,12 +165,13 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         textView_precipitation.text = getString(R.string.CurPreciptiation) + ": $precipitationVolume $unitAbbreviation"
     }
 
-    private fun updateWind(windDirection: String, windSpeed: Double) {
+    //    Change Double to String for truncate decmial stage of degrees
+    private fun updateWind(windDirection: String, windSpeed: String) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("ms", "mph")
         val WindDirectionstoWords = transformWindDirectionstoWords(windDirection)
 
 //        textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbbreviation"
-        textView_wind.text = getString(R.string.CurWind) + ": $WindDirectionstoWords, $windSpeed $unitAbbreviation"
+        textView_wind.text = getString(R.string.CurWind) + ": $WindDirectionstoWords, $windSpeed" + " $unitAbbreviation"
     }
 
     private fun transformWindDirectionstoWords(windDirection: String): String {
