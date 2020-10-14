@@ -62,7 +62,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             //правим заголовок окна - выставляем "Today"
             updateDateToToday()
             //Передаем значения температуры полученные из запроса
-            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toString(), it.main.feelsLike, it.main.tempMin, it.main.tempMax) }
+            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toInt().toString(), it.main.feelsLike.toInt().toString(), it.main.tempMin.toInt().toString(), it.main.tempMax.toInt().toString()) }
             //Выводим в error-логи содержимое запроса
             Log.e(this.toString(), "from updateTemperatures: ${it?.main?.temp.toString()}")
 //            updateTemperatures(22.1, 33.4)
@@ -148,11 +148,12 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = getString(R.string.Curtoday)
     }
 
-    private fun updateTemperatures(temperature: String, feelsLike: Double, tempMin: Double, tempMax: Double) {
+    //Change Double to String for truncate decmial stage of degrees
+    private fun updateTemperatures(temperature: String, feelsLike: String, tempMin: String, tempMax: String) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
-        textView_temperature.text = "$temperature$unitAbbreviation"
-        textView_min_max_temperature_current.text = getString(R.string.futMin) + ": $tempMin$unitAbbreviation" + "," + getString(R.string.futMax) + ": $tempMax$unitAbbreviation"
-        textView_feels_like_temperature.text = getString(R.string.curFeelslike) + ": $feelsLike$unitAbbreviation"
+        textView_temperature.text = "${temperature}" + "$unitAbbreviation"
+        textView_min_max_temperature_current.text = getString(R.string.futMin) + ": " + "$tempMin" + "$unitAbbreviation" + "," + getString(R.string.futMax) + ": " + "$tempMax" + "$unitAbbreviation"
+        textView_feels_like_temperature.text = getString(R.string.curFeelslike) + ": " + "$feelsLike" + "$unitAbbreviation"
     }
 
     private fun updateCondition(condition: String) {
