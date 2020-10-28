@@ -49,4 +49,6 @@
     <string name="prefUnitSystem">Система мер</string>
     <string name="curFeelslike">Ощущается как</string>
     <string name="prefSettings">Настройки</string>
+    <string name="List_of_weather">List of weather</string>
+    <string name="Weather_details">Weather detail\'s</string>
 </resources>

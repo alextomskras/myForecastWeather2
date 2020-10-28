@@ -70,9 +70,9 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
         weatherLocation.observe(viewLifecycleOwner, Observer { location ->
 //            if (location == null) return@Observer
-//            updateLocation(location.id.toString())
+//            updateLocation(location.id.toString()) .toInt().toString()
 
-            updateLocation("List of weather")
+            updateLocation(getString(R.string.List_of_weather))
         })
 
 

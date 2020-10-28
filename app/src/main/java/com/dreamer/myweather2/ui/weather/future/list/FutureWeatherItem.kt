@@ -62,7 +62,7 @@ class FutureWeatherItem(
 
 //        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 //        val dtFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-        val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val dtFormatter = DateTimeFormatter.ofPattern("dd-MM HH:mm")
         textView_date.text = weatherEntry.date.format(dtFormatter)
 //        textView_date.text = "weatherEntry"
     }
@@ -70,7 +70,7 @@ class FutureWeatherItem(
     private fun ViewHolder.updateTemperature() {
         val unitAbbreviation = if (weatherEntry is MetricSimpleFutureWeatherEntry) "°C"
         else "°F"
-        textView_temperature.text = "${weatherEntry.avgTemperature}$unitAbbreviation"
+        textView_temperature.text = "${weatherEntry.avgTemperature.toInt()}$unitAbbreviation"
 //        textView_temperature.text = "14.2$unitAbbreviation"
     }
 

@@ -49,4 +49,6 @@
     <string name="prefUnitSystem">Unit system</string>
     <string name="curFeelslike">Feels like</string>
     <string name="prefSettings">Settings</string>
+    <string name="List_of_weather">List of weather</string>
+    <string name="Weather_details">Weather detail\'s</string>
 </resources>
