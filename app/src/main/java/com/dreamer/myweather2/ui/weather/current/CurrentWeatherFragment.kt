@@ -289,10 +289,11 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateVisibility(visibilityDistance: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("m", "mi.")
-        textView_visibility.text = getString(R.string.CurVisibility) + ": $visibilityDistance $unitAbbreviation"
+        textView_visibility.text = getString(R.string.CurVisibility) + ": ${visibilityDistance.toInt()} $unitAbbreviation"
     }
 
     private fun updateSunrise(sunriseTime: Int) {
+        //превращаем секунды в нормальный формат даты
         val dt = Instant.ofEpochSecond(sunriseTime.toLong())
                 .atZone(ZoneId.systemDefault())
 //                .toLocalTime()
