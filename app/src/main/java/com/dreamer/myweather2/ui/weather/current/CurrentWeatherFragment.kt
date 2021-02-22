@@ -28,6 +28,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private lateinit var viewModel: CurrentWeatherViewModel
 
+    
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -162,7 +163,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updatePrecipitation(precipitationVolume: Int) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("mm", "in")
-        textView_precipitation.text = getString(R.string.CurPreciptiation) + ": $precipitationVolume $unitAbbreviation"
+        textView_precipitation.text = getString(R.string.futPressure) + ": $precipitationVolume $unitAbbreviation"
     }
 
     //    Change Double to String for truncate decmial stage of degrees

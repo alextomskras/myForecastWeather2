@@ -16,7 +16,7 @@
     <string name="USE_DEVICE_LOCATION">Использовать_GPS</string>
     <string name="Please_set_location_manually">Пожалуйста, введите данные самостоятельно</string>
     <string name="Curtoday">Сегодня</string>
-    <string name="CurPreciptiation">Влажность</string>
+    <string name="CurPreciptiation">Давление</string>
     <string name="CurWind">Ветер</string>
     <string name="CurVisibility">Видимость</string>
     <string name="CurSunrise">Восход</string>
