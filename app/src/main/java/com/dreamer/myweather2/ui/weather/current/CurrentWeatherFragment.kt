@@ -56,21 +56,25 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             updateLocation(location.lat.toString())
         })
 
-        currentWeather.observe(viewLifecycleOwner, Observer {
-            //            if (it == null) return@Observer
+        currentWeather.observe(
+                viewLifecycleOwner,
+                Observer { curWeather ->
+//                    if (currentWeather == null) return@Observer
 
-            group_loading.visibility = View.GONE
-            //правим заголовок окна - выставляем "Today"
-            updateDateToToday()
-            //Передаем значения температуры полученные из запроса
-            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toInt().toString(), it.main.feelsLike.toInt().toString(), it.main.tempMin.toInt().toString(), it.main.tempMax.toInt().toString()) }
-            //Выводим в error-логи содержимое запроса
-            Log.e(this.toString(), "from updateTemperatures: ${it?.main?.temp.toString()}")
+                    group_loading.visibility = View.GONE
+                    //правим заголовок окна - выставляем "Today"
+                    updateDateToToday()
+                    //Передаем значения температуры полученные из запроса
+//            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toInt().toString(), it.main.feelsLike.toInt().toString(), it.main.tempMin.toInt().toString(), it.main.tempMax.toInt().toString()) }
+                    updateTemperatures(curWeather?.temperature?.toInt().toString(), curWeather?.feelsLikeTemperature?.toInt().toString(), curWeather.temperatureMin.toInt().toString(), curWeather.temperatureMax.toInt().toString())
+                    //Выводим в error-логи содержимое запроса
+                    Log.e(this.toString(), "from updateTemperatures: ${curWeather.temperature}")
 //            updateTemperatures(22.1, 33.4)
-            //Передаем описание погоды "например - мелкий дождь"
-            updateCondition(it.weather[0].description)
-            //Выводим в error-логи содержимое запроса "it.futureWeather[0].description"
-            Log.e(this.toString(), "from updateCondition: ${it.weather[0].description}")
+                    //Передаем описание погоды "например - мелкий дождь"
+//            updateCondition(it.weather[0].description)
+                    updateCondition(curWeather.conditionText[0].description)
+                    //Выводим в error-логи содержимое запроса "it.futureWeather[0].description"
+                    Log.e(this.toString(), "from updateCondition: ${curWeather.conditionText[0].description}")
 
 ////            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
 //            val sb = StringBuilder()
@@ -82,30 +86,30 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 //            Log.d(this.toString(), "from conditionText2 error code: $c")
 //            updateCondition(c)
 //            updateLocation(it.location.lat)
-            updateLocation(it.name)
+                    updateLocation(curWeather.name)
 
-            updatePrecipitation(it.main.pressure)
-//            updatePrecipitation(it.precipitationVolume)
-            updateWind(it.wind.deg.toString(), it.wind.speed.toInt().toString())
-            updateVisibility(it.visibility.toDouble())
-            updateSunrise(it.sys.sunrise)
-            updateSunset(it.sys.sunset)
+                    updatePrecipitation(curWeather.pressureVolume)
+//            updatePrecipitation(it.pressureVolume)
+                    updateWind(curWeather.windDirection, curWeather.windSpeed.toInt().toString())
+                    updateVisibility(curWeather.visibilityDistance)
+                    updateSunrise(curWeather.sysSunrise)
+                    updateSunset(curWeather.sysSunset)
 //            updateVisibility(it.visibilityDistance)
-            val picturesUrl = it.weather[0].icon
+                    val picturesUrl = curWeather.conditionText[0].icon
 //            var picturesUrl = it.conditionIconUrl
 //            if (picturesUrl.startsWith("\""))
 //                picturesUrl = picturesUrl.replace("\"", "")
-            Log.e(this.toString(), "from with2 error code: $picturesUrl")
-            try {
-                Picasso.get()
+                    Log.e(this.toString(), "from with2 error code: $picturesUrl")
+                    try {
+                        Picasso.get()
 //                        .load("${picturesUrl}")
-                        .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
+                                .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
 //                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-                        .fit()
-                        .into(imageView_condition_icon_future)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+                                .fit()
+                                .into(imageView_condition_icon_future)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
 //            try {
 //                var url = pictures /* URL of Image */
 //
@@ -131,7 +135,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 ////                    .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
 //                    .into(imageView_condition_icon)
 ////            Log.d(this.toString(), "fromListLisr with2 error code: ${it.conditionIconUrl}")
-        }
+                }
         )
     }
 
@@ -293,7 +297,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         textView_visibility.text = getString(R.string.CurVisibility) + ": ${visibilityDistance.toInt()} $unitAbbreviation"
     }
 
-    private fun updateSunrise(sunriseTime: Int) {
+    private fun updateSunrise(sunriseTime: Double) {
         //превращаем секунды в нормальный формат даты
         val dt = Instant.ofEpochSecond(sunriseTime.toLong())
                 .atZone(ZoneId.systemDefault())
@@ -306,7 +310,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         textView_sunrise.text = getString(R.string.CurSunrise) + ": $dt"
     }
 
-    private fun updateSunset(sunsetTime: Int) {
+    private fun updateSunset(sunsetTime: Double) {
         //превращаем секунды в нормальный формат даты
         val dt = Instant.ofEpochSecond(sunsetTime.toLong())
                 .atZone(ZoneId.systemDefault())

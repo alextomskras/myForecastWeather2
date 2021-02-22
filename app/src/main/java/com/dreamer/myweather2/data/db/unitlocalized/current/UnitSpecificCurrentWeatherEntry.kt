@@ -4,17 +4,19 @@ import com.dreamer.myweather2.data.db.entity.openweatherapi.WeatherEntry
 
 
 interface UnitSpecificCurrentWeatherEntry {
+    val id: Double
+    val name: String
     val temperature: Double
     val temperatureMax: Double
     val temperatureMin: Double
 
-    //    val conditionText: String
+    //        val conditionText: String
     val conditionText: List<out (WeatherEntry)>
 
     //    val conditionIconUrl: String
     val windSpeed: Double
     val windDirection: String
-    val precipitationVolume: Int
+    val pressureVolume: Int
     val feelsLikeTemperature: Double
     val sysSunrise: Double
     val sysSunset: Double

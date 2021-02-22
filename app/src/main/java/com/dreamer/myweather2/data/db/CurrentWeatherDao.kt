@@ -5,6 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.dreamer.myweather2.data.db.unitlocalized.current.ImperialCurrentWeatherEntry
+import com.dreamer.myweather2.data.db.unitlocalized.current.MetricCurrentWeatherEntry
 import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
 
 
@@ -16,12 +18,12 @@ interface CurrentWeatherDao {
 
     //    @Query("select * from main_coord_entry where id = $MAIN_CURRENT_WEATHER_ID")
     @Query("select * from root_weather_entry")
-    fun getWeatherMetric(): LiveData<OpenCurrentWeatherResponse>
-//    fun getWeatherMetric(): LiveData<MetricCurrentWeatherEntry>
+//    fun getWeatherMetric(): LiveData<OpenCurrentWeatherResponse>
+    fun getWeatherMetric(): LiveData<MetricCurrentWeatherEntry>
 
 
     //    @Query("select * from main_coord_entry where id = $MAIN_CURRENT_WEATHER_ID")
     @Query("select * from root_weather_entry")
-    fun getWeatherImperial(): LiveData<OpenCurrentWeatherResponse>
-//    fun getWeatherImperial(): LiveData<ImperialCurrentWeatherEntry>
+//    fun getWeatherImperial(): LiveData<OpenCurrentWeatherResponse>
+    fun getWeatherImperial(): LiveData<ImperialCurrentWeatherEntry>
 }

@@ -6,6 +6,10 @@ import com.dreamer.myweather2.data.db.entity.openweatherapi.WeatherEntry
 //"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png"
 
 data class ImperialCurrentWeatherEntry(
+        @ColumnInfo(name = "id")
+        override val id: Double,
+        @ColumnInfo(name = "name")
+        override val name: String,
         @ColumnInfo(name = "main_temp")
         override val temperature: Double,
         @ColumnInfo(name = "main_tempMax")
@@ -23,8 +27,8 @@ data class ImperialCurrentWeatherEntry(
         @ColumnInfo(name = "wind_deg")
         override val windDirection: String,
         @ColumnInfo(name = "main_pressure")
-        override val precipitationVolume: Int,
-        @ColumnInfo(name = "main_feelslike")
+        override val pressureVolume: Int,
+        @ColumnInfo(name = "main_feelsLike")
         override val feelsLikeTemperature: Double,
         @ColumnInfo(name = "sys_sunrise")
         override val sysSunrise: Double,

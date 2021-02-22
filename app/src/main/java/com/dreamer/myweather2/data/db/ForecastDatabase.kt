@@ -13,6 +13,7 @@ import com.dreamer.myweather2.data.db.entity.furute.X_future
 import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
 import com.dreamer.myweather2.data.network.response.MainConverter
 import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
+import com.dreamer.myweather2.data.network.response.WeatherConverter
 
 
 @Database(
@@ -24,7 +25,7 @@ import com.dreamer.myweather2.data.network.response.OpenCurrentWeatherResponse
         ],
         version = 1
 )
-@TypeConverters(LocalDateConverter::class, MainConverter::class, X_Converter::class, X_Converter.WeatherConverter::class)
+@TypeConverters(LocalDateConverter::class, MainConverter::class, X_Converter::class, X_Converter.WeatherConverter::class, WeatherConverter::class)
 abstract class ForecastDatabase : RoomDatabase() {
     abstract fun currentWeatherDao(): CurrentWeatherDao
     abstract fun futureWeatherDao(): FutureWeatherDao

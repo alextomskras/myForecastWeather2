@@ -6,6 +6,7 @@ import com.dreamer.myweather2.data.db.CurrentWeatherDao
 import com.dreamer.myweather2.data.db.FutureWeatherDao
 import com.dreamer.myweather2.data.db.WeatherLocationDao
 import com.dreamer.myweather2.data.db.entity.openweatherapi.Coord
+import com.dreamer.myweather2.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.detail.UnitSpecificDetailFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.data.network.FORECAST_DAYS_COUNT
@@ -44,12 +45,12 @@ class ForecastRepositoryImpl(
     }
 
     //    override suspend fun getCurrentWeather(metric: Boolean): LiveData<out OpenCurrentWeatherResponse> {
-    override suspend fun getCurrentWeather(metric: Boolean): LiveData<OpenCurrentWeatherResponse> {
+//    override suspend fun getCurrentWeather(metric: Boolean): LiveData<OpenCurrentWeatherResponse> {
+    override suspend fun getCurrentWeather(metric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
         Log.e(this.toString(), "fromgetCurrentWeather: $this")
         return withContext(Dispatchers.IO) {
             initWeatherData()
             return@withContext if (metric) currentWeatherDao.getWeatherMetric()
-
             else currentWeatherDao.getWeatherImperial()
         }
 
