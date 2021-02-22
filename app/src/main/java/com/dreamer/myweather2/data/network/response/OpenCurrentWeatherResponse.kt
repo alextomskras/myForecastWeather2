@@ -65,13 +65,13 @@ class CoordConverter {
 class WeatherConverter {
         @TypeConverter
         fun fromString(value: String): List<WeatherEntry> {
-                Log.e(this@WeatherConverter.toString(), "fromerror1: ${value.last()}")
+                Log.e(this@WeatherConverter.toString(), "WeatherConverter1: ${value.last()}")
                 return Gson().fromJson(value, object : TypeToken<List<WeatherEntry>>() {}.type)
         }
 
         @TypeConverter
         fun fromJson(value: List<WeatherEntry>): String {
-                Log.e(this@WeatherConverter.toString(), "fromerror2: ${value.last()}")
+                Log.e(this@WeatherConverter.toString(), "WeatherConverter2: ${value.last()}")
                 return Gson().toJson(value)
         }
 
