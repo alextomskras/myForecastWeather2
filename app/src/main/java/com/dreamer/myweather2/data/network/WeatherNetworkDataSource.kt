@@ -15,6 +15,13 @@ interface WeatherNetworkDataSource {
             unitsCode: String
     )
 
+    suspend fun fetchCurrentWeather1(
+            lat: String,
+            lon: String,
+            languageCode: String,
+            unitsCode: String
+    )
+
     suspend fun fetchFutureWeather(
             location: String,
             country: String,

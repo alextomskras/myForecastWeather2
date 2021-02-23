@@ -28,6 +28,17 @@ class WeatherNetworkDataSourceImpl(
         }
     }
 
+    override suspend fun fetchCurrentWeather1(lat: String, lon: String, languageCode: String, unitsCode: String) {
+        try {
+            val fetchedCurrentWeather = openWeatherApiService
+                    .getCurrentWeather1(lat, lon, languageCode, unitsCode)
+                    .await()
+            _downloadedCurrentWeather.postValue(fetchedCurrentWeather)
+        } catch (e: NoConnectivityException) {
+            Log.e("Connectivity", "No internet connection.", e)
+        }
+    }
+
     private val _downloadedFutureWeather = MutableLiveData<FutureWeatherResponse>()
     override val downloadedFutureWeather: LiveData<FutureWeatherResponse>
         get() = _downloadedFutureWeather

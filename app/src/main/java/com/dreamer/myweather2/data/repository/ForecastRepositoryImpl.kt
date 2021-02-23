@@ -149,6 +149,15 @@ class ForecastRepositoryImpl(
         )
     }
 
+    private suspend fun fetchCurrentWeather1() {
+        weatherNetworkDataSource.fetchCurrentWeather(
+                locationProvider.getPreferredLocationString(),
+                Locale.getDefault().language,
+                unitsCode = "metric"
+
+        )
+    }
+
     private suspend fun fetchFutureWeather() {
         weatherNetworkDataSource.fetchFutureWeather(
                 locationProvider.getPreferredLocationString(),

@@ -38,7 +38,7 @@ class LocationProviderImpl(
                 val deviceLocation = getLastDeviceLocation().await()
                         ?: return "${getCustomLocationName()}"
                 //возвращаем данные с гпс датчиков
-                val devLocation = "${deviceLocation.latitude}" + "${deviceLocation.longitude}"
+                val devLocation = "${deviceLocation.latitude}" + "," + "${deviceLocation.longitude}"
                 return devLocation
 //                return "${deviceLocation.latitude},${deviceLocation.longitude}"
 //                return "lat=${deviceLocation.latitude}'&'lon=${deviceLocation.longitude}"
@@ -48,6 +48,7 @@ class LocationProviderImpl(
         } else
             return "${getCustomLocationName()}"
     }
+
 
     private suspend fun hasDeviceLocationChanged(lastWeatherLocation: Coord?): Boolean {
         if (!isUsingDeviceLocation())

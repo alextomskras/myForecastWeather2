@@ -22,6 +22,7 @@ const val APP_KEY = "f9d142fda1995a149d1b35f11bc9a928"
 //http://api.weatherstack.com/forecast?access_key=3e735f3d35d2f20f7604151dd0742757&query=Moscow
 //
 //https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=f9d142fda1995a149d1b35f11bc9a928
+//https://api.openweathermap.org/data/2.5/weather?lat=37.4054054054054&lon=12.07727056202968&lang=en&units=metric&appid=f9d142fda1995a149d1b35f11bc9a928
 
 interface OpenWeatherApiService {
 
@@ -33,6 +34,17 @@ interface OpenWeatherApiService {
             @Query("units") unitsCode: String = "metric"
 
     ): Deferred<OpenCurrentWeatherResponse>
+
+    fun getCurrentWeather1(
+            @Query("lat") lat: String,
+            @Query("lon") lon: String,
+            @Query("lang") languageCode: String = "en",
+//            unitsCode: String
+            @Query("units") unitsCode: String = "metric"
+
+    )
+            : Deferred<OpenCurrentWeatherResponse>
+
 
     // https://api.apixu.com/v1/forecast.json?key=89e8bd89085b41b7a4b142029180210&q=Los%20Angeles&days=1
     // https://api.openweathermap.org/data/2.5/forecast?q=Moscow,ru&appid=f9d142fda1995a149d1b35f11bc9a928&units=metric
@@ -56,6 +68,8 @@ interface OpenWeatherApiService {
                 val url = chain.request()
                         .url
                         .newBuilder()
+//                        .addQueryParameter("lat", "$location")
+//                        .addQueryParameter("lon", "123.332133")
                         .addQueryParameter("appid", APP_KEY)
                         .build()
                 val request = chain.request()
