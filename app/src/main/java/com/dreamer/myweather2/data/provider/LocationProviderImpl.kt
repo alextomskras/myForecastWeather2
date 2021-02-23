@@ -37,7 +37,11 @@ class LocationProviderImpl(
             try {
                 val deviceLocation = getLastDeviceLocation().await()
                         ?: return "${getCustomLocationName()}"
-                return "${deviceLocation.latitude},${deviceLocation.longitude}"
+                //возвращаем данные с гпс датчиков
+                val devLocation = "${deviceLocation.latitude}" + "${deviceLocation.longitude}"
+                return devLocation
+//                return "${deviceLocation.latitude},${deviceLocation.longitude}"
+//                return "lat=${deviceLocation.latitude}'&'lon=${deviceLocation.longitude}"
             } catch (e: LocationPermissionNotGrantedException) {
                 return "${getCustomLocationName()}"
             }
