@@ -25,11 +25,11 @@ import java.util.*
 
 
 class ForecastRepositoryImpl(
-        private val currentWeatherDao: CurrentWeatherDao,
-        private val futureWeatherDao: FutureWeatherDao,
-        private val weatherLocationDao: WeatherLocationDao,
-        private val weatherNetworkDataSource: WeatherNetworkDataSource,
-        private val locationProvider: LocationProvider
+    private val currentWeatherDao: CurrentWeatherDao,
+    private val futureWeatherDao: FutureWeatherDao,
+    private val weatherLocationDao: WeatherLocationDao,
+    private val weatherNetworkDataSource: WeatherNetworkDataSource,
+    private val locationProvider: LocationProvider
 ) : ForecastRepository {
 
 
@@ -64,22 +64,26 @@ class ForecastRepositoryImpl(
         return withContext(Dispatchers.IO) {
             Log.e(this.toString(), "from_getFutureWeatherList::: $this")
             initWeatherData()
-            return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
+            return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(
+                startDate
+            )
             else futureWeatherDao.getSimpleWeatherForecastsImperial(startDate)
         }
     }
 
     override suspend fun getFutureWeatherByDate(
-            date: LocalDateTime,
+        date: LocalDateTime,
 
-            metric: Boolean
+        metric: Boolean
     ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
         val epocheMill = date.toEpochSecond(ZoneOffset.UTC).toInt()
 //        val epocheMill = 12341223423
         Log.e(this.toString(), "from_getFutureWeatherByDate: $this" + "epocheMill: $epocheMill")
         return withContext(Dispatchers.IO) {
             initWeatherData()
-            return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(epocheMill = epocheMill)
+            return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(
+                epocheMill = epocheMill
+            )
             else futureWeatherDao.getDetailedWeatherByDateImperial(epocheMill = epocheMill)
         }
     }
@@ -126,7 +130,8 @@ class ForecastRepositoryImpl(
         val zonedDateTime = ZonedDateTime.now()
 
         if (lastWeatherLocation == null
-                || locationProvider.hasLocationChanged(lastWeatherLocation)) {
+            || locationProvider.hasLocationChanged(lastWeatherLocation)
+        ) {
             fetchCurrentWeather()
             fetchFutureWeather()
             return
@@ -142,28 +147,31 @@ class ForecastRepositoryImpl(
 
     private suspend fun fetchCurrentWeather() {
         weatherNetworkDataSource.fetchCurrentWeather(
-                locationProvider.getPreferredLocationString(),
-                Locale.getDefault().language,
-                unitsCode = "metric"
+            locationProvider.getPreferredLocationString(),
+            Locale.getDefault().language,
+            unitsCode = "metric"
 
         )
     }
 
     private suspend fun fetchCurrentWeather1() {
-        weatherNetworkDataSource.fetchCurrentWeather(
-                locationProvider.getPreferredLocationString(),
-                Locale.getDefault().language,
-                unitsCode = "metric"
+        weatherNetworkDataSource.fetchCurrentWeather1(
+//                locationProvider.getPreferredLocationString(),
+//            locationProvider.getPreferredLocationString(),
+            lat = "37.42342342342342",
+            lon = "-122.11",
+            languageCode = Locale.getDefault().language,
+            unitsCode = "metric"
 
         )
     }
 
     private suspend fun fetchFutureWeather() {
         weatherNetworkDataSource.fetchFutureWeather(
-                locationProvider.getPreferredLocationString(),
-                Locale.getDefault().language,
-                unitsCode = "metric",
-                languageCode = "en"
+            locationProvider.getPreferredLocationString(),
+            Locale.getDefault().language,
+            unitsCode = "metric",
+            languageCode = "en"
 
         )
     }

@@ -35,12 +35,13 @@ interface OpenWeatherApiService {
 
     ): Deferred<OpenCurrentWeatherResponse>
 
+    @GET("weather")
     fun getCurrentWeather1(
-            @Query("lat") lat: String,
-            @Query("lon") lon: String,
-            @Query("lang") languageCode: String = "en",
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("lang") languageCode: String = "en",
 //            unitsCode: String
-            @Query("units") unitsCode: String = "metric"
+        @Query("units") unitsCode: String = "metric"
 
     )
             : Deferred<OpenCurrentWeatherResponse>
