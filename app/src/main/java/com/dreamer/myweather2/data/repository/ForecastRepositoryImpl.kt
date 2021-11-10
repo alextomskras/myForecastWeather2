@@ -128,21 +128,29 @@ class ForecastRepositoryImpl(
     private suspend fun initWeatherData() {
         val lastWeatherLocation = weatherLocationDao.getLocationNonLive()
         val zonedDateTime = ZonedDateTime.now()
+        val isGpsUse = locationProvider.isUsingDeviceLocation()
+        Log.e("isGpsUse:", "from_isGpsUse: $isGpsUse")
 
         if (lastWeatherLocation == null
             || locationProvider.hasLocationChanged(lastWeatherLocation)
         ) {
-            fetchCurrentWeather()
-            fetchFutureWeather()
+            if (isGpsUse) {
+                fetchCurrentWeather1()
+                fetchFutureWeather1()
+            } else {
+                fetchCurrentWeather()
+                fetchFutureWeather()
+            }
+
             return
         }
 //lastWeatherLocation.zonedDateTime
 
         if (isFetchCurrentNeeded(zonedDateTime))
-            fetchCurrentWeather()
+            fetchCurrentWeather1()
 
         if (isFetchFutureNeeded())
-            fetchFutureWeather()
+            fetchFutureWeather1()
     }
 
     private suspend fun fetchCurrentWeather() {
@@ -155,11 +163,15 @@ class ForecastRepositoryImpl(
     }
 
     private suspend fun fetchCurrentWeather1() {
+        val locationsArray: MutableList<String> = locationProvider.getPreferredLocationString1()
+        Log.e("devLocation", "from_devLocation2= $locationsArray")
+        val (lat1, lon1) = locationsArray
+//        val lon1 = private[1]
         weatherNetworkDataSource.fetchCurrentWeather1(
-//                locationProvider.getPreferredLocationString(),
+//             private =locationProvider.getPreferredLocationString1(),
 //            locationProvider.getPreferredLocationString(),
-            lat = "37.42342342342342",
-            lon = "-122.11",
+            lat = lat1,
+            lon = lon1,
             languageCode = Locale.getDefault().language,
             unitsCode = "metric"
 
@@ -167,9 +179,27 @@ class ForecastRepositoryImpl(
     }
 
     private suspend fun fetchFutureWeather() {
+//        val locationsArray : MutableList<String> = locationProvider.getPreferredLocationString1()
+//        Log.e("devLocationFuture", "from_devLocationFuture= $locationsArray")
+//        val (lat1,lon1) = locationsArray
         weatherNetworkDataSource.fetchFutureWeather(
             locationProvider.getPreferredLocationString(),
             Locale.getDefault().language,
+            unitsCode = "metric",
+            languageCode = "en"
+
+        )
+    }
+
+    private suspend fun fetchFutureWeather1() {
+        val locationsArray: MutableList<String> = locationProvider.getPreferredLocationString1()
+        Log.e("devLocationFuture", "from_devLocationFuture= $locationsArray")
+        val (lat1, lon1) = locationsArray
+        weatherNetworkDataSource.fetchFutureWeather1(
+            lat = lat1,
+            lon = lon1,
+//            locationProvider.getPreferredLocationString(),
+            country = Locale.getDefault().language,
             unitsCode = "metric",
             languageCode = "en"
 

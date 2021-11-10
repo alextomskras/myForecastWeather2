@@ -52,23 +52,34 @@ interface OpenWeatherApiService {
 
     @GET("forecast")
     fun getFutureWeather(
-            @Query("q") location: String,
-            @Query("query") country: String,
-            @Query("days") days: Int,
-            @Query("lang") languageCode: String = "en",
-            @Query("units") unitsCode: String = "metric"
+        @Query("q") location: String,
+        @Query("query") country: String,
+        @Query("days") days: Int,
+        @Query("lang") languageCode: String = "en",
+        @Query("units") unitsCode: String = "metric"
+
+    ): Deferred<FutureWeatherResponse>
+
+    @GET("forecast")
+    fun getFutureWeather1(
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("query") country: String,
+        @Query("days") days: Int,
+        @Query("lang") languageCode: String = "en",
+        @Query("units") unitsCode: String = "metric"
 
     ): Deferred<FutureWeatherResponse>
 
     companion object {
         operator fun invoke(
-                connectivityInterceptor: ConnectivityInterceptor
+            connectivityInterceptor: ConnectivityInterceptor
         ): OpenWeatherApiService {
             val requestInterceptor = Interceptor { chain ->
 
                 val url = chain.request()
-                        .url
-                        .newBuilder()
+                    .url
+                    .newBuilder()
 //                        .addQueryParameter("lat", "$location")
 //                        .addQueryParameter("lon", "123.332133")
                         .addQueryParameter("appid", APP_KEY)

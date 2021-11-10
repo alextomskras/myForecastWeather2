@@ -51,8 +51,25 @@ class WeatherNetworkDataSourceImpl(
     ) {
         try {
             val fetchedFutureWeather = openWeatherApiService
-                    .getFutureWeather(location, country, FORECAST_DAYS_COUNT, languageCode, unitsCode)
-                    .await()
+                .getFutureWeather(location, country, FORECAST_DAYS_COUNT, languageCode, unitsCode)
+                .await()
+            _downloadedFutureWeather.postValue(fetchedFutureWeather)
+        } catch (e: NoConnectivityException) {
+            Log.e("Connectivity", "No internet connection.", e)
+        }
+    }
+
+    override suspend fun fetchFutureWeather1(
+        lat: String,
+        lon: String,
+        country: String,
+        languageCode: String,
+        unitsCode: String
+    ) {
+        try {
+            val fetchedFutureWeather = openWeatherApiService
+                .getFutureWeather1(lat, lon, country, FORECAST_DAYS_COUNT, languageCode, unitsCode)
+                .await()
             _downloadedFutureWeather.postValue(fetchedFutureWeather)
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection.", e)
