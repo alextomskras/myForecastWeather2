@@ -27,21 +27,21 @@ class ForecastApplication : Application(), KodeinAware {
     override val kodein = Kodein.lazy {
         import(androidXModule(this@ForecastApplication))
 
-        bind() from singleton { ForecastDatabase(instance()) }
-        bind() from singleton { instance<ForecastDatabase>().currentWeatherDao() }
-        bind() from singleton { instance<ForecastDatabase>().futureWeatherDao() }
-        bind() from singleton { instance<ForecastDatabase>().weatherLocationDao() }
-        bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
-        bind() from singleton { ApixuWeatherApiService(instance()) }
-        bind() from singleton { OpenWeatherApiService(instance()) }
-        bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
-        bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
-        bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
-        bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance(), instance(), instance(), instance()) }
-        bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
-        bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
-        bind() from provider { FutureListWeatherViewModelFactory(instance(), instance()) }
-        bind() from factory { detailDate: LocalDateTime -> FutureDetailWeatherViewModelFactory(detailDate, instance(), instance()) }
+        bind() from this.singleton { return@singleton ForecastDatabase(context = this.instance()) }
+        bind() from this.singleton { this.instance<ForecastDatabase>().currentWeatherDao() }
+        bind() from this.singleton { this.instance<ForecastDatabase>().futureWeatherDao() }
+        bind() from this.singleton { this.instance<ForecastDatabase>().weatherLocationDao() }
+        this.bind<ConnectivityInterceptor>() with this.singleton { ConnectivityInterceptorImpl(this.instance()) }
+        bind() from this.singleton { ApixuWeatherApiService(this.instance()) }
+        bind() from this.singleton { OpenWeatherApiService(this.instance()) }
+        this.bind<WeatherNetworkDataSource>() with this.singleton { WeatherNetworkDataSourceImpl(this.instance()) }
+        bind() from this.provider { LocationServices.getFusedLocationProviderClient(this.instance<Context>()) }
+        this.bind<LocationProvider>() with this.singleton { LocationProviderImpl(this.instance(), this.instance()) }
+        this.bind<ForecastRepository>() with this.singleton { ForecastRepositoryImpl(this.instance(), this.instance(), this.instance(), this.instance(), this.instance()) }
+        this.bind<UnitProvider>() with this.singleton { UnitProviderImpl(this.instance()) }
+        bind() from this.provider { CurrentWeatherViewModelFactory(this.instance(), this.instance()) }
+        bind() from this.provider { FutureListWeatherViewModelFactory(this.instance(), this.instance()) }
+        bind() from this.factory { detailDate: LocalDateTime -> FutureDetailWeatherViewModelFactory(detailDate, this.instance(), this.instance()) }
 
     }
 
