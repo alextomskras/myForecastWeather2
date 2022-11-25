@@ -8,7 +8,7 @@ import com.dreamer.myweather2.data.db.unitlocalized.future.list.MetricSimpleFutu
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.internal.glide.GlideApp
 import com.xwray.groupie.kotlinandroidextensions.Item
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.item_future_weather.*
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -16,7 +16,7 @@ import org.threeten.bp.format.DateTimeFormatter
 class FutureWeatherItem(
         val weatherEntry: UnitSpecificSimpleFutureWeatherEntry
 ) : Item() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         val context = AppCompatActivity()
         viewHolder.apply {
             val arr = arrayOf(weatherEntry.conditionText)
@@ -58,7 +58,7 @@ class FutureWeatherItem(
 
     override fun getLayout() = R.layout.item_future_weather
 
-    private fun ViewHolder.updateDate() {
+    private fun GroupieViewHolder.updateDate() {
 
 //        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 //        val dtFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
@@ -67,14 +67,14 @@ class FutureWeatherItem(
 //        textView_date.text = "weatherEntry"
     }
 
-    private fun ViewHolder.updateTemperature() {
+    private fun GroupieViewHolder.updateTemperature() {
         val unitAbbreviation = if (weatherEntry is MetricSimpleFutureWeatherEntry) "°C"
         else "°F"
         textView_temperature.text = "${weatherEntry.avgTemperature.toInt()}$unitAbbreviation"
 //        textView_temperature.text = "14.2$unitAbbreviation"
     }
 
-    private fun ViewHolder.updateConditionImage() {
+    private fun GroupieViewHolder.updateConditionImage() {
         val picturesUrl = weatherEntry.conditionText.last().icon.toString()
         val iconUrl = "https://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png"
         Log.e(this.toString(), "from picturesUrl error code: $picturesUrl")

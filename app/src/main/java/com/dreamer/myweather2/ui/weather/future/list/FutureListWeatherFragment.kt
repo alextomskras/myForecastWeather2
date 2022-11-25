@@ -11,12 +11,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.LocalDateConverter
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+//import com.xwray.groupie.GroupieViewHolder
+//import com.xwray.groupie.GroupieViewHolder
+//import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+
 import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -112,21 +117,15 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-//    private fun testParr(){
-//        val arr = arrayOf(1, 2, 3, 4, 5)
-//
-//        for (i in arr) {
-//            println("Значение элемента равно $i")
-//        }
-//    }
+
 
 
     //FutureWeatherItem
     private fun initRecyclerView(items: List<FutureWeatherItem>) {
         Log.e("initRecyclerView", "initRecyclerView:: $items::::")
-        val groupAdapter = GroupAdapter<ViewHolder>().apply {
+        val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             Log.e("initRecyclerView", "addAll:: $items::::")
-            addAll(items)
+            addAll(/* groups = */ items)
             notifyDataSetChanged()
         }
 
