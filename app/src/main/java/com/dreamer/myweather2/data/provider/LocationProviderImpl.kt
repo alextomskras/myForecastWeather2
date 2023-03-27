@@ -100,7 +100,7 @@ class LocationProviderImpl(
     }
 
      override fun isUsingDeviceLocation(): Boolean {
-         return preferences.getBoolean(USE_DEVICE_LOCATION, true)
+         return preferences.getBoolean(USE_DEVICE_LOCATION, false)
      }
 
     private fun getCustomLocationName(): String? {

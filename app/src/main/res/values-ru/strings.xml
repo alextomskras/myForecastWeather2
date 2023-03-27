@@ -12,7 +12,7 @@
     <string name="loading">Загрузка</string>
 
     <string name="Weather_Location">Местоположение</string>
-    <string name="Los_Angeles">Лос-Анжелес</string>
+    <string name="Los_Angeles">Los Angeles</string>
     <string name="USE_DEVICE_LOCATION">Использовать_GPS</string>
     <string name="Please_set_location_manually">Пожалуйста, введите данные самостоятельно</string>
     <string name="Curtoday">Сегодня</string>

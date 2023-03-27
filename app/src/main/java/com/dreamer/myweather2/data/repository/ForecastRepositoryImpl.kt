@@ -127,6 +127,7 @@ class ForecastRepositoryImpl(
 
     private suspend fun initWeatherData() {
         val lastWeatherLocation = weatherLocationDao.getLocationNonLive()
+        Log.e("isGpsUse:", "from_getLocationNonLive: $lastWeatherLocation")
         val zonedDateTime = ZonedDateTime.now()
         val isGpsUse = locationProvider.isUsingDeviceLocation()
         Log.e("isGpsUse:", "from_isGpsUse: $isGpsUse")
@@ -147,13 +148,22 @@ class ForecastRepositoryImpl(
 //lastWeatherLocation.zonedDateTime
 
         if (isFetchCurrentNeeded(zonedDateTime))
-            fetchCurrentWeather1()
-
+            if (isGpsUse) {
+                fetchCurrentWeather1()
+            } else {
+                fetchCurrentWeather()
+            }
         if (isFetchFutureNeeded())
-            fetchFutureWeather1()
+            if (isGpsUse) {
+                fetchFutureWeather1()
+            } else {
+                fetchFutureWeather()
+            }
     }
 
     private suspend fun fetchCurrentWeather() {
+        val locationsArray = locationProvider.getPreferredLocationString()
+        Log.e("devLocation", "from_devLocation1= $locationsArray")
         weatherNetworkDataSource.fetchCurrentWeather(
             locationProvider.getPreferredLocationString(),
             Locale.getDefault().language,

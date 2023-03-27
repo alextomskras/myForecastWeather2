@@ -6,7 +6,7 @@
     >
     <PreferenceCategory android:title="@string/Weather_Location">
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:disableDependentsState="true"
             android:key="USE_DEVICE_LOCATION"
 

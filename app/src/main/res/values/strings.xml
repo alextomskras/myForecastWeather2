@@ -51,4 +51,6 @@
     <string name="prefSettings">Settings</string>
     <string name="List_of_weather">List of weather</string>
     <string name="Weather_details">Weather detail\'s</string>
+    <string name="noInternet">device is connected to the internet</string>
+    <string name="internetGood">device is connected to the internet</string>
 </resources>

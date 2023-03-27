@@ -2,8 +2,13 @@ package com.dreamer.myweather2.ui
 
 //import kotlinx.android.synthetic.main.activity_main.*
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -29,8 +34,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
     private val locationCallback = object : LocationCallback() {
     }
-//    private val locationCallback = object : LocationCallback() {
-//    }
+
 
     private lateinit var navController: NavController
 
@@ -46,7 +50,15 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-
+        if (isOnline(this)) {
+            // device is connected to the internet
+            Log.e("TAG", getString(R.string.internetGood))
+            Toast.makeText(this, getString(R.string.noInternet), Toast.LENGTH_LONG).show()
+        } else {
+            // device is not connected to the internet
+            Log.e("TAG", getString(R.string.noInternet))
+            Toast.makeText(this, getString(R.string.noInternet), Toast.LENGTH_LONG).show()
+        }
 
         requestLocationPermission()
 
@@ -69,27 +81,49 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
     private fun requestLocationPermission() {
         ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                MY_PERMISSION_ACCESS_COARSE_LOCATION
+            this,
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+            MY_PERMISSION_ACCESS_COARSE_LOCATION
         )
     }
 
     private fun hasLocationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return false
+            val networkCapabilities =
+                connectivityManager.getNetworkCapabilities(network) ?: return false
+            return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        } else {
+            val networkInfo = connectivityManager.activeNetworkInfo ?: return false
+            return networkInfo.isConnected
+        }
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         if (requestCode == MY_PERMISSION_ACCESS_COARSE_LOCATION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 bindLocationManager()
             else
-                Toast.makeText(this, getString(R.string.Please_set_location_manually), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.Please_set_location_manually),
+                    Toast.LENGTH_LONG
+                ).show()
         }
     }
 }
