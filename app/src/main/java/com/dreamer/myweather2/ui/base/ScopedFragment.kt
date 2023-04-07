@@ -9,6 +9,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 abstract class ScopedFragment : Fragment(), CoroutineScope {
+
     private lateinit var job: Job
 
     override val coroutineContext: CoroutineContext

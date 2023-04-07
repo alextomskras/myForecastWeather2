@@ -1,5 +1,15 @@
 package com.dreamer.myweather2.ui.weather.current
 
+//import androidx.compose.foundation.layout.*
+//import androidx.compose.material.MaterialTheme
+//import androidx.compose.material.Scaffold
+//import androidx.compose.material.Text
+//import androidx.compose.material.TopAppBar
+//import androidx.compose.runtime.Composable
+//import androidx.compose.ui.Alignment
+//import androidx.compose.ui.Modifier
+//import androidx.compose.ui.platform.ComposeView
+//import androidx.compose.ui.unit.dp
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,7 +38,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private lateinit var viewModel: CurrentWeatherViewModel
 
-    
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -76,29 +86,16 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
                     //Выводим в error-логи содержимое запроса "it.futureWeather[0].description"
                     Log.e(this.toString(), "from updateCondition: ${curWeather.conditionText[0].description}")
 
-////            System.out.println(it.conditionText.substring(1, it.conditionText.length()-1))
-//            val sb = StringBuilder()
-//            sb.append("${it.conditionText}").substring(1, it.conditionText.length - 1)
-////                    .lastIndexOf(sb.toString(),0)
-//            val c = it.conditionText.substring(1, it.conditionText.length - 1)
-////            sb.deleteCharAt(c-1)
-////            val d = sb.toString()
-//            Log.d(this.toString(), "from conditionText2 error code: $c")
-//            updateCondition(c)
-//            updateLocation(it.location.lat)
+
                     updateLocation(curWeather.name)
 
                     updatePrecipitation(curWeather.pressureVolume)
-//            updatePrecipitation(it.pressureVolume)
                     updateWind(curWeather.windDirection, curWeather.windSpeed.toInt().toString())
                     updateVisibility(curWeather.visibilityDistance)
                     updateSunrise(curWeather.sysSunrise)
                     updateSunset(curWeather.sysSunset)
-//            updateVisibility(it.visibilityDistance)
                     val picturesUrl = curWeather.conditionText[0].icon
-//            var picturesUrl = it.conditionIconUrl
-//            if (picturesUrl.startsWith("\""))
-//                picturesUrl = picturesUrl.replace("\"", "")
+
                     Log.e(this.toString(), "from with2 error code: $picturesUrl")
                     try {
                         Picasso.get()
@@ -110,31 +107,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
-//            try {
-//                var url = pictures /* URL of Image */
-//
-//                if (url.startsWith("http://"))
-//                    url = url.replace("http://", "https://")
-//
-//                val requestOptions = RequestOptions()
-////                requestOptions.placeholder(ic_launcher)
-////                requestOptions.error(ic_launcher_round)
-//                Glide
-//                        .with(this@CurrentWeatherFragment)
-////                        .setDefaultRequestOptions(requestOptions)
-//                        .load(url)
-//                        .into(imageView_condition_icon)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
 
-//            GlideApp.with(this@CurrentWeatherFragment)
-//
-//                    .load(picTures)
-//
-////                    .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-//                    .into(imageView_condition_icon)
-////            Log.d(this.toString(), "fromListLisr with2 error code: ${it.conditionIconUrl}")
                 }
         )
     }
@@ -180,95 +153,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun transformWindDirectionstoWords(windDirection: String): String {
-//        val zarplata = 1000
-//        val cost = when (zarplata) {
-//            in 1..10 -> "издеваетесь?"
-//            in 10..100 -> "маловато будет"
-//            in 100..1000 -> "кота прокормлю"
-//            in 1000..1000000 -> "на хлеб с икрой!"
-//            else -> "not rated"
-//        }
-//        println(cost)
-//
-//        N
-//
-//
-//        348.75 - 11.25
-//
-//        NNE
-//
-//
-//        11.25 - 33.75
-//
-//        NE
-//
-//
-//        33.75 - 56.25
-//
-//        ENE
-//
-//
-//        56.25 - 78.75
-//
-//        E
-//
-//
-//        78.75 - 101.25
-//
-//        ESE
-//
-//
-//        101.25 - 123.75
-//
-//        SE
-//
-//
-//        123.75 - 146.25
-//
-//        SSE
-//
-//
-//        146.25 - 168.75
-//
-//        S
-//
-//
-//        168.75 - 191.25
-//
-//        SSW
-//
-//
-//        191.25 - 213.75
-//
-//        SW
-//
-//
-//        213.75 - 236.25
-//
-//        WSW
-//
-//
-//        236.25 - 258.75
-//
-//        W
-//
-//
-//        258.75 - 281.25
-//
-//        WNW
-//
-//
-//        281.25 - 303.75
-//
-//        NW
-//
-//
-//        303.75 - 326.25
-//
-//        NNW
-//
-//
-//        326.25 - 348.75
+
 
         return when (windDirection.toDouble()) {
             in 348.75..11.25 -> getString(R.string.North)
@@ -315,8 +200,8 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         val dt = Instant.ofEpochSecond(sunsetTime.toLong())
                 .atZone(ZoneId.systemDefault())
                 .toLocalTime()
-                //                .toLocalDateTime()
-                .format(DateTimeFormatter.ISO_LOCAL_TIME)
+            //                .toLocalDateTime()
+            .format(DateTimeFormatter.ISO_LOCAL_TIME)
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "m")
         val testTime2 = sunsetTime
@@ -324,3 +209,80 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
 }
+
+//@AndroidEntryPoint
+//class CurrentWeatherFragment : ComposeViewFragment() {
+//
+//    private val viewModel: CurrentWeatherViewModel by viewModels()
+//    private val scaffoldState = rememberScaffoldState()
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        return ComposeView(requireContext()).apply {
+//            setContent {
+//                CurrentWeatherContent(viewModel)
+//            }
+//        }
+//    }
+//
+//    @Composable
+//    fun CurrentWeatherContent(viewModel: CurrentWeatherViewModel) {
+//        val currentWeather by viewModel.weather.observeAsState(null)
+//        val weatherLocation by viewModel.weatherLocation.observeAsState(null)
+//
+//        Scaffold(
+//            scaffoldState = scaffoldState,
+//            topBar = {
+//                TopAppBar(
+//                    title = {
+//                        weatherLocation?.name?.let {
+//                            Text(text = it)
+//                        } ?: Text(text = getString(R.string.app_name))
+//                    },
+//                    navigationIcon = {
+//                        IconButton(onClick = { requireActivity().onBackPressed() }) {
+//                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+//                        }
+//                    }
+//                )
+//            }
+//        ) {
+//            Surface(
+//                modifier = Modifier.fillMaxSize(),
+//                color = MaterialTheme.colors.background
+//            ) {
+//                if (currentWeather != null && weatherLocation != null) {
+//                    Column(
+//                        modifier = Modifier.fillMaxSize(),
+//                        horizontalAlignment = Alignment.CenterHorizontally
+//                    ) {
+//                        Text(
+//                            text = currentWeather.temperature.toString() + "°C",
+//                            style = MaterialTheme.typography.h1,
+//                            fontWeight = FontWeight.Bold,
+//                            modifier = Modifier.padding(top = 32.dp)
+//                        )
+//                        Text(
+//                            text = currentWeather.conditionText[0].description,
+//                            style = MaterialTheme.typography.h5,
+//                            modifier = Modifier.padding(top = 8.dp)
+//                        )
+//                        Text(
+//                            text = getString(R.string.futMin) + ": ${currentWeather.temperatureMin}°C, " +
+//                                    getString(R.string.futMax) + ": ${currentWeather.temperatureMax}°C",
+//                            style = MaterialTheme.typography.subtitle1,
+//                            modifier = Modifier.padding(top = 16.dp)
+//                        )
+//                        // Add the other UI components here
+//                    }
+//                } else {
+//                    Box(modifier = Modifier.fillMaxSize()) {
+//                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
