@@ -11,13 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.LocalDateConverter
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import kotlinx.android.synthetic.main.future_list_weather_fragment.*
+//import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -81,7 +82,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
                 Observer { weatherEntries ->
                     Log.e("bindUI", "bindUI:: " + weatherEntries)
                     if (weatherEntries == null) return@Observer
-
+                    val group_loading = view!!.findViewById<View>(R.id.group_loading)
                     group_loading.visibility = View.GONE
                     Log.e("updateDateToNextWeek", "updateDateToNextWeek:: $weatherEntries::::")
 
@@ -121,6 +122,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
             notifyDataSetChanged()
         }
 
+        val recyclerView = view!!.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@FutureListWeatherFragment.context)
             adapter = groupAdapter
