@@ -23,7 +23,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.*
+//import kotlinx.android.synthetic.*
 //import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -53,7 +53,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clearFindViewByIdCache()
+//        clearFindViewByIdCache()
         val group_loading = view.findViewById<View>(R.id.group_loading)
         val imageView_condition_icon_future =
             view.findViewById<View>(R.id.imageView_condition_icon_future)
