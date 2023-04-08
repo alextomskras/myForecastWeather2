@@ -15,13 +15,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.current_weather_fragment.*
+import kotlinx.android.synthetic.*
+//import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -34,29 +37,45 @@ import org.threeten.bp.format.DateTimeFormatter
 class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     override val kodein by closestKodein()
+
+
     private val viewModelFactory: CurrentWeatherViewModelFactory by instance()
 
     private lateinit var viewModel: CurrentWeatherViewModel
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.current_weather_fragment, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        clearFindViewByIdCache()
+        val group_loading = view.findViewById<View>(R.id.group_loading)
+        val imageView_condition_icon_future =
+            view.findViewById<View>(R.id.imageView_condition_icon_future)
+
+    }
+
+//    private fun <T> findViewById(groupLoading: Int) {
+//        findViewById<T>(groupLoading)
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(CurrentWeatherViewModel::class.java)
+            .get(CurrentWeatherViewModel::class.java)
 
         bindUI()
     }
 
     private fun bindUI() = launch {
         val currentWeather = viewModel.weather.await()
+//        val group_loading = clearFindViewByIdCache()
 
         val weatherLocation = viewModel.weatherLocation.await()
 
@@ -67,48 +86,63 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         })
 
         currentWeather.observe(
-                viewLifecycleOwner,
-                Observer { curWeather ->
+            viewLifecycleOwner,
+            Observer { curWeather ->
 //                    if (currentWeather == null) return@Observer
 
+                val group_loading = view?.findViewById<View>(R.id.group_loading)
+                if (group_loading != null) {
                     group_loading.visibility = View.GONE
-                    //правим заголовок окна - выставляем "Today"
-                    updateDateToToday()
-                    //Передаем значения температуры полученные из запроса
-//            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toInt().toString(), it.main.feelsLike.toInt().toString(), it.main.tempMin.toInt().toString(), it.main.tempMax.toInt().toString()) }
-                    updateTemperatures(curWeather?.temperature?.toInt().toString(), curWeather?.feelsLikeTemperature?.toInt().toString(), curWeather.temperatureMin.toInt().toString(), curWeather.temperatureMax.toInt().toString())
-                    //Выводим в error-логи содержимое запроса
-                    Log.e(this.toString(), "from updateTemperatures: ${curWeather.temperature}")
-//            updateTemperatures(22.1, 33.4)
-                    //Передаем описание погоды "например - мелкий дождь"
-//            updateCondition(it.weather[0].description)
-                    updateCondition(curWeather.conditionText[0].description)
-                    //Выводим в error-логи содержимое запроса "it.futureWeather[0].description"
-                    Log.e(this.toString(), "from updateCondition: ${curWeather.conditionText[0].description}")
-
-
-                    updateLocation(curWeather.name)
-
-                    updatePrecipitation(curWeather.pressureVolume)
-                    updateWind(curWeather.windDirection, curWeather.windSpeed.toInt().toString())
-                    updateVisibility(curWeather.visibilityDistance)
-                    updateSunrise(curWeather.sysSunrise)
-                    updateSunset(curWeather.sysSunset)
-                    val picturesUrl = curWeather.conditionText[0].icon
-
-                    Log.e(this.toString(), "from with2 error code: $picturesUrl")
-                    try {
-                        Picasso.get()
-//                        .load("${picturesUrl}")
-                                .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
-//                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
-                                .fit()
-                                .into(imageView_condition_icon_future)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-
                 }
+                //правим заголовок окна - выставляем "Today"
+                updateDateToToday()
+                //Передаем значения температуры полученные из запроса
+//            it?.main?.tempMin?.let { it1 -> updateTemperatures(it.main.temp.toInt().toString(), it.main.feelsLike.toInt().toString(), it.main.tempMin.toInt().toString(), it.main.tempMax.toInt().toString()) }
+                updateTemperatures(
+                    curWeather?.temperature?.toInt().toString(),
+                    curWeather?.feelsLikeTemperature?.toInt().toString(),
+                    curWeather.temperatureMin.toInt().toString(),
+                    curWeather.temperatureMax.toInt().toString()
+                )
+                //Выводим в error-логи содержимое запроса
+                Log.e(this.toString(), "from updateTemperatures: ${curWeather.temperature}")
+//            updateTemperatures(22.1, 33.4)
+                //Передаем описание погоды "например - мелкий дождь"
+//            updateCondition(it.weather[0].description)
+                updateCondition(curWeather.conditionText[0].description)
+                //Выводим в error-логи содержимое запроса "it.futureWeather[0].description"
+                Log.e(
+                    this.toString(),
+                    "from updateCondition: ${curWeather.conditionText[0].description}"
+                )
+
+
+                updateLocation(curWeather.name)
+
+                updatePrecipitation(curWeather.pressureVolume)
+                updateWind(curWeather.windDirection, curWeather.windSpeed.toInt().toString())
+                updateVisibility(curWeather.visibilityDistance)
+                updateSunrise(curWeather.sysSunrise)
+                updateSunset(curWeather.sysSunset)
+                val picturesUrl = curWeather.conditionText[0].icon
+
+                Log.e(this.toString(), "from with2 error code: $picturesUrl")
+                try {
+
+                    val imageView_condition_icon_future =
+                        view?.findViewById<ImageView>(R.id.imageView_condition_icon_future)
+
+                    Picasso.get()
+//                        .load("${picturesUrl}")
+                        .load("http://openweathermap.org/img/wn/" + "$picturesUrl" + "@2x" + ".png")
+//                        .load("https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png")
+                        .fit()
+                        .into(imageView_condition_icon_future)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            }
         )
     }
 
@@ -127,20 +161,47 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     //Change Double to String for truncate decmial stage of degrees
-    private fun updateTemperatures(temperature: String, feelsLike: String, tempMin: String, tempMax: String) {
+    private fun updateTemperatures(
+        temperature: String,
+        feelsLike: String,
+        tempMin: String,
+        tempMax: String,
+    ) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
-        textView_temperature.text = "${temperature}" + "$unitAbbreviation"
-        textView_min_max_temperature_current.text = getString(R.string.futMin) + ": " + "$tempMin" + "$unitAbbreviation" + "," + getString(R.string.futMax) + ": " + "$tempMax" + "$unitAbbreviation"
-        textView_feels_like_temperature.text = getString(R.string.curFeelslike) + ": " + "$feelsLike" + "$unitAbbreviation"
+        val textView_temperature = view?.findViewById<TextView>(R.id.textView_temperature)
+        if (textView_temperature != null) {
+            textView_temperature.text = "${temperature}" + "$unitAbbreviation"
+        }
+        val textView_min_max_temperature_current =
+            view?.findViewById<TextView>(R.id.textView_min_max_temperature_current)
+        if (textView_min_max_temperature_current != null) {
+            textView_min_max_temperature_current.text =
+                getString(R.string.futMin) + ": " + "$tempMin" + "$unitAbbreviation" + "," + getString(
+                    R.string.futMax
+                ) + ": " + "$tempMax" + "$unitAbbreviation"
+        }
+        val textView_feels_like_temperature =
+            view?.findViewById<TextView>(R.id.textView_feels_like_temperature)
+        if (textView_feels_like_temperature != null) {
+            textView_feels_like_temperature.text =
+                getString(R.string.curFeelslike) + ": " + "$feelsLike" + "$unitAbbreviation"
+        }
     }
 
     private fun updateCondition(condition: String) {
-        textView_condition.text = condition
+        val textView_condition = view?.findViewById<TextView>(R.id.textView_condition)
+        if (textView_condition != null) {
+            textView_condition.text = condition
+        }
     }
 
     private fun updatePrecipitation(precipitationVolume: Int) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("mm", "in")
-        textView_precipitation.text = getString(R.string.futPressure) + ": $precipitationVolume $unitAbbreviation"
+        val textView_precipitation = view?.findViewById<TextView>(R.id.textView_precipitation)
+        if (textView_precipitation != null) {
+            textView_precipitation.text =
+                getString(R.string.futPressure) + ": $precipitationVolume $unitAbbreviation"
+        }
     }
 
     //    Change Double to String for truncate decmial stage of degrees
@@ -149,7 +210,11 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
         val WindDirectionstoWords = transformWindDirectionstoWords(windDirection)
 
 //        textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbbreviation"
-        textView_wind.text = getString(R.string.CurWind) + ": $WindDirectionstoWords, $windSpeed" + " $unitAbbreviation"
+        val textView_wind = view?.findViewById<TextView>(R.id.textView_wind)
+        if (textView_wind != null) {
+            textView_wind.text =
+                getString(R.string.CurWind) + ": $WindDirectionstoWords, $windSpeed" + " $unitAbbreviation"
+        }
     }
 
     private fun transformWindDirectionstoWords(windDirection: String): String {
@@ -179,33 +244,43 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateVisibility(visibilityDistance: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("m", "mi.")
-        textView_visibility.text = getString(R.string.CurVisibility) + ": ${visibilityDistance.toInt()} $unitAbbreviation"
+        val textView_visibility = view?.findViewById<TextView>(R.id.textView_visibility)
+        if (textView_visibility != null) {
+            textView_visibility.text =
+                getString(R.string.CurVisibility) + ": ${visibilityDistance.toInt()} $unitAbbreviation"
+        }
     }
 
     private fun updateSunrise(sunriseTime: Double) {
         //превращаем секунды в нормальный формат даты
         val dt = Instant.ofEpochSecond(sunriseTime.toLong())
-                .atZone(ZoneId.systemDefault())
+            .atZone(ZoneId.systemDefault())
 //                .toLocalTime()
-                .toLocalDateTime()
-                .format(DateTimeFormatter.ISO_LOCAL_TIME)
+            .toLocalDateTime()
+            .format(DateTimeFormatter.ISO_LOCAL_TIME)
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "m")
         val testTime1 = sunriseTime
-        textView_sunrise.text = getString(R.string.CurSunrise) + ": $dt"
+        val textView_sunrise = view?.findViewById<TextView>(R.id.textView_sunrise)
+        if (textView_sunrise != null) {
+            textView_sunrise.text = getString(R.string.CurSunrise) + ": $dt"
+        }
     }
 
     private fun updateSunset(sunsetTime: Double) {
         //превращаем секунды в нормальный формат даты
         val dt = Instant.ofEpochSecond(sunsetTime.toLong())
-                .atZone(ZoneId.systemDefault())
-                .toLocalTime()
+            .atZone(ZoneId.systemDefault())
+            .toLocalTime()
             //                .toLocalDateTime()
             .format(DateTimeFormatter.ISO_LOCAL_TIME)
 
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("h", "m")
         val testTime2 = sunsetTime
-        textView_sunset.text = getString(R.string.CurSunset) + ": $dt "
+        val textView_sunset = view?.findViewById<TextView>(R.id.textView_sunset)
+        if (textView_sunset != null) {
+            textView_sunset.text = getString(R.string.CurSunset) + ": $dt "
+        }
     }
 
 }
