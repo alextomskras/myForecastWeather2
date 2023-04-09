@@ -23,7 +23,6 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
 
 
 class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
@@ -46,9 +45,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val safeArgs = arguments?.let {
-            FutureDetailWeatherFragmentArgs.fromBundle(it)
-        }
+        val safeArgs = arguments?.let { FutureDetailWeatherFragmentArgs.fromBundle(it) }
         val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 //        val date = LocalDateConverter.stringToDate(str = safeArgs?.dateString)
         val date = safeArgs?.dateString
@@ -124,8 +121,8 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
         val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle =
 
-            date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
-//                date.format(dtFormatter)
+//                date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
+            date.format(dtFormatter)
     }
 
     private fun updateTemperatures(temperature: Double, min: Double, max: Double) {

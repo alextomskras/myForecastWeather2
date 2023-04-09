@@ -73,8 +73,8 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 //        })
 
         weatherLocation.observe(viewLifecycleOwner, Observer { location ->
-            if (location == null) return@Observer
-            updateLocation(location.id.toString()).toString()
+//            if (location == null) return@Observer
+//            updateLocation(location.id.toString()) .toInt().toString()
 
             updateLocation(getString(R.string.List_of_weather))
         })
@@ -100,7 +100,8 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateLocation(location: String) {
         (activity as? AppCompatActivity)?.supportActionBar?.title = location
-
+//        (activity as? AppCompatActivity)?.supportActionBar?.title = ""
+//        MainActivity().nameCity = ""
     }
 
     private fun updateDateToNextWeek() {
@@ -114,6 +115,14 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
             FutureWeatherItem(it)
         }
     }
+
+//    private fun testParr(){
+//        val arr = arrayOf(1, 2, 3, 4, 5)
+//
+//        for (i in arr) {
+//            println("Значение элемента равно $i")
+//        }
+//    }
 
 
     //FutureWeatherItem
