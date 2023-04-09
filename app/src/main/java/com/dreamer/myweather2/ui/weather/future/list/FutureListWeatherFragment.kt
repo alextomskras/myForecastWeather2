@@ -1,33 +1,30 @@
 package com.dreamer.myweather2.ui.weather.future.list
 
 
-//import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.LocalDateConverter
-import com.dreamer.myweather2.data.db.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.ui.base.ScopedFragment
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+//import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
 
 class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
@@ -126,70 +123,24 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
 
     //FutureWeatherItem
-//    private fun initRecyclerView(items: List<FutureWeatherItem>) {
-//        Log.e("initRecyclerView", "initRecyclerView:: $items::::")
-//        val groupAdapter = GroupAdapter<ViewHolder>().apply {
-//            Log.e("initRecyclerView", "addAll:: $items::::")
-//            addAll(items)
-//            notifyDataSetChanged()
-//        }
-//
-//        val recyclerView = view!!.findViewById<RecyclerView>(R.id.recyclerView)
-//        recyclerView.apply {
-//            layoutManager = LinearLayoutManager(this@FutureListWeatherFragment.context)
-//            adapter = groupAdapter
-//        }
-//
-//        groupAdapter.setOnItemClickListener { item, view ->
-//            (item as? FutureWeatherItem)?.let {
-//                showWeatherDetail(it.weatherEntry.date, view)
-//            }
-//        }
-//    }
-
     private fun initRecyclerView(items: List<FutureWeatherItem>) {
-        var adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int,
-            ): RecyclerView.ViewHolder {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_future_weather, parent, false)
-                return object : RecyclerView.ViewHolder(view) {}
-            }
-
-            override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-                val item = items[position]
-                val itemView = holder.itemView
-                val textView_date = view!!.findViewById<TextView>(R.id.textView_date)
-
-                textView_date.text =
-                    item.weatherEntry.date.format(DateTimeFormatter.ofPattern("dd-MM HH:mm"))
-
-                val unitAbbreviation =
-                    if (item.weatherEntry is MetricSimpleFutureWeatherEntry) "°C" else "°F"
-//                itemView.textView_temperature.text = "${item.weatherEntry.avgTemperature.toInt()}$unitAbbreviation"
-                val textView_temperature = view!!.findViewById<TextView>(R.id.textView_temperature)
-                textView_temperature.text =
-                    "${item.weatherEntry.avgTemperature.toInt()}$unitAbbreviation"
-
-                val picturesUrl = item.weatherEntry.conditionText.last().icon.toString()
-                val iconUrl = "https://openweathermap.org/img/wn/$picturesUrl@2x.png"
-                val imageView_condition_icon_future_list =
-                    view!!.findViewById<ImageView>(R.id.imageView_condition_icon_future_list)
-                Glide.with(itemView).load(iconUrl).into(imageView_condition_icon_future_list)
-
-                itemView.setOnClickListener {
-                    showWeatherDetail(item.weatherEntry.date, itemView)
-                }
-            }
-
-            override fun getItemCount() = items.size
+        Log.e("initRecyclerView", "initRecyclerView:: $items::::")
+        val groupAdapter = GroupAdapter<ViewHolder>().apply {
+            Log.e("initRecyclerView", "addAll:: $items::::")
+            addAll(items)
+            notifyDataSetChanged()
         }
 
         val recyclerView = view!!.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@FutureListWeatherFragment.context)
+            adapter = groupAdapter
+        }
+
+        groupAdapter.setOnItemClickListener { item, view ->
+            (item as? FutureWeatherItem)?.let {
+                showWeatherDetail(it.weatherEntry.date, view)
+            }
         }
     }
 
