@@ -99,7 +99,7 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 
 
             val imageView_condition_icon_future_detail =
-                view!!.findViewById<ImageView>(R.id.imageView_condition_icon_future_detail)
+                requireView().findViewById<ImageView>(R.id.imageView_condition_icon_future_detail)
             GlideApp.with(this@FutureDetailWeatherFragment)
 //                .load("http:" + weatherEntry.conditionIconUrl)
                     .load("http://openweathermap.org/img/wn/" + "$iconUrl" + "@2x" + ".png")
@@ -128,38 +128,39 @@ class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
     private fun updateTemperatures(temperature: Double, min: Double, max: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("°C", "°F")
         val textView_temperature_detail =
-            view!!.findViewById<TextView>(R.id.textView_temperature_detail)
+            this.requireView().findViewById<TextView>(R.id.textView_temperature_detail)
         textView_temperature_detail.text = "${temperature.toInt()}$unitAbbreviation"
         val textView_min_max_temperature =
-            view!!.findViewById<TextView>(R.id.textView_min_max_temperature)
+            requireView().findViewById<TextView>(R.id.textView_min_max_temperature)
         textView_min_max_temperature.text = getString(R.string.futMin) + ": ${min.toInt()}$unitAbbreviation, " + getString(R.string.futMax) + ": ${max.toInt()}$unitAbbreviation"
     }
 
     private fun updateCondition(condition: String) {
-        val textView_condition = view!!.findViewById<TextView>(R.id.textView_condition)
+        val textView_condition = requireView().findViewById<TextView>(R.id.textView_condition)
         textView_condition.text = condition
     }
 
     private fun updatePrecipitation(precipitationVolume: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("mm", "in")
-        val textView_precipitation = view!!.findViewById<TextView>(R.id.textView_precipitation)
+        val textView_precipitation =
+            requireView().findViewById<TextView>(R.id.textView_precipitation)
         textView_precipitation.text = getString(R.string.futPressure) + ": ${precipitationVolume.toInt()} $unitAbbreviation"
     }
 
     private fun updateWindSpeed(windSpeed: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("ms", "mph")
-        val textView_wind = view!!.findViewById<TextView>(R.id.textView_wind)
+        val textView_wind = requireView().findViewById<TextView>(R.id.textView_wind)
         textView_wind.text = getString(R.string.futWindSpeed) + ": ${windSpeed.toInt()} $unitAbbreviation"
     }
 
     private fun updateVisibility(visibilityDistance: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("km", "mi.")
-        val textView_visibility = view!!.findViewById<TextView>(R.id.textView_visibility)
+        val textView_visibility = requireView().findViewById<TextView>(R.id.textView_visibility)
         textView_visibility.text = getString(R.string.futVisibility) + ": ${visibilityDistance.toInt()} $unitAbbreviation"
     }
 
     private fun updateUv(uv: Double) {
-        val textView_uv = view!!.findViewById<TextView>(R.id.textView_uv)
+        val textView_uv = requireView().findViewById<TextView>(R.id.textView_uv)
         textView_uv.text = getString(R.string.futUV) + ": $uv"
     }
 }
