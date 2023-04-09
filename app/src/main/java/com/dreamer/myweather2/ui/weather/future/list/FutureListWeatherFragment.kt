@@ -16,8 +16,8 @@ import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.LocalDateConverter
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dreamer.myweather2.ui.base.ScopedFragment
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+//import com.xwray.groupie.GroupAdapter
+//import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 //import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,6 +25,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import org.threeten.bp.LocalDateTime
+import java.util.Collections.addAll
 
 class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
