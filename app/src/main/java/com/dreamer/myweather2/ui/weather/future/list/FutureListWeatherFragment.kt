@@ -1,6 +1,10 @@
 package com.dreamer.myweather2.ui.weather.future.list
 
 
+//import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+//import com.xwray.groupie.GroupAdapter
+//import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+//import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,17 +19,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.data.db.LocalDateConverter
 import com.dreamer.myweather2.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
+import com.dreamer.myweather2.databinding.ItemFutureWeatherBinding
 import com.dreamer.myweather2.ui.base.ScopedFragment
-//import com.xwray.groupie.GroupAdapter
-//import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-//import kotlinx.android.synthetic.main.future_list_weather_fragment.*
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import org.threeten.bp.LocalDateTime
-import java.util.Collections.addAll
 
 class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
@@ -57,6 +61,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch(Dispatchers.Main) {
         val futureWeatherEntries = viewModel.weatherEntries.await()
+
         Log.e("bindUI", "bindUI:: " + futureWeatherEntries)
 //        val currentWeatherEntries = viewModelCurrent.weather.await()
         Log.e("bindUI", "bindUI:: " + futureWeatherEntries)
@@ -83,7 +88,7 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
                 Observer { weatherEntries ->
                     Log.e("bindUI", "bindUI:: " + weatherEntries)
                     if (weatherEntries == null) return@Observer
-                    val group_loading = view!!.findViewById<View>(R.id.group_loading)
+                    val group_loading = requireView().findViewById<View>(R.id.group_loading)
                     group_loading.visibility = View.GONE
                     Log.e("updateDateToNextWeek", "updateDateToNextWeek:: $weatherEntries::::")
 
@@ -108,9 +113,12 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun List<UnitSpecificSimpleFutureWeatherEntry>.toFutureWeatherItems(): List<FutureWeatherItem> {
         Log.e("toFutureWeather", "Items1:: $this@Future::::")
+//        requireView()
         return this.map {
-            Log.e("toFutureWeather", "Items2: $it")
-            FutureWeatherItem(it)
+            FutureWeatherItem(
+                weatherEntry = it,
+                binding = ItemFutureWeatherBinding.inflate(layoutInflater)
+            )
         }
     }
 
@@ -126,19 +134,19 @@ class FutureListWeatherFragment : ScopedFragment(), KodeinAware {
     //FutureWeatherItem
     private fun initRecyclerView(items: List<FutureWeatherItem>) {
         Log.e("initRecyclerView", "initRecyclerView:: $items::::")
-        val groupAdapter = GroupAdapter<ViewHolder>().apply {
+        val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             Log.e("initRecyclerView", "addAll:: $items::::")
-            addAll(items)
+            addAll(items.map { it })
             notifyDataSetChanged()
         }
 
-        val recyclerView = view!!.findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@FutureListWeatherFragment.context)
             adapter = groupAdapter
         }
 
-        groupAdapter.setOnItemClickListener { item, view ->
+        groupAdapter.setOnItemClickListener { item: Item<*>, view ->
             (item as? FutureWeatherItem)?.let {
                 showWeatherDetail(it.weatherEntry.date, view)
             }
