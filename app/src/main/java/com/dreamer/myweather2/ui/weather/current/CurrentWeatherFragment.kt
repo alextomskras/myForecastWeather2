@@ -1,15 +1,6 @@
 package com.dreamer.myweather2.ui.weather.current
 
-//import androidx.compose.foundation.layout.*
-//import androidx.compose.material.MaterialTheme
-//import androidx.compose.material.Scaffold
-//import androidx.compose.material.Text
-//import androidx.compose.material.TopAppBar
-//import androidx.compose.runtime.Composable
-//import androidx.compose.ui.Alignment
-//import androidx.compose.ui.Modifier
-//import androidx.compose.ui.platform.ComposeView
-//import androidx.compose.ui.unit.dp
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,11 +14,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.dreamer.myweather2.R
 import com.dreamer.myweather2.ui.base.ScopedFragment
 import com.squareup.picasso.Picasso
-//import kotlinx.android.synthetic.*
-//import kotlinx.android.synthetic.main.current_weather_fragment.*
+
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
+import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import org.threeten.bp.Instant
 import org.threeten.bp.ZoneId
@@ -36,7 +26,7 @@ import org.threeten.bp.format.DateTimeFormatter
 
 class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
-    override val kodein by closestKodein()
+    override val kodein by kodein()
 
 
     private val viewModelFactory: CurrentWeatherViewModelFactory by instance()

@@ -54,9 +54,7 @@ android {
 
 dependencies {
 
-//    def composeBom = platform('androidx.compose:compose-bom:2023.03.00')
-//    implementation composeBom
-//    androidTestImplementation composeBom
+
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -64,7 +62,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
 
-    //jetpack compouse
+    //jetpack compose
 
 
     implementation "androidx.compose.runtime:runtime:$compose_version"
@@ -91,8 +89,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
-//    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+
 
     kapt "androidx.room:room-compiler:$room_version"
 
@@ -117,8 +114,16 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     // Kodein
+    implementation 'org.kodein.di:kodein-di-conf:6.1.0'
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_version"
     implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_version"
+    implementation "org.kodein.di:kodein-di-framework-android-core:$kodein_version"
+//    implementation 'org.kodein.di:kodein-di-framework-compose:7.19.0'
+//    implementation "org.kodein.di:kodein-di-framework-android-x-viewmodel:$kodein_version"
+//    implementation "org.kodein.di:kodein-di-framework-android-x-viewmodel-savedstate:$kodein_version"
+//    implementation 'org.kodein.di:kodein-di-framework-android-???:7.19.0'
+//    implementation "org.kodein.di:kodein-di-core:$kodein_version"
+//    implementation "org.kodein.di:kodein-di-framework-android-compose:$kodein_compose_version"
 
     // Better dateTime-time support even on older Android versions
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'

@@ -4,7 +4,10 @@ buildscript {
     ext.kotlin_version = '1.8.0'
     ext.room_version = '2.2.1'
     ext.navigation_version = '1.0.0'
-    ext.kodein_version = '5.2.0'
+    ext.kodein_version = '6.1.0'
+//    ext.kodein_version = '7.18.0'
+    ext.kodein_di_version = '7.18.0'
+    ext.kodein_compose_version = '7.18.0'
     ext.lifecycle_version = '2.1.0'
     ext.retrofit_version = '2.6.2'
     ext.compose_version = '1.4.1'
@@ -18,6 +21,7 @@ buildscript {
         jcenter()
         maven { url 'https://dl.bintray.com/lisawray/maven' }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+//        maven { url 'https://mvnrepository.com/artifact' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
@@ -34,6 +38,7 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url 'https://dl.bintray.com/lisawray/maven' }
+//        maven { url 'https://mvnrepository.com/artifact' }
         maven { url 'https://jitpack.io' }  // <--
 //        jcenter() // Warning: this repository is going to shut down soon
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
