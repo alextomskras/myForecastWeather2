@@ -107,7 +107,7 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("org.jetbrains.kotlin:kotlin-script-runtime")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${CONSTANTS.KOTLIN}")
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("androidx.appcompat:appcompat-resources:$appcompatVersion")
 
